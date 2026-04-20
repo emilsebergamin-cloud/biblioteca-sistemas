@@ -27,6 +27,9 @@ export default function NodoPage() {
   const { slug } = useParams();
 
   const [nodo, setNodo] = useState(null);
+  const [bloque, setBloque] = useState(null);
+  const [prevNodo, setPrevNodo] = useState(null);
+  const [nextNodo, setNextNodo] = useState(null);
   const [recursos, setRecursos] = useState([]);
   const [aportes, setAportes] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -50,9 +53,9 @@ export default function NodoPage() {
       try {
         setLoading(true);
 
-        // Fetch nodo
+        // Fetch nodo with bloque join
         const nodoRes = await fetch(
-          `${SUPABASE_URL}/rest/v1/nodos?slug=eq.${slug}&select=*`,
+          `${SUPABASE_URL}/rest/v1/nodos?slug=eq.${slug}&select=*,bloques(titulo,slug)`,
           { headers }
         );
         const nodoData = await nodoRes.json();
@@ -65,15 +68,29 @@ export default function NodoPage() {
 
         const currentNodo = nodoData[0];
         setNodo(currentNodo);
+        if (currentNodo.bloques) {
+          setBloque(currentNodo.bloques);
+        }
 
-        // Fetch recursos and aportes in parallel
-        const [recursosRes, aportesRes] = await Promise.all([
+        // Fetch sibling nodos (prev/next), recursos and aportes in parallel
+        const [siblingsRes, recursosRes, aportesRes] = await Promise.all([
+          fetch(
+            `${SUPABASE_URL}/rest/v1/nodos?bloque_id=eq.${currentNodo.bloque_id}&select=slug,titulo,orden_en_bloque&order=orden_en_bloque.asc`,
+            { headers }
+          ),
           fetch(
             `${SUPABASE_URL}/rest/v1/recursos?nodo_id=eq.${currentNodo.id}&select=*&order=orden.asc`,
             { headers }
           ),
           fetch(`/api/aportes?nodo_id=${currentNodo.id}`),
         ]);
+
+        const siblings = await siblingsRes.json();
+        if (Array.isArray(siblings)) {
+          const idx = siblings.findIndex(n => n.slug === slug);
+          if (idx > 0) setPrevNodo(siblings[idx - 1]);
+          if (idx < siblings.length - 1) setNextNodo(siblings[idx + 1]);
+        }
 
         const recursosData = await recursosRes.json();
         const aportesData = await aportesRes.json();
@@ -206,16 +223,24 @@ export default function NodoPage() {
       minHeight: '100vh', background: colors.bg, color: colors.text,
       paddingBottom: '80px',
     }}>
-      {/* Back link */}
-      <div style={{ maxWidth: '780px', margin: '0 auto', padding: '24px 20px 0' }}>
-        <Link href="/biblioteca" style={{
-          color: colors.accent, fontSize: '13px', textDecoration: 'none',
-          display: 'inline-flex', alignItems: 'center', gap: '6px',
-          opacity: 0.8, transition: 'opacity 0.2s',
-        }}>
-          ← Volver a la Biblioteca
-        </Link>
-      </div>
+      {/* Breadcrumb */}
+      <nav style={{ maxWidth: '780px', margin: '0 auto', padding: '24px 20px 0' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px' }}>
+          <Link href="/biblioteca" style={{ color: colors.accent, textDecoration: 'none' }}>
+            Biblioteca
+          </Link>
+          <span style={{ color: colors.muted }}>→</span>
+          {bloque && (
+            <>
+              <Link href={`/biblioteca/${bloque.slug}`} style={{ color: colors.accent, textDecoration: 'none' }}>
+                {bloque.titulo}
+              </Link>
+              <span style={{ color: colors.muted }}>→</span>
+            </>
+          )}
+          <span style={{ color: colors.muted }}>{nodo.titulo}</span>
+        </div>
+      </nav>
 
       {/* Header */}
       <header style={{ maxWidth: '780px', margin: '0 auto', padding: '32px 20px 0' }}>
@@ -515,6 +540,33 @@ export default function NodoPage() {
           )}
         </div>
       </section>
+
+      {/* Prev / Next navigation */}
+      {(prevNodo || nextNodo) && (
+        <nav style={{
+          maxWidth: '780px', margin: '48px auto 0', padding: '0 20px',
+          display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+          borderTop: `1px solid ${colors.border}`, paddingTop: '24px',
+        }}>
+          {prevNodo ? (
+            <Link href={`/biblioteca/nodo/${prevNodo.slug}`} style={{
+              color: colors.accent, textDecoration: 'none', fontSize: '14px',
+              display: 'flex', alignItems: 'center', gap: '6px',
+            }}>
+              ← {prevNodo.titulo}
+            </Link>
+          ) : <span />}
+          {nextNodo ? (
+            <Link href={`/biblioteca/nodo/${nextNodo.slug}`} style={{
+              color: colors.accent, textDecoration: 'none', fontSize: '14px',
+              display: 'flex', alignItems: 'center', gap: '6px',
+              textAlign: 'right',
+            }}>
+              {nextNodo.titulo} →
+            </Link>
+          ) : <span />}
+        </nav>
+      )}
     </div>
   );
 }
