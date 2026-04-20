@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 const BLOQUES_FALLBACK = [
   { num: "01", titulo: "Cómo piensan las computadoras", subtitulo: "Lógica, bits y procesamiento", nodos: 8, dificultad: "Básico" },
@@ -31,6 +32,7 @@ function getPosition(index, center, total) {
 }
 
 export default function Carousel3D() {
+  const router = useRouter();
   const [bloques, setBloques] = useState(BLOQUES_FALLBACK);
   const [loading, setLoading] = useState(true);
   const [center, setCenter] = useState(0);
@@ -87,7 +89,13 @@ export default function Carousel3D() {
           return (
             <div
               key={bloque.num}
-              onClick={() => setCenter(i)}
+              onClick={() => {
+                if (pos === "center" && bloque.slug) {
+                  router.push(`/biblioteca/${bloque.slug}`);
+                } else {
+                  setCenter(i);
+                }
+              }}
               style={{
                 position: "absolute",
                 width: "220px",
@@ -146,7 +154,13 @@ export default function Carousel3D() {
                   alignItems: "center",
                 }}
               >
-                <span style={{ fontSize: "11px", fontWeight: 600, color: "#0D0C0A" }}>
+                <span
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (bloque.slug) router.push(`/biblioteca/${bloque.slug}`);
+                  }}
+                  style={{ fontSize: "11px", fontWeight: 600, color: "#0D0C0A", cursor: "pointer" }}
+                >
                   Leer →
                 </span>
                 <span style={{ fontSize: "10px", color: "#C8C0B0" }}>
