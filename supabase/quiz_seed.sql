@@ -44,7 +44,7 @@ VALUES (
 
 INSERT INTO quiz_preguntas (bloque_id, pregunta, opciones, respuesta_correcta, explicacion, orden, estado)
 VALUES (
-  (SELECT id FROM bloques WHERE slug = 'bloque-1-5'),
+  (SELECT id FROM bloques WHERE slug = 'bloque-1'),
   '¿Cuál es la diferencia entre RAM y disco?',
   ARRAY['La RAM es más lenta pero puede guardar más datos', 'La RAM es el espacio de trabajo temporal y rápido; el disco es el almacenamiento permanente', 'El disco solo lo usan los desarrolladores', 'Son lo mismo con distintos nombres'],
   1,
@@ -55,7 +55,7 @@ VALUES (
 
 INSERT INTO quiz_preguntas (bloque_id, pregunta, opciones, respuesta_correcta, explicacion, orden, estado)
 VALUES (
-  (SELECT id FROM bloques WHERE slug = 'bloque-1-5'),
+  (SELECT id FROM bloques WHERE slug = 'bloque-1'),
   '¿Por qué existe el ambiente de staging?',
   ARRAY['Para que los desarrolladores trabajen más rápido', 'Para atrapar errores en un ambiente que simula producción antes de que lleguen a los usuarios reales', 'Porque production es demasiado caro', 'Es opcional'],
   1,

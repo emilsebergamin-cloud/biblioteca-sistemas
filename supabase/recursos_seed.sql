@@ -55,7 +55,7 @@ VALUES (
 
 INSERT INTO recursos (nodo_id, titulo, url, tipo, dificultad, orden, estado)
 VALUES (
-  (SELECT id FROM nodos WHERE bloque_id = (SELECT id FROM bloques WHERE slug = 'bloque-1-5') ORDER BY orden_en_bloque LIMIT 1),
+  (SELECT id FROM nodos WHERE bloque_id = (SELECT id FROM bloques WHERE slug = 'bloque-1') ORDER BY orden_en_bloque LIMIT 1),
   'CS50 Harvard — How Computers Work',
   'https://www.youtube.com/watch?v=WgXR2QpNS1o',
   'video',
@@ -66,7 +66,7 @@ VALUES (
 
 INSERT INTO recursos (nodo_id, titulo, url, tipo, dificultad, orden, estado)
 VALUES (
-  (SELECT id FROM nodos WHERE bloque_id = (SELECT id FROM bloques WHERE slug = 'bloque-1-5') ORDER BY orden_en_bloque LIMIT 1),
+  (SELECT id FROM nodos WHERE bloque_id = (SELECT id FROM bloques WHERE slug = 'bloque-1') ORDER BY orden_en_bloque LIMIT 1),
   'Crash Course — Computer Science: How Computers Calculate',
   'https://www.youtube.com/watch?v=FZGugFqdr60',
   'video',
@@ -77,7 +77,7 @@ VALUES (
 
 INSERT INTO recursos (nodo_id, titulo, url, tipo, dificultad, orden, estado)
 VALUES (
-  (SELECT id FROM nodos WHERE bloque_id = (SELECT id FROM bloques WHERE slug = 'bloque-1-5') ORDER BY orden_en_bloque LIMIT 1),
+  (SELECT id FROM nodos WHERE bloque_id = (SELECT id FROM bloques WHERE slug = 'bloque-1') ORDER BY orden_en_bloque LIMIT 1),
   'Crash Course — Operating Systems',
   'https://www.youtube.com/watch?v=26QPDBe-NB8',
   'video',
