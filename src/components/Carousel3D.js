@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const BLOQUES = [
+const BLOQUES_FALLBACK = [
   { num: "01", titulo: "Cómo piensan las computadoras", subtitulo: "Lógica, bits y procesamiento", nodos: 8, dificultad: "Básico" },
   { num: "02", titulo: "Cómo se guarda la información", subtitulo: "Bases de datos, archivos y almacenamiento", nodos: 7, dificultad: "Básico" },
   { num: "03", titulo: "Cómo se conectan las cosas", subtitulo: "Redes, internet y APIs", nodos: 9, dificultad: "Básico" },
@@ -31,8 +31,34 @@ function getPosition(index, center, total) {
 }
 
 export default function Carousel3D() {
+  const [bloques, setBloques] = useState(BLOQUES_FALLBACK);
+  const [loading, setLoading] = useState(true);
   const [center, setCenter] = useState(0);
-  const total = BLOQUES.length;
+
+  useEffect(() => {
+    fetch("/api/bloques")
+      .then((res) => {
+        if (!res.ok) throw new Error("fetch failed");
+        return res.json();
+      })
+      .then((data) => {
+        if (data && data.length > 0) {
+          const mapped = data.map((b, i) => ({
+            num: String(i + 1).padStart(2, "0"),
+            titulo: b.titulo,
+            subtitulo: b.subtitulo,
+            nodos: BLOQUES_FALLBACK[i]?.nodos || 8,
+            dificultad: BLOQUES_FALLBACK[i]?.dificultad || "Básico",
+            slug: b.slug,
+          }));
+          setBloques(mapped);
+        }
+      })
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, []);
+
+  const total = bloques.length;
 
   const prev = () => setCenter((c) => (c - 1 + total) % total);
   const next = () => setCenter((c) => (c + 1) % total);
@@ -44,7 +70,18 @@ export default function Carousel3D() {
         style={{ perspective: "1200px", height: "280px" }}
         className="relative flex items-center justify-center"
       >
-        {BLOQUES.map((bloque, i) => {
+        {loading && (
+          <div style={{
+            position: "absolute",
+            fontSize: "12px",
+            color: "#9B9080",
+            letterSpacing: "0.1em",
+            textTransform: "uppercase",
+          }}>
+            Cargando...
+          </div>
+        )}
+        {!loading && bloques.map((bloque, i) => {
           const pos = getPosition(i, center, total);
           const style = POSITIONS[pos];
           return (
@@ -144,7 +181,7 @@ export default function Carousel3D() {
         </button>
 
         <div className="flex items-center gap-2">
-          {BLOQUES.map((_, i) => (
+          {bloques.map((_, i) => (
             <button
               key={i}
               onClick={() => setCenter(i)}
