@@ -2,9 +2,25 @@ import { addVote } from '@/lib/db'
 
 export async function POST(request) {
   try {
-    const { aporte_id, tipo, ip_hash } = await request.json()
-    const voto = await addVote(aporte_id, tipo, ip_hash)
-    return Response.json(voto, { status: 201 })
+    const { nodo_id, tipo, session_id } = await request.json()
+
+    if (!nodo_id || !tipo || !session_id) {
+      return Response.json(
+        { error: 'Faltan campos obligatorios: nodo_id, tipo, session_id' },
+        { status: 400 }
+      )
+    }
+
+    const result = await addVote({ nodo_id, tipo, session_id })
+
+    if (result.alreadyVoted) {
+      return Response.json(
+        { error: 'Ya votaste en este nodo' },
+        { status: 409 }
+      )
+    }
+
+    return Response.json(result, { status: 201 })
   } catch (error) {
     return Response.json({ error: error.message }, { status: 500 })
   }

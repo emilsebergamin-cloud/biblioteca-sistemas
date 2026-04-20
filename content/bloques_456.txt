@@ -1,0 +1,1423 @@
+BIBLIOTECA DE IA
+Y SISTEMAS
+ Guia de referencia para entender como funciona
+el mundo tech — en lenguaje humano
+ 
+ BLOQUES 4 · 5 · 6
+ Seguridad y privacidad · Como nace un producto digital · Que es la IA
+ 
+ Ejemplos del ecosistema tech de la region · Fuentes verificadas
+Videos curados con descripcion de nivel y duracion
+ 
+ Compilado por Emilse Bergamin · 2026
+ 
+
+COMO USAR ESTA BIBLIOTECA
+■ Pensalo asi / En criollo / El
+resumen para contarle a alguien en
+el subte
+Analogias y ejemplos cotidianos para entender conceptos
+tecnicos sin background previo.
+✦ Dato de color
+Historias y datos curiosos sobre el origen de las tecnologias.
+■ La vuelta de tuerca tecnica / ■
+Spoiler tecnico
+Profundidad adicional. Opcional pero recomendado.
+★ Bonus track
+Informacion adicional que no es esencial pero suma contexto.
+■■ En Argentina y Latinoamerica
+Ejemplos de empresas regionales: MercadoLibre, Rappi,
+NotCo, PAMI.
+Quiz al final de cada bloque
+No se aprueba con sentido comun. Si podés responder bien,
+entendiste el bloque.
+Videos curados
+Canal, tema, duracion estimada, nivel e idioma. Todos
+verificados.
+Los links en este PDF son referencias de texto. Al cargar este documento en Claude Code, todos los links
+ seran convertidos a hipervinculos clicables en el HTML final de la biblioteca.
+ NOTA PARA CLAUDE CODE — Bloque 4 (Seguridad): generar un diagrama de flujo interactivo del ciclo completo de
+un ataque de ransomware: phishing → descarga de malware → encriptacion de archivos → mensaje de rescate →
+ decision pagar/no pagar → consecuencias. Ubicarlo dentro de la seccion de ransomware.
+ 
+
+BLOQUE 4
+Seguridad y privacidad
+El mundo digital tiene puertas. Este bloque explica quien tiene la llave, quien quiere
+forzarlas, y como protegerte.
+Por que este bloque existe
+La seguridad digital no es un tema de ingenieros. Es un tema de cualquier persona que tenga una
+cuenta de email, use una app de banco, trabaje en una empresa, o simplemente exista en internet.
+Segun el Identity Theft Resource Center, hubo mas de 3.000 brechas de datos en 2024,
+potencialmente exponiendo cientos de millones de cuentas.
+★ Have I Been Pwned — chequealo ahora mismo
+Ingresa tu email en haveibeenpwned.com — un sitio gratuito creado por el investigador de seguridad
+Troy Hunt. Te dice en que brechas conocidas aparecio tu email, cuando, y que informacion se filtro. Si
+aparece — y estadisticamente es probable — el bloque explica exactamente que hacer.
+Las contrasenas — el problema mas viejo del mundo digital
+Cuando se trata de contrasenas, tres reglas importan mas que todo lo demas: longitud, unicidad y
+complejidad. Una contrasena deberia tener al menos 16 caracteres. La longitud aumenta
+exponencialmente el tiempo que le lleva a un atacante descifrarla. Fuente: National Cybersecurity
+Alliance — staysafeonline.org.
+El problema real no es que la gente use contrasenas debiles — es que usa la misma en multiples
+servicios. Cuando una empresa sufre una brecha y tu contrasena queda expuesta, los atacantes la
+prueban automaticamente en cientos de otros servicios. Si usas la misma en Gmail, en tu banco, y
+en un foro cualquiera, y el foro tiene una brecha — todas tus cuentas quedan expuestas de golpe.
+■ Pensalo asi
+Es como usar la misma llave para tu casa, tu auto, tu trabajo, y el buzon — y ademas hacerle copias a
+todo el mundo sin darte cuenta. Un gestor de contrasenas genera una llave distinta para cada
+cerradura y las guarda todas por vos. Vos solo recordas donde esta el llavero.
+✦ Dato de color
+
+
+La contrasena mas usada del mundo en 2024 fue '123456'. En segundo lugar, 'password'. En tercer
+lugar, '123456789'. La contrasena '123456' tarda menos de un segundo en ser descifrada por
+herramientas automatizadas basicas. En el cuarto puesto aparecio 'admin' — probablemente de
+routers y dispositivos que nadie configuro correctamente. Fuente: NordPass Most Common
+Passwords Report 2024 — nordpass.com/most-common-passwords-list
+Las decisiones concretas — los dos que cambian todo y los
+tres que suman
+No hace falta ser experto en ciberseguridad para estar razonablemente protegido. Estas cinco
+decisiones eliminan la gran mayoria del riesgo — pero no tienen el mismo peso:
+LOS DOS QUE CAMBIAN TODO
+COMO EMPEZAR HOY
+1. Gestor de contrasenas
+Bitwarden (bitwarden.com) es gratuito y open source. Lo instalas
+en 5 minutos. Genera contrasenas unicas para cada servicio y las
+recuerda por vos. Sin esto, todo lo demas tiene menos impacto.
+2. 2FA en cuentas criticas
+Descarga Google Authenticator o Authy. Activalos primero en tu
+email — es la cuenta mas critica porque desde ahi se recuperan
+todas las demas. Despues banco y redes sociales.
+LOS TRES QUE SUMAN
+COMO EMPEZAR HOY
+3. Actualizaciones de software
+Activa las actualizaciones automaticas en tu telefono y
+computadora. Cada actualizacion que pospones es un parche de
+seguridad que no instalaste — una puerta que dejas entreabierta.
+4. Desconfia de la urgencia
+Ante cualquier mensaje que te presione a actuar 'ahora mismo',
+espera 5 minutos antes de hacer cualquier cosa. Los atacantes
+usan urgencia porque apaga el pensamiento critico.
+5. Chequealo en Have I Been Pwned
+Ingresa tu email en haveibeenpwned.com. Si aparece en brechas,
+cambia la contrasena de esa cuenta y cualquier otra donde uses la
+misma.
+Autenticacion de dos factores (2FA / MFA) — la segunda
+cerradura
+Si una contrasena es la primera cerradura, el 2FA es la segunda. Aunque alguien tenga tu
+contrasena, no puede entrar sin el segundo factor. El NIST recomienda agregar autenticacion
+multifactor como primera medida de proteccion. Fuente: NIST — nist.gov/cybersecurity.
+Los tres tipos de factores: algo que sabes (tu contrasena), algo que tienes (tu telefono), algo que
+sos (tu huella dactilar). El 2FA combina al menos dos. Los SMS son la version menos segura
+porque pueden ser interceptados mediante SIM swapping. Las apps de autenticacion generan
+
+
+codigos localmente en tu dispositivo — son mucho mas seguras.
+■ La vuelta de tuerca tecnica
+Existe una nueva generacion llamada passkeys — claves criptograficas almacenadas en tu dispositivo
+que reemplazan la contrasena completamente. Usan criptografia de clave publica: tu dispositivo
+demuestra que sos vos sin que ninguna contrasena viaje por la red. Resistentes al phishing por diseno
+— si te enganan para ir a un sitio falso, la passkey no funciona porque el dominio es incorrecto.
+Google, Apple y Microsoft ya las implementan. Fuente: FIDO Alliance — fidoalliance.org/passkeys
+Phishing — cuando el ataque viene disfrazado de confianza
+El phishing es el ataque mas comun del mundo digital, y funciona no porque las personas sean
+tontas, sino porque explota algo muy humano: la tendencia a confiar en lo que parece familiar y
+actuar cuando sentimos urgencia. Fuente: CISA — cisa.gov.
+La receta del phishing siempre tiene los mismos ingredientes: urgencia artificial ('Tu cuenta sera
+suspendida en 24 horas'), autoridad falsa (parece venir de tu banco, de Google, de la ARCA), y un
+link o adjunto que lleva a un sitio falso o instala algo malicioso.
+Las senales de alerta que siempre hay que revisar: el dominio del remitente
+(soporte@banco-seguro.com no es lo mismo que soporte@banco.com), hacer hover sobre
+cualquier link antes de hacer click para ver la URL real, errores de ortografia o diseno raro, tono de
+urgencia extrema, saludos genericos ('Estimado cliente') en lugar de tu nombre.
+✦ Dato de color
+En 2024, la empresa britanica de ingenieria Arup pago 25 millones de dolares a estafadores despues
+de una videollamada donde todos los participantes — excepto el empleado que autorizo la
+transferencia — eran deepfakes generados por IA. El FBI emitio una alerta especifica en mayo de
+2024 sobre el uso creciente de IA y deepfakes en ataques de phishing. Fuente: FBI Advisory IC3
+2024.
+Ingenieria social — el hack mas viejo del mundo
+La ingenieria social es el arte de manipular personas para que hagan cosas que no deberian o
+divulguen informacion que no deberian. El phishing es un tipo — pero hay muchos mas. Segun el
+Verizon Data Breach Investigations Report 2024, el 68% de las brechas de datos involucro el
+elemento humano — errores, negligencia o manipulacion. La tecnologia no es el problema mas
+grande. La educacion es la defensa mas efectiva. Fuente: Verizon DBIR 2024 — verizon.com.
+TIPO
+DESCRIPCION
+COMO FUNCIONA
+
+
+Vishing
+Voice phishing — llamada
+telefonica
+Se hacen pasar por el banco, soporte tecnico, o entidad
+gubernamental. Hoy potenciado con clonacion de voz por
+IA.
+Smishing
+SMS phishing
+'Tu paquete tiene un problema, hace click aca.' El formato
+cambia, la urgencia no.
+Spear phishing
+Phishing dirigido a personas
+especificas
+El atacante investiga a la victima — su empresa, cargo,
+contactos — y construye un mensaje personalizado dificil
+de detectar.
+Pretexting
+Escenario inventado para
+ganar confianza
+'Soy del area de IT, necesito tu contrasena para
+actualizar el sistema.' Siempre es falso.
+■ En criollo
+La ingenieria social no hackea computadoras — hackea personas. Funciona porque somos sociales
+por naturaleza. Cuando alguien parece legitimo, habla con confianza, y crea urgencia, nuestro cerebro
+tiende a cumplir antes de cuestionar. Conocer como funciona es la mejor defensa — porque ningun
+antivirus protege contra esto.
+Malware y ransomware — que pasa despues de que alguien
+cae en la trampa
+El phishing y la ingenieria social son la puerta de entrada. Pero que entra por esa puerta? Eso es el
+malware — software malicioso disenado para danar, robar, o tomar control de un sistema sin el
+consentimiento del usuario.
+Los tipos mas importantes hoy:
+Spyware — software que espia silenciosamente todo lo que haces. Captura contrasenas mientras
+las escribis (keylogger), graba pantalla, accede a la camara. Puede estar activo meses antes de ser
+detectado.
+Ransomware — el mas devastador. La palabra viene del ingles ransom (rescate) + software.
+Encripta todos tus archivos — fotos, documentos, bases de datos — y los hace completamente
+inaccesibles. Despues aparece un mensaje: 'Paga X cantidad en criptomonedas en las proximas 48
+horas o perdes todo.' Si no pagas, los datos se publican o se destruyen. Si pagas, no hay garantia
+de recuperacion. Fuente: Fortinet — fortinet.com.
+■ Pensalo asi
+El phishing es cuando alguien te engana para que abras la puerta de tu casa. El malware es lo que
+entra cuando la puerta esta abierta. El ransomware es cuando cambian todas las cerraduras de
+adentro y te piden plata para darte la llave de vuelta — una llave que quizas ni siquiera te dan aunque
+pagues.
+
+
+✦ Dato de color
+La razon por la que los rescates se piden en Bitcoin o Monero no es un capricho — es porque las
+transacciones en criptomonedas son dificiles de rastrear y completamente irreversibles. Una vez
+transferido el dinero, no hay banco que pueda hacer un chargeback. Eso convirtio al ransomware en
+un negocio de bajo riesgo y alta rentabilidad para el crimen organizado.
+El detalle mas perturbador del ransomware moderno: Ransomware-as-a-Service (RaaS). Existe
+un modelo de negocio donde grupos criminales desarrollan el software de ransomware y lo alquilan
+a otros — que no necesitan saber programar — a cambio de un porcentaje del rescate obtenido.
+Panel de control, soporte tecnico, actualizaciones automaticas. Es literalmente el modelo de
+negocio de Spotify, aplicado al crimen organizado. Fuente: Sophos — sophos.com.
+■■ En Argentina — el caso PAMI (2 de agosto de 2023)
+El 2 de agosto de 2023, a las 6 de la manana, los sistemas del PAMI — el Instituto Nacional de
+Servicios Sociales para Jubilados y Pensionados, que atiende a mas de 5 millones de afiliados —
+fueron atacados por el grupo criminal Rhysida, operando bajo el modelo RaaS. El vector de entrada
+fue un email de phishing que un empleado abrio. Rhysida exigio 25 Bitcoin — aproximadamente
+$700.000 dolares — como rescate. El PAMI no pago. En represalia, el grupo publico 831 GB de
+informacion en la dark web: historias clinicas, estudios medicos, datos personales de afiliados.
+Informacion de personas mayores disponible gratuitamente para cualquier ciberdelincuente. Fuentes:
+La Nacion + WeLiveSecurity/ESET + resolucion oficial INSSJP RESOL-2023-2025.
+NOTA PARA CLAUDE CODE: incluir aqui el diagrama de flujo interactivo del ciclo completo de un ataque de
+ransomware: phishing → descarga de malware → encriptacion → mensaje de rescate → decision pagar/no
+ pagar → consecuencias de cada camino.
+ 
+VPNs — que son, que hacen, y que NO hacen
+Las VPNs son probablemente la tecnologia de seguridad mas malentendida del mundo digital. Hay
+un mito masivo de que una VPN te hace anonimo en internet. No es asi, y creerlo puede crear una
+falsa sensacion de seguridad que es peor que no tener VPN.
+UNA VPN SI HACE:
+UNA VPN NO HACE:
+Encripta tu conexion en redes publicas (wifi de un
+cafe, aeropuerto, hotel)
+No te hace anonimo — si inicias sesion en Google
+con tu cuenta, Google sabe quien sos
+Oculta tu IP real de los sitios que visitas
+No te protege de malware ni phishing
+Evita que tu proveedor de internet vea que sitios
+visitas
+No encripta el contenido de tus mensajes en apps —
+eso lo hace el cifrado de extremo a extremo
+
+
+Permite acceder a contenido bloqueado
+geograficamente
+No te protege si el proveedor de VPN mismo vende
+tus datos
+■ En criollo
+Una VPN es como cambiar de auto antes de salir a la ruta. El auto nuevo tiene vidrios polarizados y
+placas diferentes — mas dificil identificarte en el camino. Pero cuando llegas a destino y te bajas con
+tu cara, todos saben quien sos. La VPN protege el trayecto, no el destino.
+■ Spoiler tecnico
+Una VPN gratuita es frecuentemente peor que no tener VPN. Los servicios gratuitos suelen monetizar
+registrando y vendiendo tu historial de navegacion — que es exactamente lo que querias evitar. Si vas
+a usar VPN, Proton VPN tiene un plan gratuito genuinamente confiable con politica verificada de
+no-logs. Fuente: NordVPN Blog — nordvpn.com + Surfshark — surfshark.com.
+Cifrado de extremo a extremo vs HTTPS — dos capas
+distintas
+Esta distincion es critica y casi nunca se explica correctamente — especialmente en un contexto
+donde WhatsApp es el canal de comunicacion principal de toda la region.
+HTTPS
+CIFRADO DE EXTREMO A EXTREMO (E2E)
+Encripta el trayecto entre tu dispositivo y el servidor
+de la app
+Encripta el contenido de tal forma que SOLO vos y tu
+destinatario pueden descifrarlo
+La empresa que maneja el servidor puede leer tus
+mensajes
+Ni siquiera la plataforma que transmite el mensaje
+puede leerlo
+Protege tu conexion, no tu contenido
+Protege el contenido independientemente de quien
+tenga los servidores
+Ejemplo: cualquier sitio con el candadito verde
+Ejemplo: WhatsApp activa E2E en todos sus chats
+por defecto
+■ Pensalo asi
+HTTPS es tener un edificio con seguridad en la entrada — nadie entra sin pasar por el portero. El
+cifrado de extremo a extremo es hablar en un idioma que solo vos y tu interlocutor entienden, dentro
+del edificio. Las dos protecciones son distintas y se complementan.
+■ Spoiler tecnico
+
+
+Telegram, muy popular en la region, solo aplica E2E en sus 'chats secretos' — los chats normales se
+almacenan en sus servidores y pueden ser accedidos. WhatsApp aplica E2E en todos sus chats por
+defecto. La diferencia es importante y muy poca gente la conoce.
+Las actualizaciones — por que posponer una puede costarte
+caro
+La mayoria de las actualizaciones no son solo funcionalidades nuevas — son parches de
+seguridad. Cuando una empresa descubre una vulnerabilidad, la arregla y lanza una actualizacion.
+Pero entre el descubrimiento y el parche, hay una ventana en que el agujero ya se conoce — y los
+atacantes escanean internet buscando sistemas que todavia no actualizaron.
+■ Spoiler tecnico
+El ataque de ransomware mas masivo de la historia — WannaCry, mayo de 2017 — infecto mas de
+200.000 computadoras en 150 paises en pocas horas, incluyendo el sistema de salud publico del
+Reino Unido (NHS), forzando la cancelacion de miles de cirugias y consultas. El agujero que
+WannaCry explotaba ya tenia un parche disponible casi dos meses antes. Las computadoras
+afectadas simplemente no lo habian instalado. Fuente: Cloudflare — cloudflare.com + CISA —
+cisa.gov.
+■ El resumen para contarle a alguien en el subte
+Actualizar tu sistema operativo y tus apps es el equivalente digital de cambiar la cerradura cuando
+sabes que alguien tiene una copia de tu llave. Cada actualizacion que pospones es una puerta que
+dejas entreabierta con el mapa del agujero publicado.
+Superficie de ataque — el concepto que cambia como tomas
+decisiones
+Superficie de ataque es el conjunto total de puntos donde un atacante puede intentar entrar a un
+sistema — cada app instalada, cada cuenta que tenes, cada dispositivo conectado a tu red, cada
+servicio externo que usa tu empresa. Cuanto mas grande la superficie, mas vectores de ataque
+disponibles. Cuanto mas chica, menos posibilidades de que algo falle.
+■ En criollo
+Cada app que instalas es una puerta mas en tu casa. Mas puertas, mas chances de que alguna este
+mal cerrada, tenga una cerradura vieja, o la fabrico alguien de dudosa reputacion. No se trata de no
+tener puertas — se trata de saber cuantas tenes, para que sirven, y si estan bien cerradas.
+
+
+★ Bonus track
+Para PMs y emprendedores — aplicacion directa: cada vez que tu equipo adopta una nueva
+herramienta (un SaaS, una integracion, un servicio de terceros), esta ampliando la superficie de
+ataque. La pregunta correcta antes de adoptar cualquier herramienta no es solo '¿funciona?' sino
+'¿quien tiene acceso a nuestros datos a traves de esta herramienta? ¿Tiene 2FA? ¿Como maneja una
+brecha?' Eso no es paranoia — es criterio de producto.
+Privacidad — que pasa con tus datos
+Cada vez que usas una app gratuita, aceptas terminos de servicio sin leer, o navegas por internet,
+generas datos. Datos sobre lo que compras, lo que buscas, donde estas, a que hora dormes, con
+quien hablas. La respuesta honesta: la mayoria de los servicios gratuitos financian su existencia
+vendiendo o usando tus datos para publicidad. Vos no sos el cliente; sos el producto.
+CATEGORIA
+QUE ES
+EJEMPLOS
+Datos personales
+Identifican directamente quien sos
+Nombre, email, DNI, direccion
+Datos de
+comportamiento
+Los mas valiosos para publicidad —
+predicen tus decisiones
+Que buscas, que compras, cuanto
+tiempo en cada pantalla
+Datos sensibles
+Los mas protegidos legalmente y mas
+peligrosos si se filtran
+Salud, orientacion sexual, creencias,
+biometria
+GDPR y tus derechos digitales
+En 2018 entro en vigencia en Europa el GDPR (General Data Protection Regulation) — la ley de
+privacidad mas exigente del mundo. Aunque fue creada en Europa, impone obligaciones a
+organizaciones en cualquier lugar del mundo que recopilen datos de personas en la UE. En la
+practica eso incluye casi todas las grandes plataformas digitales que usamos. Fuente: GDPR.eu —
+gdpr.eu.
+DERECHO
+QUE SIGNIFICA EN LA PRACTICA
+Acceso
+Podés pedirle a cualquier empresa que datos tiene sobre vos
+Rectificacion
+Podés pedir que corrijan datos incorrectos
+Olvido
+Podés pedir que borren tus datos bajo ciertas condiciones
+Portabilidad
+Podés pedir tus datos en formato exportable
+Objetar
+Podés objetar ciertos usos de tus datos, incluyendo publicidad dirigida
+✦ Dato de color
+
+
+La multa mas grande de la historia del GDPR fue impuesta a Meta en 2023: 1.200 millones de euros
+por transferir datos de usuarios europeos a servidores en Estados Unidos sin las garantias legales
+adecuadas. La segunda mas grande fue a Amazon: 746 millones de euros. Las multas del GDPR
+pueden llegar al 4% de la facturacion global anual. Fuente: GDPR.eu.
+OWASP — la referencia de seguridad en aplicaciones web
+El OWASP Top 10 es un reporte actualizado regularmente con los 10 riesgos de seguridad mas
+criticos para aplicaciones web. Es elaborado por expertos de seguridad de todo el mundo y es la
+referencia estandar de la industria. Saber que existe te permite participar en conversaciones sobre
+seguridad con criterio. Cuando un equipo de desarrollo dice 'revisamos el OWASP antes del
+lanzamiento', estan hablando de un checklist de vulnerabilidades reconocido globalmente. Fuente:
+Cloudflare — cloudflare.com/learning/security/threats/owasp-top-10.
+■ El resumen para contarle a alguien en el subte
+OWASP es como la lista de los 10 errores de seguridad mas comunes que cometen los
+desarrolladores al construir apps web. Si tu equipo la revisa antes de lanzar un producto, es una senal
+de que se toman la seguridad en serio desde el codigo.
+En Argentina y Latinoamerica — el cuento del tio digital
+■■ Cifras oficiales 2024
+Los intentos de phishing aumentaron un 140% en Latinoamerica en 2024. Argentina registro un
+crecimiento del 300% en actividad de phishing. En toda la region se registraron mas de 697 millones
+de bloqueos de phishing — 1.326 intentos de ataque por minuto. Fuente: Kaspersky Threat
+Landscape 2024. En Argentina, durante 2024 se registraron 34.468 denuncias por delitos informaticos
+— un aumento del 21,1% respecto a 2023. Fuente: UFECI (Unidad Fiscal Especializada en
+Ciberdelincuencia) — fiscales.gob.ar.
+Las modalidades mas comunes en la region:
+El WhatsApp robado — alguien te escribe diciendo 'me llego un codigo de verificacion por error al
+tuyo, me lo mandas?' Si lo mandas, perdes acceso a tu cuenta. Despues usan tu cuenta para
+pedirle plata a tus contactos haciendose pasar por vos. Es la estafa digital mas denunciada en
+Argentina en 2024 segun la UFECI.
+El phishing de ARCA/AFIP — emails que simulan ser del organismo fiscal, advirtiendo sobre
+deudas o multas urgentes. ARCA aclaró oficialmente que nunca se comunica por email, WhatsApp,
+redes sociales ni telefono para solicitar pagos o datos personales. Si recibes uno, reportalo a
+phishing@arca.gob.ar. Fuente: ARCA — arca.gob.ar.
+
+
+El soporte tecnico falso — alguien llama diciendo ser del banco, de tu compania de internet, o de
+Apple/Google. Crean urgencia, te piden instalar una app de acceso remoto, y desde ahi acceden a
+tus cuentas bancarias y billeteras digitales.
+Las inversiones milagrosas — plataformas publicitadas en redes sociales prometiendo
+rendimientos imposibles, usando imagenes de celebridades — muchas veces deepfakes — para
+dar credibilidad.
+■ La regla de oro que aplica a todos los casos
+Cualquier entidad oficial, banco, o empresa seria NUNCA te va a pedir tu contrasena, tu clave fiscal, o
+un codigo que te llego por SMS. Si alguien te lo pide — sea por telefono, WhatsApp, email, o cualquier
+otro canal — es una estafa. No importa cuan oficial parezca, no importa la urgencia que genere.
+Espera 5 minutos, busca el numero oficial de la entidad, y confirma directamente.
+FUENTES UTILIZADAS EN ESTE BLOQUE
+ NIST — How Do I Create a Good Password? — nist.gov/cybersecurity/how-do-i-create-good-password
+ CISA — Avoiding Social Engineering and Phishing Attacks — cisa.gov
+ CISA — WannaCry Ransomware Advisory — cisa.gov
+ National Cybersecurity Alliance — staysafeonline.org
+ Cloudflare — What is OWASP? — cloudflare.com/learning/security/threats/owasp-top-10
+ Imperva — What is Social Engineering — imperva.com
+ Fortinet — Ransomware: Types, Examples & Removal Tactics — fortinet.com
+ Sophos — What Is RaaS — sophos.com/en-us/cybersecurity-explained/ransomware-as-a-service
+ TechTarget — 10 biggest ransomware attacks in 2024 — techtarget.com
+ GDPR.eu — What is GDPR? — gdpr.eu/what-is-gdpr
+ Verizon — Data Breach Investigations Report 2024 — verizon.com (68% elemento humano)
+ NordPass — Most Common Passwords 2024 — nordpass.com/most-common-passwords-list
+ FIDO Alliance — Passkeys — fidoalliance.org/passkeys
+ NordVPN — How does a VPN work? — nordvpn.com/blog/how-does-a-vpn-work
+ Kaspersky — Panorama de Amenazas LATAM 2024 — latam.kaspersky.com
+ UFECI — Informe Anual de Delitos Informaticos 2024 — fiscales.gob.ar
+ Chequeado — Estafas virtuales 2024 — chequeado.com
+ ARCA — Alerta oficial phishing — arca.gob.ar
+ La Nacion — Ciberataque al PAMI 2023 — lanacion.com.ar
+ WeLiveSecurity (ESET) — Alerta datos PAMI — welivesecurity.com/es
+ INSSJP — Resolucion oficial ciberataque PAMI — institucional.pami.org.ar
+ Identity Theft Resource Center — 2024 Data Breach Report — idtheftcenter.org
+ Have I Been Pwned — haveibeenpwned.com
+VIDEOS CURADOS DE YOUTUBE — BLOQUE 4
+Seguridad digital desde cero
+■ CS50 Harvard — Cybersecurity (Lecture 10)
+~2 hs · Nivel basico-intermedio · Ingles con
+subtitulos
+■ Fireship — Hacking Explained in 100 Seconds
+2 min · Nivel basico · Ingles
+Contrasenas y 2FA
+
+
+■ Computerphile — Password Security
+~15 min · Nivel basico · Ingles
+■ All Things Secured — Password Manager Tutorial
+~12 min · Nivel basico · Ingles con
+subtitulos
+Phishing e ingenieria social
+■ Computerphile — Social Engineering
+~18 min · Nivel basico · Ingles
+■ freeCodeCamp — Ethical Hacking Full Course
+~15 hs · Nivel intermedio · Ingles con
+subtitulos
+Malware y ransomware
+■ Computerphile — How Ransomware Works
+~15 min · Nivel basico · Ingles
+■ ByteByteGo — Ransomware Explained
+~10 min · Nivel basico · Ingles con
+subtitulos
+VPNs
+■ Fireship — VPN Explained in 100 Seconds
+2 min · Nivel basico · Ingles
+■ All Things Secured — VPN Explained: What it Does (And
+What it Doesn't)
+~12 min · Nivel basico · Ingles con
+subtitulos
+Privacidad y GDPR
+■ ByteByteGo — How Big Tech Uses Your Data
+~10 min · Nivel basico · Ingles con
+subtitulos
+QUIZ — ¿Entendiste el bloque?
+Este quiz no se aprueba con sentido comun. Requiere haber leido.
+1. ¿Cual es el mayor riesgo de reusar la misma contrasena en multiples servicios?
+a) Que sea mas facil de adivinar
+b) Que una sola brecha en cualquier servicio expone todas tus cuentas automaticamente ✓
+c) Que los servicios la compartan entre si
+d) Que sea rechazada por algunos sitios
+2. ¿Cuales son las DOS decisiones de seguridad que mas impacto tienen para alguien que
+empieza desde cero?
+a) Antivirus y firewall
+b) Gestor de contrasenas y activar 2FA en cuentas criticas ✓
+c) VPN y actualizaciones automaticas
+d) Contrasenas largas y no hacer click en links
+3. ¿Que hace el ransomware?
+a) Roba contrasenas y las vende en el mercado negro
+b) Encripta todos tus archivos y exige pago para devolverte el acceso ✓
+c) Usa tu computadora para enviar spam
+d) Borra tu sistema operativo de manera irreversible
+
+
+4. Una VPN te protege de:
+a) Malware y phishing en cualquier sitio web
+b) Que Google o Facebook sepan quien sos cuando estas logueado
+c) Que intercepten tu trafico en redes publicas como el wifi de un cafe ✓
+d) Ataques de ransomware ya instalados en tu dispositivo
+5. La diferencia entre HTTPS y cifrado de extremo a extremo es:
+a) HTTPS es mas seguro porque lo usan los bancos
+b) HTTPS encripta el trayecto — la empresa puede leer el contenido. El E2E encripta el
+contenido de forma que ni la plataforma puede leerlo ✓
+c) Son sinonimos — ambos encriptan de la misma manera
+d) El cifrado de extremo a extremo solo funciona en apps de pago
+6. El GDPR es relevante para personas en Argentina porque:
+a) Solo aplica a ciudadanos europeos
+b) Las grandes plataformas que usamos lo aplican globalmente al ser el estandar de
+privacidad mas exigente del mundo ✓
+c) Argentina adopto el GDPR como ley local
+d) Solo aplica si la empresa tiene sede fisica en Europa
+7. ¿Que es la superficie de ataque?
+a) La pantalla principal de una app donde los usuarios interactuan
+b) El conjunto total de puntos donde un atacante puede intentar acceder — apps, cuentas,
+dispositivos, integraciones ✓
+c) El area fisica de una empresa donde estan los servidores
+d) Los datos mas sensibles que tiene una organizacion
+8. ¿Por que actualizar el software es una medida de seguridad?
+a) Las actualizaciones hacen el software mas rapido
+b) Cada actualizacion parchea vulnerabilidades conocidas que los atacantes explotan
+activamente en sistemas desactualizados ✓
+c) Sin actualizaciones la garantia del dispositivo vence
+d) Las actualizaciones activan el antivirus automaticamente
+9. En el caso PAMI 2023, ¿cual fue el vector de entrada del ataque?
+a) Un puerto de servidor mal configurado
+b) Una vulnerabilidad en el sistema operativo sin parchear
+c) Un email de phishing que un empleado abrio ✓
+d) Un ataque directo a la base de datos desde el exterior
+10. La estafa digital mas denunciada en Argentina en 2024 involucro:
+a) Hackeos directos a cuentas bancarias
+b) Robo del codigo de verificacion de WhatsApp para tomar control de la cuenta y estafar a
+contactos ✓
+c) Instalacion de malware via apps de Google Play
+d) Ataques de ransomware a dispositivos personales
+11. ¿Por que los rescates de ransomware se piden en criptomonedas?
+a) Porque es la forma de pago mas rapida
+
+
+b) Porque las transacciones son dificiles de rastrear e irreversibles — no hay banco que
+pueda revertir una transferencia ✓
+c) Porque los atacantes no tienen acceso a cuentas bancarias
+d) Por razones fiscales
+
+
+BLOQUE 5
+Como nace un producto digital
+Detras de cada app que usas hubo un proceso. Este bloque lo explica de punta a
+punta — sin romantizarlo.
+La idea no es el producto
+Hay un error muy comun en el mundo del emprendimiento: confundir la idea con el producto. Una
+idea es el punto de partida. El producto es lo que sobrevive al contacto con usuarios reales, con
+limitaciones tecnicas, con presupuesto acotado, y con un mercado que no siempre hace lo que
+esperas.
+■ En criollo
+El mejor producto del mundo que resuelve un problema que nadie tiene es un fracaso garantizado. El
+producto mediano que resuelve un problema que le duele a mucha gente tiene posibilidades reales. El
+problema siempre va antes que la solucion.
+✦ Dato de color
+El concepto de Jobs to Be Done fue desarrollado por Clayton Christensen, profesor de Harvard
+Business School. La idea central: las personas no compran productos, contratan soluciones para
+trabajos que necesitan hacer. Cuando McDonald's estudio por que la gente compraba milkshakes a la
+manana temprano, descubrio que los 'contrataban' para tener algo que comer mientras manejaban al
+trabajo. El competidor real no era otro milkshake: era una banana. Entender el trabajo real que hace
+un producto cambia completamente como se disena. Fuente: Harvard Business Review —
+hbr.org/2016/09/know-your-customers-jobs-to-be-done.
+Todo producto es una hipotesis
+Este es el marco mental mas importante del bloque. Todo lo que un equipo cree sobre su producto
+antes de lanzarlo es una hipotesis — no una verdad.
+HIPOTESIS
+RIESGO SI ES FALSA
+'Nuestros usuarios tienen este problema'
+Construiste algo que nadie queria — el fracaso mas
+caro
+'Esta solucion lo resuelve'
+Lanzaste algo que tecnicamente funciona pero no
+resuelve el dolor real
+
+
+'Estaran dispuestos a pagar X'
+Tu modelo de negocio no funciona aunque el
+producto sea bueno
+'Este canal de adquisicion va a funcionar'
+Los usuarios no llegan aunque el producto sea
+excelente
+■ Spoiler tecnico
+El 35% de las startups que fracasan lo hacen por 'no market need' — no existia demanda real para el
+producto. No porque el equipo no supiera programar — sino porque construyeron sobre una hipotesis
+que nunca validaron. Fuente: CB Insights — cbinsights.com/research/startup-failure-reasons-top
+(2024).
+Discovery — antes de construir una linea de codigo
+La fase de discovery es el periodo donde el equipo entiende el problema antes de proponer
+soluciones. Es la fase que mas se saltea cuando hay prisa — y la que mas caro cuesta omitir.
+Discovery es el proceso de reducir el riesgo de las hipotesis mas importantes antes de construir. No
+es una formalidad: es la diferencia entre construir en terreno firme o en arena.
+HERRAMIENTA
+PARA QUE SIRVE
+QUE SE BUSCA
+Entrevistas con
+usuarios
+Conversaciones abiertas
+donde escuchas mas de lo
+que hablas
+Comportamientos reales: que hacen hoy, que les
+frustra, como lo resuelven actualmente. Nunca
+preguntar '¿usarias esto?' — siempre recibe 'si' por
+cortesia
+User personas
+Perfiles semi-ficticios
+basados en investigacion
+real
+Arquetipos de grupos de usuarios con necesidades y
+comportamientos similares — no demografias
+genericas
+Mapa de empatia
+Herramienta visual
+Lo que el usuario dice, piensa, siente y hace
+respecto a un problema. Fuerza al equipo a salir de
+sus suposiciones
+Benchmarking
+competitivo
+Analisis de soluciones
+existentes
+Que hacen bien, que hacen mal, que no hacen. El
+mercado ya habla por si solo
+■ Pensalo asi
+La fase de discovery es como hacer el diagnostico antes de operar. Ningun medico serio opera sin
+diagnostico. Lo que cambia si salteas el diagnostico: operas el organo equivocado, y el paciente sigue
+igual de enfermo — solo que ahora con cicatriz.
+Del problema al producto — backlog, priorizacion y roadmap
+
+
+Una vez que el equipo entiende el problema, viene la etapa de definir que construir. Estos tres
+conceptos van siempre juntos en cualquier conversacion de producto:
+Backlog — la lista de todo lo que el equipo podria construir. Puede tener decenas o cientos de
+items. No todo va a llegar a produccion — la mayor parte del backlog muere ahi, y eso esta bien. La
+existencia de un backlog largo no indica problema; indica que hay ideas.
+Priorizacion — el proceso de decidir que va primero. Hay marcos como RICE, MoSCoW e ICE que
+ayudan a tomar esas decisiones con criterio en lugar de intuicion o politica interna. La priorizacion
+es donde mas se pelean los equipos — porque todos creen que su feature es la mas importante.
+Roadmap — la hoja de ruta: que se va a construir, en que orden, y con que horizonte temporal. No
+es un plan rigido ni un contrato — es una hipotesis de que crear basada en la informacion
+disponible hoy, sujeta a cambio cuando aparezca nueva informacion.
+■ La vuelta de tuerca tecnica
+Uno de los errores mas costosos en equipos de producto es tratar el roadmap como un compromiso.
+Cuando el equipo de ventas le promete a un cliente una feature que esta en el roadmap 'para el Q3',
+esta prometiendo algo que depende de decenas de variables que pueden cambiar — hallazgos de
+usuarios, bugs criticos, cambios de prioridad del negocio. La gestion de expectativas del roadmap es
+una de las habilidades mas valiosas — y menos ensenadass — de un PM.
+Waterfall vs Agile — la historia de dos formas de construir
+Antes de Agile, la forma dominante era Waterfall (cascada): primero defines todo, despues
+disenyas, despues desarrollas, despues testeas, despues lanzas. Una etapa cae sobre la siguiente.
+El problema: el mundo cambia mientras construyes. Cuando terminabas, ya era tarde para cambiar
+— habias invertido meses o anos en algo que ya no era lo que se necesitaba.
+En 2001, diecisiete desarrolladores de software se reunieron en Snowbird, Utah, y escribieron el
+Manifiesto Agil — cuatro valores y doce principios que propusieron una alternativa: construir en
+ciclos cortos, validar frecuentemente, y adaptarse rapido al cambio. Fuente: Agile Alliance —
+agilemanifesto.org.
+■ Pensalo asi
+Waterfall es planear las vacaciones completas con itinerario fijo, hoteles reservados, y tours pagados
+seis meses antes. Agile es reservar el primer destino, ir, ver que te gusto y que no, y decidir el
+siguiente paso con esa informacion real. Ambas pueden funcionar — pero una funciona mejor cuando
+el camino es incierto.
+Scrum — como funciona Agile en la practica
+
+
+Scrum es el framework Agile mas usado del mundo. Organiza el trabajo en ciclos cortos y
+predecibles llamados sprints — tipicamente dos semanas. Al inicio de cada sprint el equipo
+selecciona items del backlog a construir. Al final hay algo funcional para mostrar — no una
+presentacion: codigo que corre. Esto se conecta directamente con el concepto de hipotesis: cada
+sprint es una oportunidad de validar o invalidar algo sobre el producto. Fuente: Atlassian —
+atlassian.com.
+CEREMONIA
+CUANDO
+PARA QUE
+Sprint Planning
+Al inicio del sprint
+¿Que vamos a construir estas dos semanas y como?
+Daily standup
+Todos los dias, 15
+min max
+¿Que hice ayer, que hago hoy, hay algo que me
+bloquea?
+Sprint Review
+Al final del sprint
+Mostrar lo que se construyo. No una presentacion —
+algo que funciona
+Sprint Retrospective
+Al final del sprint
+¿Que funciono, que no funciono, que cambiamos?
+■ En criollo
+Scrum es como cocinar un menu de degustacion en lugar de una cena de cinco platos. En lugar de
+preparar todo y servir al final, sacas un plato a la vez, el comensal lo prueba, te dice que le parecio, y
+ajustas el siguiente plato. Al final de la noche el menu fue co-creado con quien lo comio — no solo
+imaginado por el chef.
+Los roles — quien hace que, con precision
+Esta es la seccion que mas confusion genera. La clave es distinguir dos capas: la estrategica y la
+tactica. Esta distincion se conecta con todo lo anterior: el PM trabaja en el 'por que' y el 'que' a largo
+plazo; el PO traduce eso en acciones concretas sprint a sprint.
+ROL
+CAPA
+SE PREGUNTA
+HERRAMIENTAS PRINCIPALES
+Product
+Manager (PM)
+Estrategic
+a
+¿Por que existe este
+producto? ¿A quien sirve? ¿A
+donde va?
+Roadmap, vision, investigacion de
+mercado, stakeholders
+Product Owner
+(PO)
+Tactica
+¿Que entra en el proximo
+sprint? ¿Con que criterios se
+aprueba?
+Backlog, historias de usuario, criterios
+de aceptacion
+Scrum Master
+Proceso
+¿El equipo tiene lo que
+necesita para trabajar sin
+friccion?
+Ceremonias Scrum, bloqueos, mejora
+continua
+UX Designer
+Experienci
+a
+¿El usuario puede usar esto
+intuitivamente?
+Investigacion de usuarios, wireframes,
+prototipos
+
+
+Desarrolladore
+s
+Construcci
+on
+¿Como se construye esto
+tecnica y eficientemente?
+Codigo, arquitectura, estimaciones,
+reviews
+QA
+Calidad
+¿Esto funciona como se
+espera antes de llegar al
+usuario?
+Testing manual y automatizado, reporte
+de bugs
+Nota: en muchas empresas — especialmente startups — el PM y el PO son la misma persona. En
+empresas mas grandes pueden ser roles separados. La distincion no es de jerarquia — es de
+horizonte temporal y foco. Fuente: Scrum.org — scrum.org/resources/blog.
+★ Bonus track
+La pregunta '¿quien manda en un equipo de producto?' no tiene una respuesta simple. El PM define
+que construir y por que. Los devs definen como construirlo. El disenador define como se ve y se usa.
+El Scrum Master facilita el proceso. Los productos que funcionan nacen de la tension productiva entre
+todos esos roles — no del dominio de uno sobre los demas.
+MVP — el concepto mas mal usado de la industria
+MVP (Minimum Viable Product — Producto Minimo Viable) es uno de los conceptos mas usados y
+mas malentendidos. Un MVP no es una version barata o incompleta del producto final. Es la version
+mas pequena posible de un producto que permite validar la hipotesis central del negocio con
+usuarios reales. El objetivo no es lanzar rapido — es aprender rapido.
+■ Pensalo asi
+Si queres validar si la gente quiere un servicio de delivery de comida saludable, tu MVP no necesita
+ser una app. Puede ser un grupo de WhatsApp donde tomas pedidos manualmente. Si nadie pide por
+WhatsApp, no tiene sentido construir la app. Si la gente pide, tenes una senal real para invertir en
+tecnologia. Eso es un MVP — validar la hipotesis con el minimo esfuerzo posible.
+✦ Dato de color
+Dropbox no fue lanzado como un producto — fue lanzado como un video de demostracion. Antes de
+escribir una linea de codigo, el fundador Drew Houston queria saber si la gente queria eso. Cuando el
+video se hizo viral en la comunidad tech, la lista de espera del beta exploto de 5.000 a 75.000 registros
+en una sola noche. Eso fue senal suficiente para construir el producto real. El MVP de Dropbox no
+tenia codigo. Fuente: First Round Review — firstround.com.
+Del codigo a los usuarios — ambientes, deploy y CI/CD
+
+
+Una vez que el equipo construye algo, ¿como llega al usuario? Hay un proceso que casi nadie
+fuera del mundo tecnico conoce — y que explica por que 'subir un cambio' no es simplemente
+apretar un boton.
+AMBIENTE
+QUIEN LO VE
+PARA QUE
+Development (dev)
+Solo los
+desarrolladores
+Donde se construye y prueba localmente. Nadie mas lo ve.
+Staging
+El equipo interno
+Copia casi identica a produccion para testear antes de lanzar.
+Simula el ambiente real sin afectar usuarios.
+Production (prod)
+Los usuarios
+reales
+El ambiente real. Un error aca tiene consecuencias reales.
+CI/CD (Continuous Integration / Continuous Deployment) son dos etapas distintas del mismo
+proceso automatizado:
+CI (Continuous Integration) — cada vez que un desarrollador sube codigo, un sistema
+automatizado lo integra con el resto del proyecto y ejecuta tests para detectar si algo se rompio. Es
+una practica de calidad que permite que muchos desarrolladores trabajen en paralelo sin pisarse.
+CD (Continuous Deployment) — una vez que el codigo paso por CI, el deploy a produccion ocurre
+automaticamente (o semi-automaticamente con aprobacion humana). Es una practica de velocidad.
+Un equipo puede tener CI sin CD — integra y testea automaticamente, pero el deploy a produccion
+requiere aprobacion manual. En sectores regulados como fintech o salud eso es muy comun.
+Fuente: Splunk — splunk.com.
+¿Por que le importa esto a alguien que no programa? Porque determina directamente la velocidad
+a la que el equipo puede responder al feedback. Un equipo con CI/CD maduro puede lanzar un fix
+en horas. Un equipo sin el puede tardar semanas. Esa diferencia es estrategica — afecta cuanto
+podes aprender de tus usuarios y cuan rapido podes iterar.
+■ En criollo
+CI/CD es como tener una linea de montaje con control de calidad automatico en cada paso, en lugar
+de ensamblar todo el auto y recien entonces revisar si funciona al final. Si algo falla, lo detectas en la
+pieza — no cuando el auto ya esta vendido y el cliente lo devuelve.
+Deuda tecnica — el fantasma que todo PM necesita entender
+La deuda tecnica (tech debt) es el costo futuro de haber tomado atajos en el presente para entregar
+mas rapido. El termino fue acunado por Ward Cunningham, uno de los autores del Manifiesto Agil,
+precisamente para explicar este concepto a stakeholders no tecnicos.
+
+
+Su metafora original: 'Con dinero prestado podes hacer algo antes — pero hasta que lo devuelves,
+pagas intereses. El codigo apresurado funciona igual.' Fuente: ProductPlan — productplan.com.
+■ Pensalo asi
+La deuda tecnica es exactamente como la deuda financiera. Un prestamo para arrancar un negocio
+puede ser una decision inteligente. Seguir pidiendo prestamos sin pagar nunca el capital, acumulando
+intereses, hasta que el negocio colapsa bajo el peso de las deudas — eso es lo que pasa cuando la
+deuda tecnica no se gestiona.
+Segun una encuesta de Protiviti, casi 7 de cada 10 empresas creen que la deuda tecnica esta
+frenando su capacidad de innovar. El promedio de las empresas gasta el 30% de su presupuesto
+de IT gestionando deuda tecnica existente. Fuente: ProdPad — prodpad.com.
+■ La vuelta de tuerca tecnica
+La deuda tecnica mas peligrosa es la invisible — la que nadie sabe que existe hasta que algo se
+rompe en produccion a las 3 de la manana. El codigo que 'funciona' pero que nadie entiende, que fue
+escrito hace tres anos por alguien que ya no esta en el equipo, y que nadie se animo a tocar porque
+podria romper todo. Ese es el tipo de deuda que paraliza equipos enteros. Para PMs: cuando tu
+equipo tecnico pide tiempo para 'refactorizar', no estan siendo lentos ni caprichosos — estan tratando
+de pagar deuda antes de que los intereses hagan imposible seguir avanzando.
+Product-Market Fit — el momento que todo lo cambia
+Product-market fit (PMF) es el momento en que un producto encuentra el mercado que lo necesita
+de verdad. Es el hilo conductor que une el MVP (¿llegamos al PMF?), las metricas (¿como lo
+medimos?) y el roadmap (¿que construimos ahora que sabemos que hay PMF?). Sin PMF, todo lo
+demas es prematuro.
+Marc Andreessen, quien acuno el termino, dijo que es 'el unico momento que importa en la vida de
+una startup.' Sean Ellis lo operacionalizo con una pregunta simple a usuarios activos: '¿Que tan
+decepcionado/a estarias si este producto desapareciera manana?' Si mas del 40% responde 'muy
+decepcionado', hay PMF. Si no, no hay PMF todavia — y hay que ajustar antes de escalar.
+■ Spoiler tecnico
+Un producto sin PMF que escala es como agregar pisos a un edificio con cimientos debiles — crece
+mas rapido, pero colapsa peor. El error clasico es confundir traccion inicial (muchos registros, mucho
+buzz en redes) con PMF real. La metrica que no miente es la retencion: si los usuarios que llegaron
+siguen usando el producto semanas despues, hay una senal real. Si no siguen, no importa cuantos
+llegaron.
+
+
+Metricas — como sabes si el producto esta funcionando
+Lanzar el producto es el comienzo, no el final. Despues viene medir. La clave es entender la
+jerarquia de las metricas — no son todas iguales ni sirven para lo mismo:
+TIPO
+FUNCION
+EJEMPLOS REALES
+North Star Metric
+El norte unificador de todo el equipo. La
+metrica que mejor captura el valor central
+que el producto entrega. Si crece de forma
+sostenida, el producto esta generando valor
+real.
+Spotify: tiempo de escucha. Airbnb:
+noches reservadas. Facebook (etapa
+temprana): usuarios que agregan 7
+amigos en 10 dias.
+Metricas de ciclo
+de vida
+Monitorean la salud del producto en cada
+etapa del usuario: activacion, retencion,
+churn, DAU/MAU, NPS.
+Activacion: ¿el usuario llego al primer
+'aha'? Retencion: ¿sigue usando el
+producto 30 dias despues? Churn:
+¿cuantos abandonaron?
+OKRs
+Conectan la North Star con los objetivos del
+negocio. Objetivo cualitativo + resultados
+clave cuantificables. Se revisan
+trimestralmente.
+Objetivo: mejorar retencion mes 1.
+KR1: activacion del dia 1 de 40% a
+60%. KR2: churn de 45% a 30%. KR3:
+NPS de nuevos usuarios de 32 a 45.
+Vanity metrics
+El anti-patron. Metricas que se ven bien en
+presentaciones pero no dicen nada sobre la
+salud real del producto.
+Descargas totales (sin medir
+retencion). Registros en landing (sin
+medir onboarding). Seguidores en
+redes (sin medir conversion).
+Los OKRs (Objectives and Key Results) fueron desarrollados en Intel en los anos 70 por Andy
+Grove, popularizados en Google por John Doerr, y hoy los usan LinkedIn, Spotify, Uber, Microsoft, y
+practicamente todas las empresas tech de escala. Son la forma de conectar la estrategia de largo
+plazo con el trabajo del sprint de esta semana. Fuente: Atlassian —
+atlassian.com/agile/agile-at-scale/okr.
+■ La vuelta de tuerca tecnica
+La North Star de Facebook en sus etapas tempranas — 'usuarios que agregan 7 amigos en los
+primeros 10 dias' — es el ejemplo mas poderoso de por que elegir la metrica correcta cambia todo. No
+fue obvia: requirio analisis de datos para descubrir que ese comportamiento especifico correlacionaba
+perfectamente con la retencion a largo plazo. Fuente: Amplitude — amplitude.com.
+Los equipos en el ecosistema latinoamericano
+■■■■■■ La realidad del ecosistema regional
+
+
+En startups early-stage los roles frecuentemente se superponen — una misma persona puede ser PM,
+PO, y hacer algo de QA segun el dia. Eso no es improvisacion — es la realidad de equipos pequenos
+donde la versatilidad es una ventaja. En empresas tech mas maduras como MercadoLibre, Rappi o
+Uala, los equipos usan metodologias Agile maduras con roles claramente definidos y multiples squads
+trabajando en paralelo. El modelo de squads — equipo pequeno, autonomo y multidisciplinario
+responsable de una parte del producto — viene del modelo organizacional de Spotify de 2012 y hoy es
+el estandar en las empresas tech mas grandes de la region. Fuente: Spotify Engineering —
+engineering.atspotify.com.
+FUENTES UTILIZADAS EN ESTE BLOQUE
+ Agile Alliance — Manifesto for Agile Software Development (2001) — agilemanifesto.org
+ Harvard Business Review — Know Your Customers' Jobs to Be Done — hbr.org/2016/09
+ CB Insights — The Top Reasons Startups Fail 2024 — cbinsights.com
+ Atlassian — Product development life cycle — atlassian.com/agile/product-management
+ Atlassian — OKRs: The Ultimate Guide — atlassian.com/agile/agile-at-scale/okr
+ Scrum.org — What's the Difference Between Product Manager and Product Owner? — scrum.org
+ Splunk — The Product Development Lifecycle, Explained — splunk.com
+ Amplitude — Every Product Needs a North Star Metric — amplitude.com/blog
+ Product School — North Star Metric: Benefits, Challenges & Tips — productschool.com
+ Asana — What are OKRs? — asana.com/resources/okr-meaning
+ MIT Sloan Management Review — How OKRs Are Reshaping Team Goals in 2024 — sloanreview.mit.edu
+ ProductPlan — What is Technical Debt? — productplan.com/glossary/technical-debt
+ ProdPad — The Product Manager's Guide to Managing Technical Debt — prodpad.com
+ Spotify Engineering — Spotify Engineering Culture (squads model) — engineering.atspotify.com
+ First Round Review — The Dropbox MVP story — firstround.com
+ Marty Cagan / SVPG — Inspired: How to Create Tech Products Customers Love — svpg.com
+LIBRO RECOMENDADO: 'Inspirado: Como crear productos tecnologicos que gusten a los
+clientes' de Marty Cagan (SVPG). El libro de referencia mas importante del mundo del producto
+digital. Cubre discovery, priorizacion, roles, cultura de producto, y la diferencia entre equipos que
+ejecutan un roadmap y equipos que realmente resuelven problemas. Si solo vas a leer un libro de
+producto en tu vida, es este. Disponible en espanol en Amazon. svpg.com
+VIDEOS CURADOS DE YOUTUBE — BLOQUE 5
+Proceso de producto desde cero
+■ Y Combinator — How to Build a Product
+Variable · Nivel basico · Ingles con
+subtitulos
+■ Lenny Rachitsky — Lenny's Podcast
+Variable · Nivel basico-intermedio · Ingles
+Agile y Scrum
+■ Atlassian — Agile Explained
+~10 min · Nivel basico · Ingles con
+subtitulos
+■ Fireship — Agile Explained in 100 Seconds
+2 min · Nivel basico · Ingles
+
+
+■ freeCodeCamp — Scrum Crash Course
+~35 min · Nivel basico · Ingles con
+subtitulos
+Roles de producto
+■ Product School — What Does a Product Manager Do?
+~15 min · Nivel basico · Ingles
+Metricas, OKRs y North Star
+■ ByteByteGo — System Design: How to Design a Product
+Metrics System
+~12 min · Nivel basico-intermedio · Ingles
+■ Atlassian — OKRs Explained
+~8 min · Nivel basico · Ingles con subtitulos
+MVP
+■ Fireship — MVP Explained in 100 Seconds
+2 min · Nivel basico · Ingles
+■ Y Combinator — How to Talk to Users
+~30 min · Nivel basico · Ingles con
+subtitulos
+QUIZ — ¿Entendiste el bloque?
+Este quiz no se aprueba con sentido comun. Requiere haber leido.
+1. ¿Cual es la razon numero uno por la que fallan los productos digitales segun CB Insights?
+a) Problemas tecnicos irresolubles
+b) Falta de financiamiento
+c) No existia demanda real — construyeron algo que nadie queria ✓
+d) El equipo no tenia suficiente experiencia
+2. ¿Que es un MVP correctamente entendido?
+a) Una version barata e incompleta del producto final
+b) La version mas pequena posible que permite validar la hipotesis central del negocio con
+usuarios reales ✓
+c) El primer prototipo visual del producto
+d) El producto lanzado antes de estar completamente terminado
+3. La diferencia principal entre el PM y el PO es:
+a) El PM gana mas que el PO
+b) El PM define la vision estrategica de largo plazo; el PO gestiona la ejecucion tactica sprint a
+sprint. En muchas empresas son la misma persona ✓
+c) El PO trabaja con tecnologia y el PM con marketing
+d) Son el mismo rol con distintos nombres
+4. ¿Que es la deuda tecnica?
+a) El presupuesto no pagado a proveedores tecnologicos
+b) El costo futuro de haber tomado atajos en el codigo para entregar mas rapido — como
+deuda financiera, acumula intereses ✓
+c) Los bugs acumulados en produccion sin resolver
+d) El tiempo invertido en reuniones que no generan valor
+
+
+5. ¿Cual es la diferencia entre CI y CD?
+a) Son exactamente lo mismo — diferentes nombres para el mismo proceso
+b) CI integra y testea el codigo automaticamente; CD lleva ese codigo a produccion
+(automatica o semi-automaticamente) — son dos etapas distintas ✓
+c) CI es para el frontend y CD es para el backend
+d) CI es para equipos pequenos y CD para equipos grandes
+6. ¿Como saber si un producto alcanzo el product-market fit segun Sean Ellis?
+a) Cuando tiene mas de 1.000 usuarios activos
+b) Cuando el 40% o mas de los usuarios activos dice que estaria 'muy decepcionado' si el
+producto desapareciera ✓
+c) Cuando el churn es menor al 5% mensual
+d) Cuando la North Star Metric supera el benchmark del sector
+7. La North Star Metric de Spotify es 'tiempo de escucha' porque:
+a) Es la metrica mas facil de medir en una plataforma de streaming
+b) Refleja directamente el valor que el producto entrega — si alguien escucha mas, el
+producto le esta siendo util ✓
+c) Es la metrica que mas impresiona a inversores
+d) Fue elegida por el equipo de marketing
+8. ¿Por que tratar el roadmap como un contrato es un error?
+a) Porque los roadmaps son documentos internos
+b) Porque depende de variables que pueden cambiar — hallazgos de usuarios, bugs,
+prioridades del negocio — y prometer fechas genera expectativas incontrolables ✓
+c) Porque el roadmap es responsabilidad del Scrum Master
+d) Porque los roadmaps se revisan semanalmente
+9. ¿Que es un squad en el contexto de equipos tech?
+a) El equipo directivo responsable de la estrategia del producto
+b) Un equipo pequeno, autonomo y multidisciplinario responsable de una parte del producto,
+que funciona como una mini-startup dentro de la empresa ✓
+c) El grupo de QA dedicado a testear una feature especifica
+d) El termino Spotify usa para sus equipos de marketing
+
+
+BLOQUE 6
+Que es la IA
+No es magia. No es ciencia ficcion. Es matematica aplicada a patrones — y entender
+como funciona cambia como la usas.
+El malentendido mas grande sobre la IA
+Cuando la gente habla de 'inteligencia artificial' en 2026, generalmente esta hablando de tres o
+cuatro cosas distintas sin distinguirlas. Mezcla ChatGPT con las recomendaciones de Netflix con
+los autos que se manejan solos con los robots de la ciencia ficcion. Ese malentendido genera tanto
+panico exagerado como confianza excesiva. Este bloque existe para reemplazarlo con un mapa
+claro.
+Las matrioskas — IA, Machine Learning, Deep Learning e IA
+Generativa
+La mejor forma de entender como se relacionan estos conceptos es imaginar munecas matrioskas
+— esas munecas rusas que encajan una dentro de la otra. Cada capa contiene a la anterior y
+agrega algo nuevo encima. Fuente: IBM Think — ibm.com.
+CAPA
+NOMBRE
+QUE ES
+EJEMPLO
+1 (la mas
+amplia)
+Inteligencia
+Artificial
+Cualquier sistema disenado para
+realizar tareas que tipicamente
+requieren inteligencia humana — tomar
+decisiones, reconocer patrones,
+responder a estimulos
+Un termostato que
+enciende la calefaccion
+cuando la temperatura
+baja de cierto punto
+2
+Machine Learning
+En lugar de programar explicitamente
+las reglas, le damos al sistema
+ejemplos y dejamos que encuentre las
+reglas por si mismo
+Un filtro de spam que
+aprende a detectar spam a
+partir de miles de ejemplos
+— sin que nadie le escriba
+las reglas
+3
+Deep Learning
+ML que usa redes neuronales con
+multiples capas. Puede procesar datos
+no estructurados (imagenes, audio,
+texto) y encontrar patrones que ningun
+humano podria programar
+Reconocimiento facial de
+tu telefono, subtitulos
+automaticos de YouTube,
+deteccion de cancer en
+imagenes medicas
+4 (la mas
+especifica)
+IA Generativa
+Usa todo lo anterior para crear
+contenido original — texto, imagenes,
+audio, video, codigo. No solo reconoce
+patrones existentes: genera nuevos
+ChatGPT, Claude,
+Midjourney, Sora, GitHub
+Copilot
+
+
+■ El resumen para contarle a alguien en el subte
+IA es el campo. Machine Learning es la tecnica de aprender de datos. Deep Learning es ML con redes
+neuronales complejas. IA Generativa es Deep Learning aplicado a crear cosas nuevas. Son capas que
+se construyen una sobre la otra — no tecnologias competidoras.
+Como funciona un LLM — sin matematica
+ChatGPT, Claude, Gemini — todos son Large Language Models (LLMs). Son modelos de lenguaje
+entrenados sobre enormes cantidades de texto. 'Large' se refiere tanto a los datos de
+entrenamiento (trillones de palabras) como a la cantidad de parametros internos — los numeros
+ajustables del modelo que pueden llegar a los cientos de miles de millones.
+El pre-entrenamiento: aprender prediciendo
+Un LLM aprende haciendo una tarea aparentemente simple: predecir la siguiente palabra en una
+secuencia. Se le muestra texto con palabras ocultas y tiene que adivinar cuales son. Hace eso
+miles de millones de veces — ajustando sus parametros internos cada vez que se equivoca —
+hasta que se vuelve muy bueno en predecir que texto viene despues de que texto.
+Lo revelador: para predecir bien el texto, el modelo termina aprendiendo implicitamente gramatica,
+hechos sobre el mundo, relaciones entre conceptos, estilos de escritura, y patrones de
+razonamiento — todo sin que nadie se lo ensene explicitamente. Todo emerge del objetivo de
+predecir la siguiente palabra a escala masiva. Fuente: Google for Developers —
+developers.google.com.
+RLHF — como un modelo predictivo se convierte en un asistente util
+Un modelo que solo hizo pre-entrenamiento es bueno completando texto — pero no
+necesariamente util. Si le escribis 'El mejor restaurante de Buenos Aires es...' te completa con lo
+mas estadisticamente probable, no con lo mas util para vos.
+RLHF (Reinforcement Learning from Human Feedback — Aprendizaje por Refuerzo con Feedback
+Humano) es la segunda etapa que convierte eso en un asistente. Evaluadores humanos califican
+distintos outputs del modelo segun cuales son mas utiles, honestos y seguros. Esas calificaciones
+entrenan un modelo de recompensa. Ese modelo de recompensa se usa para afinar el LLM para
+que responda como los humanos prefieren.
+Esa es la diferencia entre GPT-base (solo pre-entrenamiento) y ChatGPT (pre-entrenamiento +
+RLHF). Lo que parece 'personalidad' o 'sentido comun' en un chatbot es en gran parte el resultado
+de ese proceso de alineacion humana. Fuente: Wikipedia — Large Language Model.
+Tokens — la unidad basica del lenguaje para un LLM
+
+
+Un LLM no procesa palabras directamente — procesa tokens. Un token es un fragmento de texto: a
+veces una palabra completa, a veces parte de una palabra, a veces un simbolo de puntuacion. La
+palabra 'hola' puede ser un token. La palabra 'inteligencia' puede dividirse en dos o tres tokens.
+Esto explica algunos comportamientos extraños de los LLMs — como que cuenten mal las letras de
+una palabra, o que cometan errores aritmeticos simples. No estan procesando letras ni numeros
+directamente — estan procesando tokens, y ciertas operaciones que para un humano son triviales
+requieren razonamiento explicito que el modelo puede no tener. Fuente: Sean Trott —
+seantrott.substack.com.
+Context window — el limite de lo que el modelo 've'
+El context window (ventana de contexto) es la cantidad maxima de texto que un LLM puede 'ver'
+simultaneamente en una conversacion. Todo lo que esta fuera de esa ventana no existe para el
+modelo — no lo recuerda, no puede usarlo.
+MODELO
+CONTEXT WINDOW APROXIMADO
+GPT-4 (OpenAI)
+~128.000 tokens
+Claude 3 (Anthropic)
+~200.000 tokens
+Gemini 1.5 Pro (Google)
+~1.000.000 tokens
+Nota: estos tamanos son correctos a la fecha de escritura (2026) pero evolucionan con cada nueva version de cada
+modelo. Lo importante es el concepto, no los numeros exactos.
+Consecuencias practicas observables: por que el modelo 'olvida' cosas que dijiste al inicio de una
+conversacion larga, por que pegar un documento muy extenso puede degradar la calidad de las
+respuestas, por que algunos modelos manejan mejor documentos extensos que otros. Cuando una
+conversacion supera la ventana de contexto, las partes mas antiguas desaparecen del 'campo
+visual' del modelo.
+Lo que la IA hace bien y lo que hace mal — sin romantizar
+LO QUE LOS LLMs HACEN BIEN
+LO QUE LOS LLMs HACEN MAL O CON
+LIMITACIONES
+Generar texto fluido y coherente sobre temas bien
+representados en sus datos de entrenamiento
+Razonamiento matematico complejo — cometen
+errores en operaciones que cualquier calculadora
+resolveria
+Resumir y reorganizar informacion
+Hechos muy especificos o recientes — su
+conocimiento tiene fecha de corte
+Traducir entre idiomas
+Informacion sobre personas privadas o temas poco
+representados en internet
+
+
+Generar codigo funcional para tareas conocidas
+Tomar decisiones con consecuencias reales sin
+supervision humana
+Explicar conceptos de multiples formas
+Saber cuando no saben algo — tienden a responder
+con confianza aunque esten equivocados
+Alucinaciones — el problema tecnico mas importante que hay
+que entender
+El termino alucinacion en IA describe cuando un modelo genera informacion falsa con total
+confianza — como si fuera un hecho verificado. No es que el modelo 'mienta' deliberadamente. Es
+una consecuencia de como funciona: predice que texto es estadisticamente probable que venga
+despues, sin tener un mecanismo interno que verifique si lo que genera es verdad.
+■ Pensalo asi
+Un LLM es excepcionalmente bueno en sonar coherente y confiado. Esas dos cualidades —
+coherencia y confianza — no tienen correlacion necesaria con la veracidad. Un modelo puede generar
+una cita bibliografica perfectamente formateada de un paper que no existe, con autores reales y una
+revista real, pero el articulo es completamente inventado. Suena verdad porque el formato es correcto.
+No lo es.
+✦ Dato de color
+En 2023, un abogado de Nueva York presento ante la justicia federal citas de casos legales generadas
+por ChatGPT — casos que no existian. El juez descubrio que las referencias eran inventadas.
+ChatGPT habia generado titulos de casos perfectamente plausibles, con nombres de jueces reales y
+fechas reales — pero los casos eran ficticios. El abogado fue multado con 5.000 dolares. El modelo no
+supo que no sabia. Fuente: MIT Sloan — mitsloanedtech.mit.edu (caso Mata v. Avianca).
+Esto tiene implicancias practicas directas: cualquier output de un LLM que involucre hechos
+especificos, cifras, citas, o informacion tecnica requiere verificacion independiente antes de usarse
+en un contexto donde la exactitud importa.
+Sesgos en la IA — de donde vienen y por que importan
+Los modelos de IA aprenden de datos generados por humanos. Y los humanos tienen sesgos —
+historicos, culturales, sociales. Esos sesgos quedan codificados en los modelos.
+Origen tecnico: los datos de entrenamiento sobrerepresentan algunas culturas, idiomas y
+perspectivas — y subrepresentan otras. Un modelo entrenado mayormente en ingles y en
+contenido de Estados Unidos y Europa tendra una vision del mundo sesgada hacia esa
+perspectiva. Cuando ese modelo se despliega en Argentina, Colombia o Mexico, las respuestas
+
+
+pueden no reflejar el contexto local.
+Amplificacion del status quo: cuando un modelo refuerza las asociaciones mas frecuentes en sus
+datos, amplifica el status quo — incluyendo sus desigualdades. No es neutralidad, es amplificacion
+estadistica del pasado.
+Ejemplo documentado: el proyecto Gender Shades de Joy Buolamwini (MIT) encontro disparidades
+del orden del 30% en tasas de error entre mujeres de piel oscura y hombres de piel clara en
+sistemas comerciales de reconocimiento facial. Fuente: MIT Sloan — mitsloanedtech.mit.edu.
+■ La vuelta de tuerca tecnica
+Los sesgos en la IA son un argumento tecnico a favor del codigo abierto — si el codigo y los datos de
+entrenamiento son auditables por investigadores independientes, los sesgos pueden ser detectados y
+corregidos. En modelos cerrados, esa auditoria es imposible. Para PMs: si estas construyendo un
+producto que usa IA para tomar decisiones sobre personas — filtrar CVs, aprobar creditos,
+recomendar contenido — los sesgos del modelo son sesgos del producto. Son tu responsabilidad.
+La arquitectura Transformer — vuelta de tuerca tecnica
+El mecanismo que hace posibles los LLMs modernos se llama Transformer, introducido en el paper
+'Attention Is All You Need' de investigadores de Google en 2017. La idea central: el modelo puede
+prestar atencion a cualquier parte del texto de entrada simultaneamente, independientemente de
+que tan lejos este — no tiene que procesar el texto palabra por palabra.
+Esto permite que cuando el modelo procesa la palabra 'ella' en la oracion 'La doctora entro a la sala
+y ella reviso los resultados', entienda que 'ella' se refiere a 'la doctora' y no a cualquier otra mujer
+mencionada — incluso si hay mucho texto entre las dos referencias. Esa capacidad de relacionar
+cualquier parte del texto con cualquier otra es lo que se llama mecanismo de atencion. Fuente:
+Wikipedia — en.wikipedia.org/wiki/Transformer_(deep_learning_architecture).
+■ La vuelta de tuerca tecnica
+Antes del Transformer, el estado del arte eran las redes recurrentes (RNNs) — que procesaban el
+texto secuencialmente, palabra por palabra. Tenian un problema fundamental: 'olvidaban' el contexto
+de hace muchas palabras. El Transformer elimino ese problema al permitir que cada token preste
+atencion a todos los demas simultaneamente. El paper 'Attention Is All You Need' es uno de los
+trabajos academicos mas citados de la historia de la computacion — en solo 7 anos cambio
+completamente el campo. Referencia: arxiv.org/abs/1706.03762.
+RAG — la solucion mas importante a las alucinaciones
+
+
+RAG (Retrieval-Augmented Generation — Generacion Aumentada por Recuperacion) es la tecnica
+por la cual un LLM puede acceder a informacion externa en tiempo real antes de generar su
+respuesta — documentos, bases de datos, busquedas web — en lugar de depender
+exclusivamente de lo que aprendio durante el entrenamiento.
+Es la solucion mas usada al problema de las alucinaciones y al problema del knowledge cutoff
+(fecha de corte de conocimiento). Cuando un chatbot de atencion al cliente responde
+correctamente sobre la politica de devoluciones actualizada de hoy, no es que el LLM la memorizo
+— es que tiene RAG: busca la informacion en la documentacion oficial antes de responder.
+■ Pensalo asi
+Sin RAG, el LLM es como un experto que estudio muchisimo hasta hace un ano y desde entonces no
+leyo nada nuevo. Sabe mucho, pero su conocimiento tiene una fecha de vencimiento y puede inventar
+cosas sobre temas donde sus datos son escasos. Con RAG, ese mismo experto puede consultar
+documentos actualizados antes de responderte — sus respuestas son mas precisas y actualizadas.
+★ Bonus track
+La biblioteca que estas leyendo usa RAG en su version HTML interactiva: el asistente de IA puede
+acceder al contenido de los bloques antes de responderte, lo que reduce significativamente las
+alucinaciones sobre temas especificos del contenido. Es exactamente la arquitectura que veremos en
+el Bloque 9 de automatizaciones.
+AGI — que es y por que el debate importa
+AGI (Artificial General Intelligence — Inteligencia Artificial General) es el nombre tecnico para una
+IA que podria realizar cualquier tarea intelectual que un humano puede realizar — con la misma
+flexibilidad, adaptabilidad y comprension general. Lo que HAL 9000 o los robots de la ciencia ficcion
+representan.
+Los LLMs actuales NO son AGI. Son extremadamente buenos en tareas de lenguaje y
+razonamiento basado en texto, pero carecen de comprension genuina del mundo, de capacidad de
+aprender de forma continua de nuevas experiencias sin re-entrenamiento, y de agencia real sobre
+su entorno.
+■ Spoiler tecnico
+Cuando una empresa anuncia que 'alcanzo la AGI' o que esta 'muy cerca', conviene leer los detalles
+con cuidado. La definicion de AGI es lo suficientemente vaga como para ser usada de formas muy
+distintas. Lo que importa para el usuario no-tecnico es distinguir entre 'este modelo hace esto muy
+bien' y 'este modelo puede hacer cualquier cosa que un humano puede hacer' — dos afirmaciones
+radicalmente distintas.
+
+
+IA en Latinoamerica — el ecosistema regional
+■■■■ IA en la region
+NotCo (Chile) — empresa de foodtech latinoamericana unicornio que usa IA para disenar productos
+de origen vegetal que replican el sabor y textura de la carne y los lacteos. Su algoritmo 'Giuseppe'
+analiza miles de ingredientes y sus combinaciones para encontrar perfiles de sabor que imiten
+productos animales. Uno de los casos mas conocidos de IA aplicada a la industria de alimentos en la
+region. MercadoLibre — usa ML extensivamente para deteccion de fraude en tiempo real en
+MercadoPago, sistemas de recomendacion de productos, y prediccion de demanda en su red
+logistica. El desafio del idioma: los modelos de lenguaje estan predominantemente entrenados en
+ingles. El espanol, y mucho mas las variantes regionales del espanol latinoamericano, estan
+subrepresentados. Los modelos tienden a desempenarse mejor en ingles — un area activa de
+investigacion y desarrollo.
+Las preguntas que no tienen respuesta simple — y por que
+hay que hacerlas
+¿Quien es responsable cuando la IA se equivoca? El caso de Air Canada es ilustrativo: en 2024,
+un tribunal canadiense ordeno a la aerolinea pagar danos a un cliente por informacion incorrecta
+que su chatbot habia dado sobre una politica de tarifas. Air Canada argumento que el chatbot era
+'una entidad legal separada responsable de sus propias acciones.' El tribunal rechazo ese
+argumento. Quien despliega la IA es responsable de sus outputs. Fuente: Wikipedia —
+Hallucination (artificial intelligence).
+¿De quien son los datos que entrenan los modelos? Las empresas de IA entrenaron sus
+modelos con texto e imagenes de internet — incluyendo obras con derechos de autor. Los debates
+legales sobre esto estan activos en multiples jurisdicciones y no tienen resolucion clara todavia.
+¿Que pasa con el empleo? La IA automatiza tareas, no necesariamente trabajos completos. Un
+trabajo es un conjunto de tareas. La pregunta relevante no es '¿la IA va a reemplazar mi trabajo?'
+sino '¿que tareas de mi trabajo puede automatizar la IA, y hacia donde puedo redirigir mi energia?'
+— que es exactamente lo que exploramos en el Bloque 8.
+FUENTES UTILIZADAS EN ESTE BLOQUE
+ IBM Think — What is Artificial Intelligence? — ibm.com/think/topics/artificial-intelligence
+ IBM Think — What is Machine Learning? — ibm.com/think/topics/machine-learning
+ IBM Think — What is Deep Learning? — ibm.com/think/topics/deep-learning
+ IBM Think — What Are AI Hallucinations? — ibm.com/think/topics/ai-hallucinations
+ McKinsey — What is AI? — mckinsey.com/featured-insights/mckinsey-explainers/what-is-ai
+ AWS — What is Deep Learning? — aws.amazon.com/what-is/deep-learning
+ Google for Developers — LLMs: Transformers —
+developers.google.com/machine-learning/crash-course/llm/transformers
+
+
+ Towards Data Science — AI, ML, Deep Learning, and Generative AI — Clearly Explained —
+towardsdatascience.com
+ Wikipedia — Transformer (deep learning architecture) — en.wikipedia.org (cita paper 'Attention Is All You Need',
+arxiv.org/abs/1706.03762)
+ Wikipedia — Large Language Model — en.wikipedia.org
+ Wikipedia — Hallucination (artificial intelligence) — en.wikipedia.org
+ Sean Trott (UCSD) — Tokenization in Large Language Models — seantrott.substack.com
+ MIT Sloan — When AI Gets It Wrong: Addressing AI Hallucinations and Bias — mitsloanedtech.mit.edu
+ Harvard Kennedy School Misinformation Review — New sources of inaccuracy: AI hallucinations —
+misinforeview.hks.harvard.edu
+ 'Attention Is All You Need' — Vaswani et al., Google (2017) — arxiv.org/abs/1706.03762
+ NotCo — notco.com
+VIDEOS CURADOS DE YOUTUBE — BLOQUE 6
+IA, ML, Deep Learning e IA Generativa
+■ 3Blue1Brown — But what is a neural network?
+~19 min · Nivel basico · Ingles con
+subtitulos
+■ Fireship — Machine Learning in 100 Seconds
+2 min · Nivel basico · Ingles
+■ ByteByteGo — AI vs ML vs Deep Learning vs Neural Networks
+~8 min · Nivel basico · Ingles con subtitulos
+LLMs y como funcionan
+■ 3Blue1Brown — But what is GPT? Visual intro to transformers
+~27 min · Nivel basico-intermedio · Ingles
+con subtitulos — OBLIGATORIO
+■ Andrej Karpathy — Intro to Large Language Models
+~1 hora · Nivel basico-intermedio · Ingles
+con subtitulos
+■ Fireship — ChatGPT Explained in 5 Minutes
+5 min · Nivel basico · Ingles
+Alucinaciones y limitaciones
+■ Computerphile — AI Hallucination
+~15 min · Nivel basico · Ingles
+IA Generativa
+■ Fireship — Generative AI Explained in 2 Minutes
+2 min · Nivel basico · Ingles
+■ Google DeepMind — AlphaFold: The protein structure
+revolution
+~10 min · Nivel basico · Ingles con
+subtitulos
+QUIZ — ¿Entendiste el bloque?
+Este quiz no se aprueba con sentido comun. Requiere haber leido.
+1. La diferencia entre IA tradicional y Machine Learning es:
+a) El Machine Learning usa mas datos pero es mas lento
+b) En IA tradicional se programan las reglas explicitamente; en Machine Learning el sistema
+aprende las reglas por si mismo a partir de ejemplos ✓
+c) Machine Learning solo funciona con texto
+
+
+d) Son exactamente lo mismo
+2. ¿Por que se llama 'Deep' Learning?
+a) Porque requiere conocimiento profundo del dominio
+b) Porque usa redes neuronales con multiples capas — cada capa procesa representaciones
+mas abstractas de los datos ✓
+c) Porque procesa datos mas profundos que otros algoritmos
+d) Porque fue desarrollado en investigacion de nivel avanzado
+3. ¿Que es RLHF y por que importa?
+a) Es el proceso de entrenamiento inicial donde el modelo aprende de internet
+b) Es la segunda etapa de entrenamiento donde feedback humano alinea el modelo para que
+sea util, honesto y seguro — es la diferencia entre GPT-base y ChatGPT ✓
+c) Es el sistema que detecta y corrige alucinaciones en tiempo real
+d) Es el mecanismo que permite al modelo actualizar su conocimiento automaticamente
+4. ¿Que es el context window de un LLM?
+a) La interfaz grafica donde el usuario escribe sus prompts
+b) La cantidad maxima de texto que el modelo puede 'ver' simultaneamente — todo lo que
+queda fuera no existe para el modelo ✓
+c) El historial de conversaciones que el modelo recuerda entre sesiones
+d) El numero maximo de idiomas que el modelo puede procesar
+5. Una alucinacion en un LLM ocurre porque:
+a) El modelo fue entrenado con datos incorrectos a proposito
+b) El modelo predice texto estadisticamente probable sin tener un mecanismo interno que
+verifique si lo que genera es verdad ✓
+c) El usuario hizo una pregunta ambigua
+d) El modelo detecto una trampa en la pregunta
+6. Los sesgos en modelos de IA provienen principalmente de:
+a) Errores de programacion en el codigo del modelo
+b) Que los desarrolladores de IA son mayormente hombres
+c) Los datos de entrenamiento — que reflejan sesgos historicos, culturales y sociales
+presentes en el texto e imagenes con que fue entrenado el modelo ✓
+d) El hardware usado para entrenar los modelos
+7. ¿Que es RAG y que problema resuelve?
+a) Un tipo de red neuronal mas eficiente que el Transformer
+b) Un sistema que permite al LLM acceder a informacion externa en tiempo real antes de
+responder — resuelve el problema de alucinaciones y de conocimiento desactualizado ✓
+c) Un metodo de entrenamiento alternativo al RLHF
+d) Una tecnica para reducir el tamano del context window
+8. ¿Por que el paper 'Attention Is All You Need' (2017) fue revolucionario?
+a) Fue el primero en usar GPUs para entrenamiento de modelos
+b) Introdujo el mecanismo de atencion que permite a cada token relacionarse con todos los
+demas simultaneamente, eliminando el problema del 'olvido' de contexto lejano de las redes
+anteriores ✓
+c) Fue el primer modelo en superar a los humanos en comprension lectora
+
+
+d) Demostro que los LLMs pueden razonar matematicamente
+9. Los LLMs actuales son AGI?
+a) Si — ChatGPT y Claude ya alcanzaron la AGI
+b) No — aunque son muy capaces en tareas de lenguaje, carecen de comprension genuina del
+mundo, aprendizaje continuo de nuevas experiencias y agencia real ✓
+c) Depende del modelo — algunos son AGI y otros no
+d) Es imposible saberlo porque AGI no tiene una definicion tecnica
+
+
+PROXIMOS BLOQUES 
+Bloque 7 — Herramientas que ya podes usar Bloque 8 — IA
+aplicada a tu trabajo Bloque 9 — Automatizaciones Bloque 10 —
+ Para ir mas lejos
+ 
+Este documento es el input de contenido para la biblioteca HTML interactiva. Al cargarlo
+en Claude Code, todos los links seran hipervinculos clicables, el contenido tendra
+navegacion interna entre bloques, quizzes interactivos y diseno editorial de alta calidad.
+
+

@@ -1,20 +1,30 @@
-import { supabase } from './supabase'
+import { getSupabaseServer } from './supabase-server'
 
-export async function getApprovedAportes() {
-  const { data, error } = await supabase
+// --- Aportes ---
+
+export async function getApprovedAportes(nodoId) {
+  const supabase = getSupabaseServer()
+  let query = supabase
     .from('aportes')
     .select('*')
-    .eq('status', 'aprobado')
-    .order('fecha', { ascending: false })
+    .eq('estado', 'aprobado')
+    .order('created_at', { ascending: false })
+
+  if (nodoId) {
+    query = query.eq('nodo_id', nodoId)
+  }
+
+  const { data, error } = await query
 
   if (error) throw error
   return data
 }
 
-export async function createAporte(aporte) {
+export async function createAporte({ nodo_id, contenido, autor_nombre }) {
+  const supabase = getSupabaseServer()
   const { data, error } = await supabase
     .from('aportes')
-    .insert([aporte])
+    .insert([{ nodo_id, contenido, autor_nombre, estado: 'pendiente' }])
     .select()
     .single()
 
@@ -22,12 +32,62 @@ export async function createAporte(aporte) {
   return data
 }
 
-export async function addVote(aporteId, tipo, ipHash) {
+// --- Votos ---
+
+export async function addVote({ nodo_id, tipo, session_id }) {
+  const supabase = getSupabaseServer()
   const { data, error } = await supabase
     .from('votos')
-    .insert([{ aporte_id: aporteId, tipo, ip_hash: ipHash }])
+    .insert([{ nodo_id, tipo, session_id }])
     .select()
     .single()
+
+  if (error) {
+    if (error.code === '23505') {
+      return { alreadyVoted: true }
+    }
+    throw error
+  }
+  return data
+}
+
+// --- Bloques ---
+
+export async function getBloques() {
+  const supabase = getSupabaseServer()
+  const { data, error } = await supabase
+    .from('bloques')
+    .select('*')
+    .eq('estado', 'publicado')
+    .order('orden', { ascending: true })
+
+  if (error) throw error
+  return data
+}
+
+// --- Nodos ---
+
+export async function getNodoBySlug(slug) {
+  const supabase = getSupabaseServer()
+  const { data, error } = await supabase
+    .from('nodos')
+    .select('*')
+    .eq('slug', slug)
+    .single()
+
+  if (error) throw error
+  return data
+}
+
+// --- Recursos ---
+
+export async function getRecursosByNodo(nodoId) {
+  const supabase = getSupabaseServer()
+  const { data, error } = await supabase
+    .from('recursos')
+    .select('*')
+    .eq('nodo_id', nodoId)
+    .order('orden', { ascending: true })
 
   if (error) throw error
   return data

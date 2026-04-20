@@ -54,20 +54,44 @@ Personas no técnicas, hispanohablantes, que quieren entender cómo funciona la 
 
 ## 2. Descripción general del producto
 
-### 2.1 Problema
+### 2.1 Problema que resuelve
 
-Las personas no técnicas no tienen un recurso que explique de forma sistémica, progresiva y sin jerga cómo funciona el mundo tech. Los recursos existentes son fragmentados, técnicos o caóticos.
+Las personas no técnicas que quieren entender cómo funciona el mundo tech suelen encontrarse con contenidos fragmentados, excesivamente técnicos o mal secuenciados.
 
-### 2.2 Solución
+La mayoría de los recursos:
+- asumen conocimientos previos,
+- enseñan herramientas sin explicar lógica,
+- generan frustración y sensación de incapacidad.
 
-Un sistema de aprendizaje guiado que organiza el conocimiento en bloques temáticos con nodos de aprendizaje conectados, recorridos predefinidos y capas de profundización opcional.
+Esto hace que muchas personas abandonen antes de entender los conceptos base.
+
+### 2.2 Solución propuesta
+
+Biblioteca de IA y Sistemas propone una experiencia de aprendizaje guiado que organiza el conocimiento de forma progresiva y conectada.
+
+La plataforma permite:
+- entender conceptos complejos con lenguaje humano,
+- avanzar por recorridos claros,
+- profundizar solo cuando el usuario lo necesita,
+- relacionar ideas entre sí,
+- aprender sin sentirse perdido.
+
+El valor del producto no está en la cantidad de contenido, sino en la comprensión real que genera.
 
 ### 2.3 Filosofía pedagógica
 
-- El valor no está en la cantidad de contenido. Está en la comprensión real que genera.
-- No es una enciclopedia. Es un recorrido con progresión.
-- Guía primero, personalización después.
-- Tono humano, no académico.
+La plataforma se basa en una lógica de aprendizaje por capas:
+- primero comprensión general,
+- luego profundización opcional,
+- después aplicación práctica.
+
+Principios:
+- guía antes que libertad
+- claridad antes que densidad
+- sistema antes que herramienta
+- lenguaje humano antes que jerga
+
+No busca enseñar herramientas aisladas. Busca enseñar a pensar cómo funcionan los sistemas.
 
 ---
 

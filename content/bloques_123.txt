@@ -1,0 +1,899 @@
+BIBLIOTECA DE IA
+Y SISTEMAS
+ Guía de referencia para entender cómo funciona
+el mundo tech — en lenguaje humano
+ 
+ BLOQUES 1 · 2 · 3
+ Cómo piensan las computadoras · Cómo se guarda la información
+ Cómo se conectan las cosas
+ 
+ Ejemplos del ecosistema tech de la región · Fuentes verificadas
+Videos curados con descripción de nivel y duración
+ 
+ Compilado por Emilse Bergamin · 2026
+ 
+
+CÓMO USAR ESTA BIBLIOTECA
+■ Pensalo así / En criollo / El
+resumen para contarle a alguien en
+el subte
+Analogías y ejemplos cotidianos para entender conceptos
+técnicos sin background previo.
+✦ Dato de color
+Historias y datos curiosos sobre el origen de las tecnologías. El
+tipo de info que hace que una conversación técnica sea
+memorable.
+■ La vuelta de tuerca técnica / ■
+Spoiler técnico
+Profundidad adicional para los que quieren ir un paso más allá.
+Opcional, pero recomendado.
+★ Bonus track
+Información adicional interesante que no es esencial pero suma
+contexto.
+■■ En Argentina y Latinoamérica
+Ejemplos de empresas regionales como MercadoLibre, Rappi y
+MercadoPago para conectar los conceptos con el ecosistema
+local.
+Quiz al final de cada bloque
+No se aprueba con sentido común. Si podés responder bien,
+entendiste el bloque.
+Videos curados
+Cada video incluye: canal, tema, duración estimada, nivel
+(básico/intermedio) e idioma. Todos verificados como los mejor
+rankeados de su categoría.
+Los links a fuentes y videos en este PDF son referencias de texto. Al cargar este documento en Claude Code,
+ todos los links serán convertidos a hipervínculos clicables en el HTML final de la biblioteca.
+ 
+
+BLOQUE 1
+Cómo piensan las computadoras
+El idioma que habla el mundo que te rodea
+¿Qué es un algoritmo?
+La palabra 'algoritmo' suena a cosa de científico con guardapolvo y café frío. En realidad, es una de
+las ideas más cotidianas que existen — y probablemente ya usaste una hoy a la mañana.
+Un algoritmo es simplemente un conjunto de pasos usados para completar una tarea específica.
+Son los bloques fundamentales de la programación, y permiten que computadoras, teléfonos y
+sitios web funcionen y tomen decisiones.
+Cuando te levantás a la mañana y preparás mate, ejecutás un algoritmo: hervís el agua, esperás
+que baje a 80°, ponés la yerba, cebás despacio desde el costado. Si hacés los pasos en distinto
+orden — por ejemplo, tirás el agua hirviendo directo — el resultado cambia. Los algoritmos son
+sensibles al orden. Las computadoras también, pero con cero margen para la improvisación.
+■ Spoiler técnico
+Cuando alguien dice 'el algoritmo de Instagram decidió no mostrar tu post', está hablando
+exactamente de esto — una secuencia de reglas que una empresa definió para decidir qué mostrar a
+quién, cuándo, y con qué prioridad. No es magia, no es capricho. Son instrucciones escritas por
+personas, con criterios definidos por personas, que reflejan los intereses de un negocio. Lo vemos en
+profundidad en el Bloque 8.
+¿Qué es un lenguaje de programación?
+Las computadoras, en el fondo, solo entienden un idioma: ceros y unos. Electricidad que pasa o no
+pasa. Sí o no. Prendido o apagado. Todo lo que hace una computadora — reproducir un video,
+enviar un mensaje, mostrar una imagen — se reduce a millones de decisiones binarias por
+segundo.
+Escribir instrucciones directamente en ceros y unos es técnicamente posible y prácticamente una
+pesadilla. Por eso se inventaron los lenguajes de programación: idiomas intermedios que los
+humanos pueden escribir y leer, y que se traducen automáticamente al lenguaje de la máquina.
+■ Pensalo así
+
+
+Imaginá que querés darle instrucciones a alguien que solo habla mandarín y vos solo hablás
+castellano. Necesitás un intérprete en el medio. Los lenguajes de programación son ese intérprete
+entre vos y la máquina — solo que mucho más rápido y sin errores.
+Compilado vs interpretado — por qué algunos lenguajes son
+más rápidos
+Todos los lenguajes de programación necesitan traducirse al idioma de la máquina. Pero hay dos
+formas muy distintas de hacer esa traducción, y eso cambia todo.
+Lenguajes compilados
+Un compilador toma todo el código fuente, lo traduce de una sola vez a código ejecutable en
+lenguaje de máquina, y genera un archivo que puede correr directamente.
+■ Pensalo así
+Es como traducir un libro entero del inglés al castellano antes de publicarlo. El trabajo de traducción es
+grande y lleva tiempo, pero una vez hecho, cualquiera puede leerlo rapidísimo porque ya está en su
+idioma. C++ y Go son lenguajes compilados.
+Lenguajes interpretados
+Un intérprete toma el código fuente y lo ejecuta línea por línea, traduciéndolo mientras corre. No
+genera un archivo ejecutable separado — necesita al intérprete presente cada vez. Python es
+interpretado — por eso es tan fácil de usar y popular para prototipos y ciencia de datos, aunque no
+sea el más veloz.
+■ La vuelta de tuerca técnica
+JavaScript es técnicamente interpretado, pero los navegadores modernos lo compilan 'justo a tiempo'
+(Just-In-Time compilation, o JIT) para hacerlo más rápido. Es lo mejor de los dos mundos — y es parte
+de por qué la web hoy puede correr apps tan complejas directamente en el navegador.
+El mapa del territorio: Python, JavaScript y SQL
+LENGUAJE
+PARA QUÉ SIRVE
+DÓNDE LO VAS A ESCUCHAR
+Python
+IA, datos, automatizaciones,
+ciencia de datos
+'El modelo fue entrenado en Python', 'usamos
+Python para análisis'
+JavaScript
+Web frontend — todo lo que el
+usuario ve e interactúa
+'La app está en React + JavaScript', 'el botón no
+funciona en el frontend'
+
+
+SQL
+Consultar y manipular datos en
+bases de datos relacionales
+'Hacé una query en SQL', 'el reporte viene de la
+base de datos'
+■ En criollo
+Python es el chef que sabe hacer de todo. JavaScript es el mozo — el que interactúa con vos
+directamente. SQL es el sistema de inventario de la cocina — no cocina nada, pero sabe exactamente
+qué hay, dónde está, y te lo trae cuando lo pedís. Sin el sistema de inventario, el chef más talentoso
+del mundo no sabe si tiene huevos.
+Variables, funciones y condiciones — los tres ladrillos de
+todo
+Estos tres conceptos aparecen en todos los lenguajes de programación, sin excepción. Si entendés
+esto, entendés el 60% de cómo piensa cualquier programa.
+Variable — Un cajón con nombre donde guardás información. El cajón se llama nombre_usuario y
+adentro dice 'Emi'. Después podés usar ese cajón en cualquier parte del programa sin repetir 'Emi'
+cada vez. Si la información cambia, cambiás el contenido del cajón y el programa entero se
+actualiza solo.
+Función — Una receta guardada que podés reusar cuantas veces quieras. Escribís una vez los
+pasos para 'calcular el precio con descuento', le ponés un nombre, y después la llamás cada vez
+que necesitás ese cálculo sin reescribir todo.
+Condición — Una bifurcación. 'Si pasa esto, hacé aquello. Si no, hacé lo otro.' Es exactamente
+como suena. Si el usuario está logueado → mostrá su perfil. Si no → mostrá la pantalla de login.
+Toda la lógica de cualquier app del mundo está construida sobre estas bifurcaciones apiladas.
+Frameworks y librerías — la diferencia que importa
+Una librería es una colección de herramientas que podés usar cuando querás, en el orden que
+querás. Un framework es una estructura que define cómo se organiza todo tu proyecto — te dice
+dónde van las cosas, qué orden tienen que tener, cómo se conectan las partes.
+■ En criollo
+Con una librería, vos llamás al código. Con un framework, el framework te llama a vos. El framework
+pone las reglas del juego; vos jugás dentro de esas reglas.
+React — Cómo se construyen las apps modernas
+
+
+React es hoy una de las tecnologías más usadas para construir interfaces web. Es una librería de
+JavaScript de código abierto mantenida por Meta. Según el Stack Overflow Developer Survey 2025,
+React es una de las tecnologías web más usadas del mundo.
+La idea central: las apps de React están construidas con componentes — piezas de interfaz que
+tienen su propia lógica y apariencia. El estado (state) es la verdad actual de la aplicación. React se
+encarga de que todos los componentes que dependen del estado se actualicen automáticamente y
+en sincronía.
+■■ En Argentina y Latinoamérica
+MercadoLibre, el mayor marketplace de la región con sede en Buenos Aires, usa React en su frontend
+junto con Angular y Next.js. Su equipo de más de 15.000 ingenieros maneja más de 30.000
+microservicios. El blog técnico de MercadoLibre (medium.com/mercadolibre-tech) documenta en
+detalle cómo evolucionaron de una arquitectura monolítica a una plataforma multicloud — una lectura
+obligada para entender cómo escala un producto tech regional a nivel global. Fuente:
+medium.com/mercadolibre-tech + go.dev/solutions/mercadolibre
+■ El resumen para contarle a alguien en el subte
+React es la razón por la que cuando le das 'me gusta' a algo en Instagram, el corazón se pone rojo
+instantáneamente sin que la página entera se recargue. Ese pequeño detalle requirió décadas de
+evolución técnica para funcionar tan naturalmente.
+Node.js — JavaScript del lado del servidor
+Antes de Node.js, JavaScript solo podía correr en el navegador. Node.js es un entorno de ejecución
+de JavaScript que corre fuera del navegador, directamente en el servidor. Node.js usa
+programación asíncrona — no bloqueante. Puede seguir trabajando mientras espera tareas como
+leer archivos o hablar con una base de datos.
+■ Pensalo así
+Un restaurante donde el mozo toma tu pedido, lo pasa a la cocina, y mientras espera que esté listo va
+tomando el pedido de otras tres mesas. Ese mozo es Node.js. No se queda parado mirando la cocina
+esperando que termine tu pedido antes de atender a alguien más.
+TypeScript — JavaScript con el manual incluido
+En el mundo real, casi nadie escribe JavaScript puro en proyectos serios. TypeScript es JavaScript
+con reglas más estrictas que resuelve el problema del tipado estático.
+
+
+En JavaScript puro, podés crear una variable que hoy guarda un número, mañana un texto, y
+pasado mañana una lista — y el lenguaje no se queja. Esa flexibilidad es cómoda cuando el
+proyecto es chico. Con 50 archivos y 8 personas trabajando en paralelo, esa flexibilidad se
+convierte en caos. Una función espera un número, alguien le manda un texto, y el sistema explota
+en producción a las 3 de la mañana.
+■ En criollo
+Armar un mueble sin el manual es JavaScript. TypeScript es el manual incluido, que además te grita si
+estás poniendo el tornillo equivocado antes de que te des cuenta de que armaste la puerta al revés.
+■ La vuelta de tuerca técnica
+TypeScript no corre directamente en el navegador. Se transpila — se convierte automáticamente a
+JavaScript antes de ejecutarse. Es como escribir en un dialecto propio y tener un traductor que lo
+convierte al idioma que el navegador entiende. Hoy, la mayoría de los proyectos React en empresas
+serias usan TypeScript. Cuando ves 'React + TypeScript' en una búsqueda de trabajo, no es un
+nice-to-have — es el estándar de la industria en 2026.
+npm y package.json — el App Store del código
+npm (Node Package Manager) es el sistema que usa el ecosistema JavaScript para instalar,
+compartir y gestionar código que otras personas ya escribieron. Tiene más de 2 millones de
+paquetes disponibles — el ecosistema de librerías más grande del mundo del software.
+El package.json es la 'lista de ingredientes' de cualquier proyecto JavaScript. Lista todas las
+librerías que el proyecto necesita, sus versiones, y comandos útiles. Cuando alguien te manda un
+proyecto y te dice 'corré npm install', lo que hace ese comando es leer el package.json y descargar
+automáticamente todo lo que lista.
+■ Pensalo así
+El package.json es la lista de compras de una receta. npm es el delivery que trae todo lo de la lista. Si
+alguien cambió un ingrediente sin avisarte — te mandaron harina integral cuando la receta pedía
+harina común — el plato puede quedar raro. Eso es un conflicto de dependencias — uno de los
+errores más comunes en desarrollo.
+Código abierto vs código cerrado — y por qué importa en IA
+Código cerrado (propietario): el código fuente es secreto. GPT-4 de OpenAI es código cerrado.
+Código abierto (open source): el código es público — cualquiera puede leerlo, auditarlo, modificarlo
+y construir sobre él. Llama de Meta y muchos modelos de Hugging Face son open source.
+
+
+Esto determina tres cosas: quién controla la tecnología, quién puede innovar sobre ella, y — esto
+es lo que casi nadie menciona — quién puede auditarla por errores o sesgos. Un modelo open
+source puede ser inspeccionado por investigadores independientes del mundo entero. Un modelo
+cerrado es una caja negra.
+✦ Dato de color
+El término 'open source' fue acuñado en 1998 en una reunión en Palo Alto, después de que Netscape
+anunciara que liberaría el código fuente de su navegador. Christine Peterson, cofundadora del
+Foresight Institute, propuso el término como alternativa más accesible a 'free software' — que en
+inglés genera confusión porque 'free' puede significar tanto 'libre' como 'gratis'. Un problema de
+traducción que cambió la historia de la industria. Fuente: Open Source Initiative —
+opensource.org/history
+FUENTES UTILIZADAS EN ESTE BLOQUE
+ MIT Technology Review — The algorithms around us (2024) — technologyreview.com
+ GCF Global — Computer Science: Algorithms — edu.gcfglobal.org
+ React Official Docs — Quick Start & Thinking in React — react.dev/learn
+ Stack Overflow — Developer Survey 2025 — survey.stackoverflow.co/2025
+ freeCodeCamp — What is Node.js? — freecodecamp.org/news/what-is-node-js
+ Node.js Official Docs — Introduction to Node.js — nodejs.org/learn
+ GeeksforGeeks — Node.js Introduction — geeksforgeeks.org/node-js
+ npm Official Docs — About npm — docs.npmjs.com/about-npm
+ Open Source Initiative — History of the OSI — opensource.org/history
+ MercadoLibre Tech Blog — From monolith to multicloud — medium.com/mercadolibre-tech
+ Go.dev — MercadoLibre Grows with Go — go.dev/solutions/mercadolibre
+VIDEOS CURADOS DE YOUTUBE
+Algoritmos desde cero
+■ freeCodeCamp — Algorithms and Data Structures for
+Beginners
+~5 hs · Nivel básico · Inglés con subtítulos
+■ 3Blue1Brown — Visualizaciones matemáticas y algorítmicas
+Variable · Nivel básico · Inglés con
+subtítulos
+Lenguajes y compilación
+■ Fireship — Compiled vs Interpreted in 100 Seconds
+2 min · Nivel básico · Inglés
+■ Fireship — 100 Seconds of Code series (Python, JS,
+TypeScript, Node)
+2 min c/u · Nivel básico · Inglés
+■ Programming with Mosh — Python Tutorial for Beginners
+~6 hs · Nivel básico · Inglés con subtítulos
+(30M+ vistas)
+React
+
+
+■ The Net Ninja — React Tutorial for Beginners
+Serie ~10 hs · Nivel básico · Inglés con
+subtítulos
+■ Traversy Media — React Crash Course
+~2 hs · Nivel básico · Inglés con subtítulos
+TypeScript
+■ Fireship — TypeScript in 100 Seconds
+2 min · Nivel básico · Inglés
+■ The Net Ninja — TypeScript Tutorial for Beginners
+Serie ~4 hs · Nivel básico · Inglés con
+subtítulos
+Node.js
+■ freeCodeCamp — Node.js and Express.js Full Course
+~8 hs · Nivel básico-intermedio · Inglés con
+subtítulos
+■ Fireship — Node.js in 100 Seconds
+2 min · Nivel básico · Inglés
+QUIZ — ¿Entendiste el bloque?
+Este quiz no se aprueba con sentido común. Requiere haber leído.
+1. ¿Cuál es la diferencia entre una librería y un framework?
+a) El framework es más caro
+b) Con una librería vos llamás al código; con un framework, el framework estructura cómo
+organizás todo y vos jugás dentro de sus reglas ✓
+c) Las librerías son para Python y los frameworks para JavaScript
+d) No hay diferencia real, son sinónimos
+2. TypeScript resuelve el problema del tipado estático. ¿Qué significa eso?
+a) Hace que JavaScript corra más rápido
+b) Obliga a declarar de antemano qué tipo de dato tiene cada variable, previniendo errores
+antes de ejecutar el código ✓
+c) Permite que TypeScript corra en más sistemas operativos
+d) Es el reemplazo oficial de JavaScript
+3. ¿Qué es el package.json?
+a) El archivo principal donde se escribe el código de una app
+b) La configuración del servidor de producción
+c) La lista de todas las librerías y dependencias que un proyecto necesita para funcionar ✓
+d) El archivo que genera npm automáticamente al instalar React
+4. La diferencia clave entre código abierto y cerrado en IA es:
+a) El precio de uso
+b) La velocidad de los modelos
+c) Si el código puede ser auditado por investigadores independientes para detectar errores o
+sesgos ✓
+d) El lenguaje de programación usado para entrenar el modelo
+5. TypeScript no corre directamente en el navegador porque:
+
+
+a) Es un lenguaje demasiado nuevo para ser soportado
+b) Primero se transpila — se convierte automáticamente a JavaScript antes de ejecutarse ✓
+c) Solo corre en servidores Node.js
+d) Requiere un plugin especial del navegador
+6. El concepto de 'estado' en React se refiere a:
+a) El servidor donde está alojada la app
+b) La verdad actual de la aplicación — qué datos tiene y cómo se ve en un momento dado ✓
+c) El archivo de configuración del proyecto
+d) El historial de versiones del código
+
+
+BLOQUE 2
+Cómo se guarda la información
+Todo lo que hacés en internet queda en algún lado. Este bloque explica en dónde y
+cómo.
+El problema que las bases de datos vinieron a resolver
+Imaginá que tenés una verdulería. Al principio anotás todo en un cuaderno. Funciona bien cuando
+tenés 10 clientes. Cuando tenés 50.000 clientes comprando al mismo tiempo desde sus teléfonos
+— el cuaderno se prende fuego metafóricamente.
+Una base de datos es un sistema organizado para almacenar, gestionar y recuperar información de
+manera eficiente. Cada vez que iniciás sesión en Instagram, comprás en Mercado Libre, o
+chequeás tu saldo bancario, hay una base de datos respondiendo tu consulta en tiempo real.
+Excel vs base de datos real
+Excel: diseñado para trabajo manual de una persona, sin reglas de consistencia, no escala bien, no
+permite acceso simultáneo de muchos usuarios.
+Base de datos: diseñada para miles de usuarios simultáneos, reglas estrictas de tipos de dato,
+garantía de consistencia, escala a miles de millones de registros.
+■ Pensalo así
+Excel es una libreta de apuntes. Una base de datos es el sistema de inventario de un supermercado
+que sabe en tiempo real cuántas unidades de cada producto quedan, cuándo vencen, qué proveedor
+las trajo, y cuántas se vendieron hoy — y puede responder esa pregunta para 50 empleados al mismo
+tiempo mientras los clientes compran.
+SQL — el idioma con el que le hablás a los datos
+SQL son las siglas de Structured Query Language — Lenguaje de Consulta Estructurado. La
+palabra clave es query — consulta. SQL es literalmente el idioma con el que le hacés preguntas a
+una base de datos. Es declarativo — le decís qué querés, no cómo buscarlo.
+EJEMPLO DE CONSULTA SQL (en castellano)
+
+
+SELECCIONÁ nombre_cliente, SUMA(total_compra) DE la tabla ventas DONDE el mes sea
+abril de 2026 AGRUPALOS por cliente ORDENALOS de mayor a menor MOSTRAME solo los
+primeros 5
+Los cuatro comandos fundamentales: SELECT (mostrame), INSERT (agregá), UPDATE (modificá),
+DELETE (borrá). Todo lo que hace una app con sus datos es alguna combinación de estos cuatro.
+Bases de datos relacionales — el estándar de la industria
+Las bases de datos relacionales almacenan datos en tablas con columnas y filas. A cada tabla se le
+asigna una clave primaria — un identificador único para cada registro. Las tablas se vinculan entre
+sí mediante claves foráneas, evitando repetir datos innecesariamente. Esto se llama normalización.
+Tabla usuarios (ejemplo MercadoLibre):
+ID
+Nombre
+Email
+Ciudad
+001
+Emi
+emi@mail.com
+Buenos Aires
+002
+Juan
+juan@mail.com
+Córdoba
+✦ Dato de color
+El concepto de base de datos relacional fue inventado en 1970 por Edgar F. Codd, matemático
+británico de IBM, en su paper 'A Relational Model of Data for Large Shared Data Banks' publicado en
+Communications of the ACM — la revista más prestigiosa de ciencias de la computación. IBM tardó
+años en implementar su propia idea porque los ejecutivos no creían que fuera viable. Mientras tanto,
+dos estudiantes de Stanford leyeron el paper, lo implementaron, y fundaron Oracle. Hoy Oracle vale
+300 mil millones de dólares. La historia de 'la empresa que ignoró su propia innovación' es un clásico.
+Fuente: ACM Digital Library — dl.acm.org/doi/10.1145/362384.362685
+El schema — la estructura que define todo
+El schema es la estructura predefinida de una base de datos. Define qué tablas existen, qué
+columnas tiene cada una, qué tipo de dato acepta cada campo, y qué reglas se aplican. Cuando
+esa estructura necesita cambiar, se hace una migración de schema.
+■ Pensalo así
+El schema es el plano de un edificio antes de construirlo. Si alguien quiere agregar una habitación
+después de que el edificio está construido, hay que hacer una reforma — que en el mundo de las
+bases de datos se llama migración de schema.
+■ El resumen para contarle a alguien en el subte
+
+
+Cuando le pedís a tu equipo 'agregar el campo de fecha de nacimiento al perfil de usuario', lo que
+estás pidiendo técnicamente es una migración de schema. Si la tabla de usuarios ya tiene un millón de
+registros, esa migración tiene que ejecutarse sin interrumpir el servicio. No es un cambio de cinco
+minutos — y entender por qué te convierte en una mejor PM.
+Transacciones y propiedades ACID — el estándar de oro
+Una transacción es un conjunto de operaciones que se ejecutan como una unidad indivisible. O
+todas tienen éxito, o ninguna se aplica. Las transacciones confiables tienen cuatro propiedades
+conocidas con el acrónimo ACID:
+ACI
+D
+PROPIEDAD
+QUÉ SIGNIFICA
+A
+Atomicity (Atomicidad)
+Todo o nada. O todas las operaciones se completan, o ninguna se aplica.
+C
+Consistency (Consistencia)
+La base de datos siempre pasa de un estado válido a otro. Nunca queda 'rota'.
+I
+Isolation (Aislamiento)
+Las transacciones concurrentes no se 'ven' entre sí hasta que terminan.
+D
+Durability (Durabilidad)
+Una vez confirmada la transacción, los cambios son permanentes aunque el servidor se apague.
+■ Pensalo así
+Es como cuando hacés una mudanza. O todas las cajas llegan al nuevo departamento, o si el camión
+se rompe en el camino volvés todo al punto de partida. Lo que no puede pasar es que la mitad de tus
+pertenencias quede en la calle.
+■ La vuelta de tuerca técnica
+Cuando escuchás que una base de datos es 'ACID compliant', significa que garantiza estas cuatro
+propiedades en todas sus transacciones. PostgreSQL, MySQL y la mayoría de las bases relacionales
+son ACID compliant por defecto. Algunas bases NoSQL sacrifican partes de ACID para ganar
+velocidad y escala — es uno de los trade-offs más importantes en arquitectura de sistemas. Fuente:
+freeCodeCamp — ACID Databases Explained — freecodecamp.org/news/acid-databases-explained
+Bases de datos no relacionales (NoSQL)
+Las bases de datos no relacionales son ideales cuando los datos son variables o no estructurados.
+Los cuatro tipos principales:
+Documentos (MongoDB) — Guarda datos en formato JSON. Ideal para redes sociales y
+catálogos.
+Clave-valor (Redis) — Búsquedas ultrarrápidas. Ideal para caché y sesiones.
+
+
+Columnas anchas (Cassandra) — Datasets masivos distribuidos. Ideal para apps de alta escala.
+Grafos (Neo4j) — Datos con relaciones complejas. Ideal para redes sociales y detección de
+fraude.
+■ En criollo
+Una base relacional es un placard con cajones etiquetados — todo tiene su lugar fijo. Una base no
+relacional es una mochila — tirás lo que necesitás, en el formato que sea, y lo encontrás cuando lo
+precisás. Menos orden, más flexibilidad.
+■■ Rappi — De monolito a microservicios con AWS
+Rappi, la startup colombiana de delivery valuada en más de 5.200 millones de dólares, comenzó con
+una arquitectura monolítica que pronto resultó insuficiente. Al escalar a 9 países y 9 líneas de negocio,
+migró a una arquitectura de microservicios con múltiples bases de datos especializadas: Amazon
+DocumentDB (compatible con MongoDB) para datos de pedidos, Elasticsearch para búsqueda de
+catálogo y productos, y AWS para su infraestructura cloud. Cada microservicio está organizado por
+unidad de negocio y por país. Fuente: AWS Case Study —
+aws.amazon.com/es/solutions/case-studies/rappi-documentdb-case-study
+PostgreSQL, Supabase y Firebase — el ecosistema moderno
+PostgreSQL es la base de datos relacional de código abierto más usada del mundo. Supabase es
+una plataforma moderna construida sobre PostgreSQL con herramientas modernas encima.
+Firebase es la opción de Google, no relacional, ideal para datos en tiempo real.
+★ Bonus track
+Si tu equipo dice 'vamos a usar Supabase', ya sabés que están eligiendo PostgreSQL como motor de
+base de datos, con herramientas modernas encima. Eso cambia cómo podés participar en la
+conversación técnica — y demuestra que entendés el stack, no solo la superficie.
+FUENTES UTILIZADAS EN ESTE BLOQUE
+ AWS — Relational vs Non-Relational Databases — aws.amazon.com/compare
+ Coursera — Relational vs. Non-Relational Database — coursera.org/articles
+ MongoDB — ACID Transactions — mongodb.com/resources/basics/databases/acid-transactions
+ DataCamp — What Are ACID Transactions? — datacamp.com/blog/acid-transactions
+ freeCodeCamp — ACID Databases Explained — freecodecamp.org/news/acid-databases-explained
+ Databricks — What are ACID Transactions? — databricks.com/glossary/acid-transactions
+ ACM Digital Library — E.F. Codd, 'A Relational Model of Data' (1970) — dl.acm.org/doi/10.1145/362384.362685
+ GeeksforGeeks — ACID Properties in DBMS — geeksforgeeks.org/dbms/acid-properties-in-dbms
+ PostgreSQL Official Docs — About PostgreSQL — postgresql.org/about
+ Supabase Docs — What is Supabase? — supabase.com/docs
+ IBM Think — What are database transactions? — ibm.com/think/topics/database-transaction
+
+
+ AWS Case Study — Rappi y Amazon DocumentDB — aws.amazon.com/es/solutions/case-studies/rappi
+ MercadoLibre Tech Blog — Technological evolution — medium.com/mercadolibre-tech
+VIDEOS CURADOS DE YOUTUBE
+Bases de datos desde cero
+■ freeCodeCamp — Database Management Systems Full
+Course
+~8 hs · Nivel básico · Inglés con subtítulos
+■ Fireship — SQL Explained in 100 Seconds
+2 min · Nivel básico · Inglés
+SQL
+■ Programming with Mosh — SQL Tutorial for Beginners
+~3 hs · Nivel básico · Inglés con subtítulos
+(top rankeado)
+■ CS50 Harvard — Introduction to Databases with SQL
+~3 hs · Nivel básico-intermedio · Inglés con
+subtítulos
+Relacional vs no relacional
+■ ByteByteGo — SQL vs NoSQL Explained
+~10 min · Nivel básico · Inglés con
+subtítulos
+ACID y transacciones
+■ ByteByteGo — Database Transactions & ACID Properties
+~12 min · Nivel básico-intermedio · Inglés
+con subtítulos
+■ Fireship — ACID Transactions in 100 Seconds
+2 min · Nivel básico · Inglés
+Schema y migraciones
+■ Academind — Database Design & Schemas Explained
+~45 min · Nivel básico · Inglés con
+subtítulos
+Cloud y Supabase
+■ Fireship — Supabase in 100 Seconds
+2 min · Nivel básico · Inglés
+QUIZ — ¿Entendiste el bloque?
+Este quiz no se aprueba con sentido común. Requiere haber leído.
+1. La diferencia principal entre Excel y una base de datos es:
+a) Excel es gratis y las bases de datos son pagas
+b) Excel es para trabajo manual de una persona; una base de datos está diseñada para miles
+de usuarios simultáneos con datos consistentes ✓
+c) Las bases de datos no pueden hacer cálculos
+d) No hay diferencia real
+2. ¿Qué es un schema de base de datos?
+a) El lenguaje de programación usado para construir la base
+
+
+b) La estructura predefinida que define qué tablas existen, qué columnas tienen y qué tipo de
+dato acepta cada campo ✓
+c) El archivo de respaldo de los datos
+d) El sistema de autenticación
+3. ACID: ¿Qué significa la 'A' de Atomicity?
+a) Authorization — que la transacción requiere permisos
+b) Atomicity — que la transacción se ejecuta completa o no se ejecuta en absoluto ✓
+c) Availability — que la base siempre está disponible
+d) Asynchronous — que las operaciones corren en paralelo
+4. ¿Qué es un rollback?
+a) Una actualización de la estructura de la base de datos
+b) El proceso de hacer una copia de seguridad
+c) La reversión de todas las operaciones de una transacción fallida, devolviendo la base al
+estado anterior ✓
+d) La confirmación final de una transacción exitosa
+5. La propiedad Isolation (aislamiento) en ACID garantiza que:
+a) La base solo puede ser accedida por un usuario a la vez
+b) Los datos están encriptados en reposo
+c) Las transacciones concurrentes actúan como si fueran las únicas, sin interferirse entre sí ✓
+d) Los datos se guardan en servidores geográficamente separados
+6. ¿Cuándo conviene usar una base de datos no relacional?
+a) Siempre, porque es más moderna
+b) Cuando los datos son muy estructurados y predecibles
+c) Cuando los datos son variables o no estructurados, o se necesita escalar a volúmenes
+masivos con baja latencia ✓
+d) Solo para aplicaciones de redes sociales
+
+
+BLOQUE 3
+Cómo se conectan las cosas
+El internet no es magia. Es un sistema de sobres, direcciones y protocolos.
+Internet vs la web — una distinción que casi nadie hace
+Internet es la infraestructura — los cables submarinos, los servidores, la red global de
+computadoras conectadas entre sí. La World Wide Web es el sistema de páginas, links y contenido
+que corre sobre esa infraestructura.
+■ En criollo
+Internet son las rutas del país. La web son los autos que circulan por ellas. Podés usar internet sin
+usar la web — cuando mandás un email o usás WhatsApp, estás usando internet pero no la web.
+HTTP — el idioma con el que habla la web
+HTTP son las siglas de HyperText Transfer Protocol — Protocolo de Transferencia de Hipertexto.
+Fue inventado en 1989 por Tim Berners-Lee. Es el conjunto de reglas que define cómo se
+comunican los navegadores con los servidores web.
+HTTP es un protocolo cliente-servidor: las solicitudes son enviadas por el cliente (el navegador) y el
+servidor responde. Los mensajes del cliente se llaman requests y los del servidor responses.
+■ Pensalo así
+Es el correo postal. Vos escribís una carta (request), la mandás a una dirección específica, y el
+destinatario te responde (response). HTTP es exactamente ese sistema, pero digital y en
+milisegundos.
+La evolución del protocolo — HTTP/1.1, HTTP/2 y HTTP/3
+El protocolo HTTP no se quedó estático. Evolucionó en tres generaciones importantes:
+VERSIÓN
+AÑO
+MEJORA PRINCIPAL
+HTTP/1.1
+1999
+Base. Una solicitud a la vez por conexión. Genera 'head-of-line blocking' — las solicitudes se acolan esperando.
+HTTP/2
+2015
+Multiplexing: múltiples solicitudes simultáneas en una sola conexión. Mucho más rápido para sitios complejos.
+
+
+HTTP/3
+2022
+Cambia el protocolo subyacente a QUIC. Más rápido y resiliente en conexiones móviles inestables.
+■ Para los curiosos
+Abrís las DevTools de tu navegador (F12 → Network) y mirás cualquier solicitud. Podés ver qué
+versión de HTTP está usando el sitio. Es uno de esos detalles que solo los técnicos suelen notar — y
+que ahora vos también podés notar.
+HTTPS y criptografía de clave pública
+La S al final de HTTPS significa Secure. HTTP transmite datos en texto plano — visible para
+cualquiera que intercepte la comunicación. HTTPS encripta esos datos usando criptografía de clave
+pública.
+El servidor tiene dos llaves: una pública que comparte con todo el mundo libremente, y una privada
+que nunca sale de sus manos. Cualquiera puede encriptar un mensaje usando la clave pública —
+pero solo el servidor puede desencriptarlo con su clave privada.
+■ Pensalo así
+Es como un buzón con una ranura abierta en la calle. Cualquier persona puede meter una carta — la
+ranura es la clave pública. Pero solo el dueño tiene la llave para abrirlo y leer las cartas — esa es la
+clave privada. Alguien puede ver que pusiste una carta, pero no puede leerla. Eso es lo que hace que
+HTTPS sea seguro incluso en wifi pública.
+✦ Dato de color
+El candadito verde en la barra del navegador fue introducido por Netscape Navigator en 1994. Fue
+una decisión de diseño para darle a los usuarios una señal visual de confianza. Treinta años después,
+ese mismo símbolo sigue siendo la señal universal de 'este sitio es seguro.'
+Códigos de estado HTTP — cómo el servidor te dice qué pasó
+CÓDIGO
+SIGNIFICADO
+CUÁNDO LO VES
+200 OK
+Todo salió perfecto
+La respuesta más común. Todo funcionó.
+201 Created
+Se creó algo nuevo
+Al registrar un usuario o crear un recurso.
+400 Bad Request
+La solicitud está mal
+El cliente mandó algo que no tiene sentido.
+401 Unauthorized
+No estás logueado
+Intentás acceder sin iniciar sesión.
+403 Forbidden
+No tenés permiso
+Estás logueado pero no podés hacer eso.
+
+
+404 Not Found
+No existe
+La URL no existe — el más famoso del mundo.
+429 Too Many Requests
+Superaste el límite
+Rate limiting — pediste demasiado rápido.
+500 Internal Server Error
+Error del servidor
+Algo se rompió del lado del servidor.
+■ La vuelta de tuerca técnica
+Cuando un desarrollador dice 'el endpoint está devolviendo un 401', ya sabés que el problema es de
+autenticación — no de que el recurso no exista. Esa distinción cambia completamente cómo se
+resuelve el problema.
+Autenticación vs autorización
+Autenticación responde ¿quién sos? Verifica tu identidad. Cuando ingresás tu usuario y contraseña,
+te autenticás. Autorización responde ¿qué podés hacer? Una vez que el sistema sabe quién sos,
+decide a qué tenés acceso.
+■ Pensalo así
+En un boliche, el portero que te pide el DNI hace autenticación — verifica que sos quien decís ser. La
+lista VIP es autorización — no importa que seas mayor de edad, si no estás en la lista, no pasás. Dos
+filtros distintos, dos propósitos distintos.
+OAuth — cómo funciona el 'Iniciar sesión con Google'
+OAuth es un protocolo de autorización delegada. En lugar de darle tu contraseña a cada app, le das
+permiso para acceder a cierta información de tu cuenta en otro servicio — sin que esa app vea tu
+contraseña nunca.
+El flujo: apretás 'Iniciar sesión con Google' → la app te redirige a Google → Google te pregunta si
+das permiso → aprobás → Google le entrega un token temporal a la app → la app usa ese token
+para identificarte sin haber visto tu contraseña nunca.
+■ Pensalo así
+Es exactamente como darle a alguien un vale de estacionamiento en lugar de las llaves del auto. El
+playero puede mover el auto dentro del estacionamiento — pero no puede llevárselo ni hacer una
+copia de las llaves.
+■ El resumen para contarle a alguien en el subte
+
+
+OAuth resolvió un problema que antes era un desastre — tener una contraseña diferente para cada
+servicio, o peor, usar la misma en todos. Hoy delegás la autenticación a Google o Apple, que son
+expertos en seguridad, sin compartir tus credenciales con nadie.
+GET vs POST — una diferencia que no es solo de nombre
+GET es idempotente — podés hacer la misma solicitud mil veces y el servidor no cambia. Es de
+solo lectura. Los parámetros viajan en la URL — visibles en la barra del navegador. POST no es
+idempotente — cada vez que lo ejecutás, hace algo nuevo. Los datos viajan en el cuerpo de la
+solicitud, invisibles en la URL.
+■ Spoiler técnico
+Si un formulario de pago usa GET en lugar de POST, estás exponiendo datos del pago en la URL —
+visible para cualquiera que mire por encima de tu hombro, guardado en el historial, y potencialmente
+procesando el cobro dos veces si el usuario recarga. Cuando veas una URL que termina en
+?monto=5000&tarjeta;=4532... — alguien usó GET donde debería ir POST. Es un error de seguridad
+grave.
+APIs — API keys vs tokens de autenticación
+Una API key identifica a la aplicación que hace la solicitud — es el DNI del software. Un token de
+autenticación identifica al usuario — es la pulsera del boliche. Pueden usarse juntos o por
+separado.
+■ Spoiler técnico
+Cuando un desarrollador dice 'se venció el token', está hablando de la pulsera del usuario. Cuando
+dice 'la API key no tiene permisos suficientes', está hablando del DNI de la aplicación. Son errores
+distintos con soluciones distintas — y confundirlos hace que el debugging tome el doble de tiempo.
+■■ MercadoPago — APIs en producción a escala latinoamericana
+MercadoPago, el brazo fintech de MercadoLibre, es el procesador de pagos más grande de América
+Latina. Su API REST pública permite a cualquier desarrollador de la región integrar pagos en su app o
+sitio web. Cada transacción de MercadoPago involucra exactamente los conceptos de este bloque:
+API keys para identificar la aplicación del comercio, tokens OAuth para identificar al usuario que paga,
+HTTPS para encriptar los datos de la tarjeta, y propiedades ACID en su base de datos para garantizar
+que el pago se acredite o se revierta completamente — nunca a medias. Fuente: MercadoPago
+Developers — mercadopago.com.ar/developers
+REST, endpoints, rate limiting y JSON
+
+
+REST (REpresentational State Transfer) fue definido por Roy Fielding en su tesis doctoral en el año
+2000. Usa GET para leer, POST para crear, PUT/PATCH para actualizar y DELETE para eliminar
+— exactamente los mismos cuatro comandos del SQL del Bloque 2, solo que a nivel de HTTP.
+Un endpoint es la dirección específica de un recurso dentro de una API. El rate limiting existe por
+razones técnicas (proteger servidores) y de negocio (monetización por volumen de uso).
+JSON (JavaScript Object Notation) es el formato de texto en que viajan los datos entre cliente y
+servidor en el 90% de las APIs modernas. Es legible para humanos y para máquinas:
+{ "titulo": "Shake It Off", "artista": "Taylor Swift", "album": "1989",
+"duracion_segundos": 219, "generos": ["pop", "dance-pop"] }
+★ Bonus track
+Antes de JSON, el formato dominante era XML — mucho más verboso y difícil de leer. Comparado
+con XML, JSON es como pasar de leer un contrato legal lleno de cláusulas a leer un mensaje de
+WhatsApp. Misma información, mucho menos ruido.
+WebSockets — cuando HTTP no alcanza
+HTTP funciona en modo solicitud-respuesta: vos preguntás, el servidor responde, se cierra la
+conversación. Para chats en tiempo real, precios que se actualizan solos, o Google Docs
+colaborativo, existe WebSockets — una conexión que queda abierta entre cliente y servidor.
+■ En criollo
+HTTP es como mandarse cartas — cada una es una conversación separada. WebSockets es como
+hablar por teléfono — la línea queda abierta y cualquiera habla cuando quiere.
+■ El resumen para contarle a alguien en el subte
+Cuando tu equipo dice 'esa feature de notificaciones en tiempo real requiere WebSockets', están
+diciéndote que la infraestructura es más compleja y más cara que una API REST estándar. Es una
+decisión de arquitectura con impacto directo en costo y tiempo de desarrollo — y es una conversación
+de producto, no solo técnica.
+CORS — el error que todo el mundo ve y nadie entiende
+CORS (Cross-Origin Resource Sharing) ocurre cuando los navegadores bloquean solicitudes entre
+dominios distintos por seguridad. Si tu app corre en miapp.com e intenta pedirle datos a
+api.otroservicio.com, el navegador lo bloquea a menos que el servidor lo autorice explícitamente.
+
+
+■ Pensalo así
+Es como intentar entrar a un edificio de oficinas desde la puerta trasera. El edificio tiene seguridad que
+bloquea accesos no autorizados. CORS es ese sistema de seguridad — y para que funcione, el
+administrador del edificio (el servidor) tiene que agregar tu nombre a la lista de accesos autorizados.
+■ El resumen para contarle a alguien en el subte
+Cuando en una demo todo funciona perfecto pero en producción aparece un error de CORS, no es
+que el desarrollador rompió algo. Es que el entorno de producción tiene restricciones de seguridad que
+el de desarrollo no tenía. Entender esto te permite hacer las preguntas correctas en lugar de asumir
+que algo está roto.
+Cookies — el archivo que sabe todo sobre vos
+Una cookie es un pequeño archivo de texto que un servidor le pide al navegador que guarde en tu
+computadora. Existen tres tipos principales:
+Cookies de sesión — Duran mientras tenés el navegador abierto. Mantienen tu sesión activa.
+Cookies persistentes — Se guardan por días o meses. Hacen que semanas después sigas
+logueado.
+Cookies de terceros — Las más polémicas. Son las que hacen que busques zapatillas y después
+te aparezcan en Instagram. El aviso de cookies que aceptás en todos los sitios regula exactamente
+esto.
+✦ Dato de color
+Las cookies fueron inventadas en 1994 por Lou Montulli, un ingeniero de Netscape, originalmente para
+resolver un problema muy práctico: que los carritos de compra de los e-commerce no perdieran los
+productos cuando el usuario navegaba a otra página. Nadie pensó entonces en las implicancias de
+privacidad. Treinta años después, las cookies son el centro de una de las batallas legales y de
+producto más grandes de la industria digital.
+DNS — y qué pasa cuando falla
+Los servidores no tienen nombres — tienen direcciones numéricas llamadas IP (como
+157.240.22.35). El DNS (Domain Name System) es la guía telefónica de internet: traduce
+instagram.com a la dirección IP del servidor correspondiente.
+✦ Dato de color
+
+
+La primera 'guía telefónica' de internet era un archivo de texto llamado HOSTS.TXT que había que
+descargar manualmente. En 1983 había crecido tanto que se volvió inmanejable — y así nació el
+DNS, diseñado por Paul Mockapetris del USC Information Sciences Institute. Hoy maneja miles de
+millones de consultas por día.
+Cuando el DNS falla, los sitios web son inaccesibles aunque los servidores estén funcionando
+perfectamente. En 2016, un ataque masivo tiró el DNS de Dyn — un proveedor DNS — y dejó sin
+acceso a Twitter, Netflix, Spotify, Reddit y Amazon durante casi 12 horas. Los servidores de esas
+empresas estaban perfectamente bien. El DNS era el problema.
+■ La vuelta de tuerca técnica
+Si alguna vez tu internet 'funciona' pero no podés abrir ningún sitio web, podés probar cambiar tu DNS
+al de Google (8.8.8.8) o Cloudflare (1.1.1.1) — dos de los servidores DNS públicos más rápidos y
+confiables del mundo. Es una de esas soluciones de 30 segundos que parece magia si no sabés por
+qué funciona.
+El flujo completo — todo junto en un ejemplo real
+Abrís Spotify en tu teléfono y apretás 'play' en una canción. ¿Qué pasa?
+1
+Tu app (cliente) arma una solicitud HTTP/2 con método GET al endpoint
+api.spotify.com/tracks/12345, incluyendo tu API key (identifica la app) y tu token de
+autenticación (te identifica a vos).
+2
+La solicitud viaja por internet con HTTPS — encriptada con clave pública.
+3
+El servidor verifica tu token (autenticación), confirma que tenés plan activo (autorización), busca
+la canción en la base de datos.
+4
+Verifica que no superaste el rate limit.
+5
+Responde con código 200 OK y un JSON con los datos de la canción.
+6
+Tu app recibe el JSON, lo interpreta, y empieza a reproducir.
+ Todo eso en menos de un segundo. Eso es lo que pasa cada vez que apretás play.
+ 
+FUENTES UTILIZADAS EN ESTE BLOQUE
+ Cloudflare — What is HTTP? — cloudflare.com/learning/ddos/glossary/hypertext-transfer-protocol-http
+ Cloudflare — How does public key cryptography work? —
+cloudflare.com/learning/ssl/how-does-public-key-encryption-work
+ MDN Web Docs (Mozilla) — Overview of HTTP —
+developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Overview
+ MDN Web Docs (Mozilla) — Working with JSON —
+developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting/JSON
+
+
+ MDN Web Docs (Mozilla) — Cross-Origin Resource Sharing (CORS) —
+developer.mozilla.org/en-US/docs/Web/HTTP/CORS
+ BrowserStack — HTTP/1.1 vs HTTP/2 vs HTTP/3 — browserstack.com/guide/understanding-http-versions
+ AWS — What is RESTful API? — aws.amazon.com/what-is/restful-api
+ freeCodeCamp — What is REST? — freecodecamp.org/news/what-is-rest-rest-api-definition-for-beginners
+ Oracle — What is JSON? — oracle.com/database/what-is-json
+ Red Hat — What is a REST API? — redhat.com/en/topics/api/what-is-a-rest-api
+ Postman Blog — What Is a REST API? — blog.postman.com/rest-api-examples
+ GeeksforGeeks — Public Key Encryption — geeksforgeeks.org/computer-networks/public-key-encryption
+ DNS Made Easy — DNS Outage: What Is It — dnsmadeeasy.com/resources/dns_outage
+ Akamai — What Is HTTP? — akamai.com/glossary/what-is-http
+ MercadoPago Developers — mercadopago.com.ar/developers
+ AWS Case Study — Rappi y Amazon DocumentDB — aws.amazon.com/es/solutions/case-studies/rappi
+VIDEOS CURADOS DE YOUTUBE
+HTTP y cómo funciona internet
+■ Fireship — HTTP Crash Course & Exploration
+~30 min · Nivel básico-intermedio · Inglés
+■ CS50 Harvard — Understanding HTTP and the Web
+~45 min · Nivel básico · Inglés con
+subtítulos
+Evolución HTTP/1 → HTTP/2 → HTTP/3
+■ ByteByteGo — HTTP/1 vs HTTP/2 vs HTTP/3
+~10 min · Nivel básico · Inglés con
+subtítulos
+■ Fireship — HTTP/2 in 100 Seconds
+2 min · Nivel básico · Inglés
+Criptografía y HTTPS
+■ Khan Academy — Encryption and public keys
+~15 min · Nivel básico · Inglés con
+subtítulos en español
+■ ByteByteGo — How HTTPS Works
+~8 min · Nivel básico · Inglés con subtítulos
+APIs y REST
+■ Programming with Mosh — What is a REST API?
+~45 min · Nivel básico · Inglés con
+subtítulos
+■ ByteByteGo — What Is An API?
+~8 min · Nivel básico · Inglés con subtítulos
+■ Fireship — REST API in 100 Seconds
+2 min · Nivel básico · Inglés
+OAuth
+■ Fireship — OAuth 2.0 & OpenID Connect
+~12 min · Nivel básico-intermedio · Inglés
+WebSockets y CORS
+■ Fireship — WebSockets in 100 Seconds
+2 min · Nivel básico · Inglés
+■ Fireship — CORS in 100 Seconds
+2 min · Nivel básico · Inglés
+
+
+DNS
+■ ByteByteGo — How DNS Works
+~8 min · Nivel básico · Inglés con subtítulos
+QUIZ — ¿Entendiste el bloque?
+Este quiz no se aprueba con sentido común. Requiere haber leído.
+1. ¿Cuál es la diferencia entre internet y la World Wide Web?
+a) Son exactamente lo mismo
+b) Internet es la infraestructura de red global; la web es el sistema de páginas y contenido que
+corre sobre esa infraestructura ✓
+c) La web es más antigua que internet
+d) Internet es privado; la web es pública
+2. ¿Cuál es la mejora principal de HTTP/2 sobre HTTP/1.1?
+a) Agrega soporte para HTTPS
+b) Permite enviar múltiples solicitudes simultáneas por una sola conexión, eliminando el
+head-of-line blocking ✓
+c) Encripta automáticamente todas las comunicaciones
+d) Reduce el tamaño de los archivos que se transfieren
+3. En criptografía de clave pública, ¿quién puede encriptar un mensaje con la clave pública?
+a) Solo el servidor que generó las llaves
+b) Solo usuarios autenticados con cuenta activa
+c) Cualquiera — pero solo el dueño de la clave privada puede desencriptarlo ✓
+d) Solo otros servidores con certificado SSL válido
+4. La diferencia entre una API key y un token de autenticación es:
+a) Son sinónimos, describen lo mismo
+b) La API key identifica a la aplicación; el token de autenticación identifica al usuario ✓
+c) La API key es permanente; el token expira
+d) El token es más seguro que la API key en todos los casos
+5. Un error de CORS significa:
+a) El servidor está caído
+b) La solicitud tiene datos mal formados
+c) El navegador bloqueó una solicitud entre dominios distintos porque el servidor no la
+autorizó explícitamente ✓
+d) El usuario no está autenticado
+6. ¿Qué pasa cuando el DNS falla?
+a) Internet se cae completamente — nada funciona
+b) Solo los sitios nuevos dejan de funcionar
+c) Los sitios web son inaccesibles aunque los servidores estén funcionando perfectamente ✓
+d) La conexión se vuelve más lenta pero los sitios siguen abriendo
+7. El rate limiting existe por:
+
+
+a) Solo razones técnicas — proteger los servidores de saturación
+b) Solo razones de negocio — cobrar por volumen de uso
+c) Ambas razones — proteger la infraestructura y, en muchos servicios, como mecanismo de
+monetización ✓
+d) Es un requisito legal de seguridad
+8. ¿Qué es OAuth?
+a) Un lenguaje de programación para construir APIs
+b) Un protocolo de autorización delegada que permite a una app acceder a recursos de otra
+sin que el usuario comparta su contraseña ✓
+c) Un sistema de encriptación de datos en tránsito
+d) El estándar de autenticación que reemplazó a HTTPS
+
+
+PRÓXIMOS BLOQUES 
+Bloque 4 — Seguridad y privacidad Bloque 5 — Cómo nace un
+producto digital Bloque 6 — Qué es la IA Bloque 7 — Herramientas
+que ya podés usar Bloque 8 — IA aplicada a tu trabajo Bloque 9 —
+Automatizaciones Bloque 10 — Para ir más lejos
+ 
+Este documento es el input de contenido para la biblioteca HTML interactiva. Al cargarlo
+en Claude Code, todos los links serán hipervínculos clicables, el contenido tendrá
+navegación interna entre bloques, quizzes interactivos y diseño editorial de alta calidad.
+
+
