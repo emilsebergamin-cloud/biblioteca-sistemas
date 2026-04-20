@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>bibIA — Biblioteca de IA y Sistemas</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Instrument+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0D0C0A;--paper:#F7F4EF;--paper2:#EFEBE3;--paper3:#E5DFD4;
+  --mist:#C8C0B0;--ghost:#9B9080;--accent:#3B82F6;--accent2:#6366F1;
+  --green:#059669;--amber:#D97706;--rose:#E11D48;--teal:#0D9488;
+  --line:rgba(13,12,10,0.08);--line2:rgba(13,12,10,0.15);
+  --shadow:0 2px 8px rgba(13,12,10,0.06),0 1px 3px rgba(13,12,10,0.04);
+  --shadow-lg:0 12px 40px rgba(13,12,10,0.10),0 4px 12px rgba(13,12,10,0.06);
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Instrument Sans',sans-serif;background:var(--paper);color:var(--ink);line-height:1.6}
+h1,h2,h3,h4{font-family:'Syne',sans-serif;line-height:1.15;letter-spacing:-0.02em}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes confettiFall{from{transform:translateY(-10px) rotate(0);opacity:1}to{transform:translateY(100vh) rotate(540deg);opacity:0}}
+
+/* ─ NAV ─────────────────────────────────────────────────── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;height:56px;background:rgba(247,244,239,0.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 16px}
+.nav-logo{font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:var(--ink);letter-spacing:-0.02em;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.nav-logo span{color:var(--accent)}
+.nav-links{display:flex;gap:2px}
+.nav-link{padding:7px 13px;border-radius:99px;font-size:13px;font-weight:500;color:var(--ghost);cursor:pointer;border:none;background:none;font-family:'Instrument Sans',sans-serif;-webkit-tap-highlight-color:transparent;transition:all .15s}
+.nav-link:hover,.nav-link:focus{color:var(--ink);background:var(--paper2);outline:none}
+.nav-link.active{color:var(--ink);background:var(--paper3);font-weight:600}
+.nav-progress{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--ghost)}
+.np-bar{width:72px;height:4px;background:var(--paper3);border-radius:99px;overflow:hidden}
+.np-fill{height:100%;width:43%;background:var(--accent);border-radius:99px}
+/* hamburguesa */
+.ham{display:none;border:none;background:none;padding:8px;cursor:pointer;-webkit-tap-highlight-color:transparent;border-radius:8px;flex-direction:column;gap:5px;align-items:center;justify-content:center}
+.ham span{display:block;width:22px;height:2px;background:var(--ink);border-radius:2px;transition:transform .2s,opacity .2s}
+/* drawer mobile */
+.drawer{position:fixed;top:56px;left:0;right:0;z-index:99;background:var(--paper);border-bottom:1px solid var(--line2);padding:8px 12px 14px;display:none;flex-direction:column;gap:2px;box-shadow:0 8px 24px rgba(13,12,10,0.10)}
+.drawer.open{display:flex}
+.drawer-btn{display:flex;align-items:center;padding:14px 16px;border-radius:12px;border:none;background:none;font-family:'Instrument Sans',sans-serif;font-size:16px;font-weight:500;color:var(--ghost);cursor:pointer;text-align:left;width:100%;-webkit-tap-highlight-color:transparent;min-height:52px}
+.drawer-btn:active{background:var(--paper2)}
+.drawer-btn.active{color:var(--ink);font-weight:600;background:var(--paper3)}
+
+/* ─ SCREENS ─────────────────────────────────────────────── */
+.screen{display:none;min-height:100vh;padding-top:56px}
+.screen.active{display:block}
+
+/* ─ HOME ────────────────────────────────────────────────── */
+.home-hero{min-height:calc(100vh - 56px);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px 20px 40px;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(circle at 20% 30%,rgba(59,130,246,0.06) 0%,transparent 60%),radial-gradient(circle at 80% 70%,rgba(99,102,241,0.05) 0%,transparent 60%);pointer-events:none}
+.hero-tag{display:inline-flex;align-items:center;gap:6px;background:var(--paper3);border:1px solid var(--line2);border-radius:99px;padding:5px 14px;font-size:12px;font-weight:600;color:var(--ghost);margin-bottom:24px}
+.tag-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+.hero-title{font-size:clamp(36px,8vw,80px);font-weight:800;color:var(--ink);max-width:800px;margin-bottom:16px}
+.hero-title em{font-style:italic;font-weight:400;color:var(--accent)}
+.hero-sub{font-size:clamp(15px,2vw,18px);color:var(--ghost);max-width:520px;line-height:1.65;margin-bottom:36px;font-weight:400}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:48px}
+.btn-primary{padding:14px 28px;background:var(--ink);color:var(--paper);border:none;border-radius:12px;font-family:'Syne',sans-serif;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(13,12,10,0.2);-webkit-tap-highlight-color:transparent;min-height:52px}
+.btn-secondary{padding:14px 28px;background:transparent;border:1.5px solid var(--line2);border-radius:12px;font-family:'Instrument Sans',sans-serif;font-size:15px;font-weight:500;color:var(--ink);cursor:pointer;-webkit-tap-highlight-color:transparent;min-height:52px}
+.btn-ghost-sm{padding:10px 20px;background:transparent;border:none;font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:500;color:var(--ghost);cursor:pointer;text-decoration:underline;text-underline-offset:3px;-webkit-tap-highlight-color:transparent;min-height:44px}
+
+/* ─ CONSTELLATION ───────────────────────────────────────── */
+.constellation-wrap{width:100%;max-width:700px}
+.constellation-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--mist);margin-bottom:16px}
+.constellation{position:relative;width:100%;height:280px;background:var(--paper2);border-radius:20px;border:1px solid var(--line);overflow:hidden}
+.c-bg{position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(59,130,246,0.04) 0%,transparent 70%)}
+.c-svg{position:absolute;inset:0;width:100%;height:100%}
+.c-node{position:absolute;transform:translate(-50%,-50%);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.c-dot{border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative}
+.c-dot.done{background:var(--ink)}
+.c-dot.active{background:var(--accent);box-shadow:0 0 0 4px rgba(59,130,246,0.2);animation:float 3s ease-in-out infinite}
+.c-dot.pending{background:var(--paper3);border:1.5px solid var(--mist)}
+.c-dot-inner{width:6px;height:6px;border-radius:50%;background:var(--paper)}
+.c-dot.pending .c-dot-inner{background:var(--mist)}
+.c-label{position:absolute;top:calc(100% + 6px);left:50%;transform:translateX(-50%);font-size:11px;font-weight:600;white-space:nowrap;color:var(--ink);font-family:'Syne',sans-serif}
+.c-num{position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:9px;font-weight:700;color:var(--ghost);text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}
+
+/* ─ RUTA ────────────────────────────────────────────────── */
+.section-wrap{max-width:900px;margin:0 auto;padding:40px 20px 80px}
+.section-header{margin-bottom:36px}
+.section-eyebrow{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--accent);margin-bottom:10px}
+.section-title{font-size:clamp(26px,4vw,40px);font-weight:800;color:var(--ink);margin-bottom:10px}
+.section-sub{font-size:16px;color:var(--ghost);font-weight:400;max-width:560px;line-height:1.65}
+.ruta-grid{display:flex;flex-direction:column;gap:12px}
+.bloque-card{background:var(--paper);border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:var(--shadow)}
+.bloque-header{display:flex;align-items:center;gap:14px;padding:18px 20px;cursor:pointer;-webkit-tap-highlight-color:transparent;min-height:72px;width:100%;border:none;background:none;text-align:left}
+.bloque-header:active{background:var(--paper2)}
+.bloque-num{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:15px;font-weight:800;flex-shrink:0}
+.bn-done{background:var(--ink);color:var(--paper)}
+.bn-active{background:var(--accent);color:white}
+.bn-pending{background:var(--paper3);color:var(--ghost)}
+.bloque-meta{flex:1;min-width:0;text-align:left}
+.bloque-title{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:2px}
+.bloque-desc{font-size:12px;color:var(--ghost);font-weight:400}
+.bloque-badge{flex-shrink:0;font-size:11px;font-weight:700;padding:4px 10px;border-radius:99px}
+.bb-done{background:rgba(5,150,105,0.1);color:var(--green)}
+.bb-active{background:rgba(59,130,246,0.1);color:var(--accent)}
+.bb-pending{background:var(--paper3);color:var(--ghost)}
+.bloque-toggle{flex-shrink:0;font-size:18px;color:var(--ghost);transition:transform .2s;width:28px;text-align:center}
+.bloque-card.open .bloque-toggle{transform:rotate(90deg)}
+.bloque-nodes{display:none;padding:0 20px 16px;border-top:1px solid var(--line)}
+.bloque-card.open .bloque-nodes{display:block}
+.nodes-list{display:flex;flex-direction:column;gap:4px;padding-top:12px}
+.node-row{display:flex;align-items:center;gap:12px;padding:12px 12px;border-radius:12px;cursor:pointer;border:1px solid transparent;-webkit-tap-highlight-color:transparent;min-height:52px;width:100%;background:none}
+.node-row:active{background:var(--paper2)}
+.node-state{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.ns-done{background:var(--green)}
+.ns-active{background:var(--accent);animation:pulse 2s infinite}
+.ns-pending{background:var(--mist)}
+.node-name{font-size:14px;font-weight:500;color:var(--ink);flex:1;text-align:left}
+.node-time{font-size:11px;color:var(--ghost);font-weight:600;flex-shrink:0}
+.node-cta{font-size:12px;font-weight:700;padding:6px 12px;border-radius:8px;background:var(--accent);color:white;border:none;cursor:pointer;font-family:'Instrument Sans',sans-serif;-webkit-tap-highlight-color:transparent;flex-shrink:0;min-height:36px}
+
+/* ─ NODO ────────────────────────────────────────────────── */
+.nodo-wrap{max-width:760px;margin:0 auto;padding:32px 20px 80px}
+.nodo-breadcrumb{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ghost);font-weight:600;margin-bottom:24px;flex-wrap:wrap}
+.bc-sep{color:var(--mist)}
+.bc-back{cursor:pointer;-webkit-tap-highlight-color:transparent;color:var(--ghost)}
+.bc-current{color:var(--ink)}
+.nodo-hero{margin-bottom:28px}
+.nodo-eyebrow{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--accent);margin-bottom:8px}
+.nodo-title{font-size:clamp(24px,4vw,42px);font-weight:800;color:var(--ink);margin-bottom:12px;line-height:1.1}
+.nodo-resumen{font-size:16px;color:var(--ghost);line-height:1.65;font-weight:400;border-left:3px solid var(--line2);padding-left:16px}
+.nodo-meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
+.nmeta{display:flex;align-items:center;gap:6px;background:var(--paper2);border:1px solid var(--line);border-radius:8px;padding:6px 12px;font-size:12px;font-weight:600;color:var(--ghost)}
+.nmeta-dot{width:5px;height:5px;border-radius:50%;background:var(--mist)}
+.nodo-section{margin-bottom:16px}
+.ns-block{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:20px 20px;box-shadow:var(--shadow)}
+.prose{font-size:15px;color:var(--ghost);line-height:1.75;font-weight:400}
+.prose strong{color:var(--ink);font-weight:600}
+.prose p{margin-bottom:12px}
+.prose p:last-child{margin-bottom:0}
+.prose ul{margin:6px 0 12px 18px}
+.prose li{margin-bottom:6px}
+
+/* ─ ETIQUETAS ───────────────────────────────────────────── */
+.etq{border-radius:14px;padding:16px 18px;margin-bottom:14px}
+.etq-criollo{background:rgba(59,130,246,0.06);border-left:3px solid var(--accent)}
+.etq-pensalo{background:rgba(99,102,241,0.06);border-left:3px solid var(--accent2)}
+.etq-dato{background:rgba(217,119,6,0.06);border-left:3px solid var(--amber)}
+.etq-vuelta{background:var(--paper2);border-left:3px solid var(--mist)}
+.etq-spoiler{background:rgba(225,29,72,0.04);border-left:3px solid var(--rose)}
+.etq-resumen{background:rgba(5,150,105,0.06);border-left:3px solid var(--green)}
+.etq-cambia{background:rgba(13,148,136,0.06);border:1px solid rgba(13,148,136,0.15);border-radius:14px}
+.etq-puente{background:rgba(5,150,105,0.06);border:1.5px dashed rgba(5,150,105,0.25);border-radius:14px}
+.etq-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;font-family:'Syne',sans-serif}
+.etq-criollo .etq-tag{color:var(--accent)}
+.etq-pensalo .etq-tag{color:var(--accent2)}
+.etq-dato .etq-tag{color:var(--amber)}
+.etq-vuelta .etq-tag{color:var(--ghost)}
+.etq-spoiler .etq-tag{color:var(--rose)}
+.etq-resumen .etq-tag{color:var(--green)}
+.etq-cambia .etq-tag{color:var(--teal)}
+.etq-puente .etq-tag{color:var(--green)}
+.etq-text{font-size:14px;color:var(--ghost);line-height:1.65}
+.cambia-list{list-style:none;margin-top:8px}
+.cambia-list li{display:flex;gap:10px;font-size:14px;color:var(--ghost);line-height:1.55;margin-bottom:10px}
+.cl-num{width:20px;height:20px;border-radius:6px;background:rgba(13,148,136,0.1);color:var(--teal);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;font-family:'Syne',sans-serif}
+
+/* ─ PROFUNDIZACION ──────────────────────────────────────── */
+.profundizacion{border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:14px}
+.prof-toggle{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;cursor:pointer;background:var(--paper2);font-size:13px;font-weight:600;color:var(--ghost);border:none;width:100%;text-align:left;font-family:'Instrument Sans',sans-serif;-webkit-tap-highlight-color:transparent;min-height:52px}
+.prof-toggle:active{background:var(--paper3)}
+.prof-arrow{transition:transform .2s;font-size:12px}
+.profundizacion.open .prof-arrow{transform:rotate(90deg)}
+.prof-content{display:none;padding:16px;border-top:1px solid var(--line);font-size:14px;color:var(--ghost);line-height:1.65}
+.profundizacion.open .prof-content{display:block}
+
+/* ─ RECURSO ─────────────────────────────────────────────── */
+.recurso-card{display:flex;align-items:center;gap:14px;background:var(--paper2);border:1px solid var(--line);border-radius:14px;padding:14px 16px;cursor:pointer;text-decoration:none;margin-bottom:8px;color:inherit;-webkit-tap-highlight-color:transparent;min-height:72px}
+.recurso-card:active{background:var(--paper3)}
+.rec-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:var(--ink);font-size:16px;flex-shrink:0;color:var(--paper)}
+.rec-info{flex:1;min-width:0}
+.rec-type{font-size:10px;font-weight:700;color:var(--ghost);text-transform:uppercase;letter-spacing:.08em;margin-bottom:2px}
+.rec-name{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:1px;line-height:1.3}
+.rec-meta{font-size:12px;color:var(--ghost)}
+.rec-arrow{color:var(--mist);font-size:16px;flex-shrink:0}
+.rec-section-title{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--ghost);margin:16px 0 8px;font-family:'Syne',sans-serif}
+
+/* ─ QUIZ ────────────────────────────────────────────────── */
+.ejercicio-card{background:var(--paper2);border:1px solid var(--line);border-radius:14px;padding:18px 18px;margin-top:20px}
+.ej-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--accent2);margin-bottom:10px;font-family:'Syne',sans-serif}
+.ej-pregunta{font-size:15px;font-weight:600;color:var(--ink);margin-bottom:14px;line-height:1.4}
+.ej-options{display:flex;flex-direction:column;gap:8px}
+.ej-opt{display:flex;align-items:center;gap:10px;padding:14px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--paper);cursor:pointer;font-size:14px;color:var(--ghost);font-family:'Instrument Sans',sans-serif;width:100%;text-align:left;-webkit-tap-highlight-color:transparent;min-height:52px;line-height:1.35}
+.ej-opt:active{border-color:var(--accent2)}
+.ej-opt.correct{border-color:var(--green);background:rgba(5,150,105,0.06);color:var(--green)}
+.ej-opt.wrong{border-color:var(--rose);background:rgba(225,29,72,0.06);color:var(--rose)}
+.ej-letter{width:24px;height:24px;border-radius:7px;background:var(--paper3);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--ghost);flex-shrink:0;font-family:'Syne',sans-serif}
+.ej-opt.correct .ej-letter{background:var(--green);color:white}
+.ej-opt.wrong .ej-letter{background:var(--rose);color:white}
+.ej-feedback{margin-top:12px;padding:12px 14px;border-radius:10px;font-size:14px;line-height:1.5;display:none}
+.ej-fb-ok{background:rgba(5,150,105,0.08);color:var(--green);display:block}
+.ej-fb-err{background:rgba(225,29,72,0.08);color:var(--rose);display:block}
+.quiz-nav{display:flex;align-items:center;justify-content:space-between;margin-top:14px}
+.quiz-prog{font-size:12px;color:var(--ghost);font-weight:600}
+.quiz-next-btn{padding:10px 20px;background:var(--ink);color:var(--paper);border:none;border-radius:8px;cursor:pointer;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;display:none;-webkit-tap-highlight-color:transparent;min-height:44px}
+.quiz-done-wrap{text-align:center;padding:20px 0}
+.quiz-done-wrap h3{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;margin-bottom:8px}
+.quiz-done-wrap p{color:var(--ghost);margin-bottom:16px}
+.quiz-restart-btn{padding:12px 24px;background:var(--ink);color:var(--paper);border:none;border-radius:10px;cursor:pointer;font-family:'Syne',sans-serif;font-weight:700;font-size:14px;-webkit-tap-highlight-color:transparent;min-height:52px}
+
+/* ─ NODO FOOTER ─────────────────────────────────────────── */
+.nodo-footer{display:flex;align-items:center;justify-content:space-between;margin-top:36px;padding-top:24px;border-top:1px solid var(--line);gap:12px;flex-wrap:wrap}
+.btn-seguir{padding:14px 28px;background:var(--ink);color:var(--paper);border:none;border-radius:12px;font-family:'Syne',sans-serif;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 4px 12px rgba(13,12,10,0.15);-webkit-tap-highlight-color:transparent;min-height:52px}
+.btn-volver{padding:12px 20px;background:transparent;border:1.5px solid var(--line2);border-radius:12px;font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:500;color:var(--ink);cursor:pointer;-webkit-tap-highlight-color:transparent;min-height:52px}
+.bloque-nav-bar{display:flex;gap:6px;flex-wrap:wrap;margin-top:28px;padding-top:20px;border-top:1px solid var(--line)}
+.bnav-btn{padding:8px 14px;border-radius:99px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--line2);background:var(--paper);color:var(--ghost);font-family:'Instrument Sans',sans-serif;-webkit-tap-highlight-color:transparent;min-height:44px}
+.bnav-btn:active{background:var(--paper2)}
+.bnav-btn.cur{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+/* ─ RANSOMWARE ──────────────────────────────────────────── */
+.rw-diag{background:var(--paper2);border:1px solid var(--line);border-radius:14px;padding:18px;margin:14px 0}
+.rw-step{display:flex;gap:12px;padding:10px 0;border-bottom:1px dashed var(--line)}
+.rw-step:last-child{border-bottom:none}
+.rw-ico{font-size:18px;width:26px;text-align:center;flex-shrink:0;padding-top:2px}
+.rw-txt strong{display:block;font-size:14px;font-weight:600;color:var(--ink);margin-bottom:2px}
+.rw-txt span{font-size:13px;color:var(--ghost)}
+.rw-branch{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.rw-br{padding:12px;border-radius:10px;font-size:13px;line-height:1.4}
+.rw-br strong{display:block;font-weight:700;margin-bottom:4px}
+.br-pay{background:rgba(217,119,6,0.08);border:1px solid rgba(217,119,6,0.2);color:var(--amber)}
+.br-nopay{background:rgba(225,29,72,0.06);border:1px solid rgba(225,29,72,0.15);color:var(--rose)}
+
+/* ─ MATRIOSKAS ──────────────────────────────────────────── */
+.matrioska{border-radius:12px;padding:14px 16px;margin-bottom:8px;border:1.5px solid}
+.m1{background:#EFF6FF;border-color:#BFDBFE}.m2{background:#F0FDF4;border-color:#BBF7D0}
+.m3{background:#FEFCE8;border-color:#FDE68A}.m4{background:#FAF5FF;border-color:#E9D5FF}
+.m-num{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ghost);margin-bottom:4px;font-family:'Syne',sans-serif}
+.m-name{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:4px;font-family:'Syne',sans-serif}
+.m-desc{font-size:13px;color:var(--ghost);line-height:1.5}
+
+/* ─ PROGRESO ────────────────────────────────────────────── */
+.prog-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:28px}
+.prog-card{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:var(--shadow)}
+.prog-card.full{grid-column:1/-1}
+.pc-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--ghost);margin-bottom:14px;font-family:'Syne',sans-serif}
+.pc-stat{font-size:44px;font-weight:800;color:var(--ink);font-family:'Syne',sans-serif;line-height:1;margin-bottom:6px}
+.pc-stat span{font-size:20px;color:var(--ghost)}
+.pc-desc{font-size:14px;color:var(--ghost);line-height:1.5}
+.bar-wrap{margin-bottom:8px}
+.bar-label{display:flex;justify-content:space-between;font-size:12px;font-weight:600;margin-bottom:5px}
+.bar-track{height:8px;background:var(--paper2);border-radius:99px;overflow:hidden}
+.bar-fill{height:100%;border-radius:99px}
+.bf-done{background:var(--green)}.bf-active{background:var(--accent)}.bf-pending{background:var(--paper3)}
+.logros-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.logro{background:var(--paper2);border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center}
+.logro.unlocked{background:rgba(5,150,105,0.06);border-color:rgba(5,150,105,0.2)}
+.logro-icon{font-size:24px;margin-bottom:6px;display:block}
+.logro-name{font-size:11px;font-weight:700;color:var(--ink)}
+.logro-locked{opacity:.4}
+.latam-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+.latam-card{background:var(--paper2);border:1px solid var(--line);border-radius:12px;padding:14px}
+.lc-company{font-size:11px;font-weight:700;color:var(--ghost);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+.lc-fact{font-size:13px;font-weight:500;color:var(--ink);line-height:1.4}
+.lc-tag{display:inline-block;margin-top:6px;font-size:10px;font-weight:700;background:var(--paper3);color:var(--ghost);padding:2px 8px;border-radius:99px}
+.microcopy{background:rgba(99,102,241,0.06);border:1px solid rgba(99,102,241,0.15);border-radius:12px;padding:16px 18px;margin-bottom:18px;font-size:15px;font-weight:500;color:var(--ink);line-height:1.5}
+.mc-em{color:var(--accent2)}
+
+/* ─ MODAL ───────────────────────────────────────────────── */
+.modal-overlay{position:fixed;inset:0;z-index:200;background:rgba(13,12,10,0.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.show{display:flex}
+.modal-box{background:var(--paper);border-radius:24px;padding:36px 28px;max-width:480px;width:100%;border:1px solid var(--line);box-shadow:var(--shadow-lg)}
+.modal-step{display:none}
+.modal-step.active{display:block}
+.ms-eyebrow{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--ghost);margin-bottom:18px;display:flex;align-items:center;gap:8px}
+.ms-step-dots{display:flex;gap:4px}
+.sd{width:6px;height:6px;border-radius:50%;background:var(--paper3)}
+.sd.active{background:var(--accent)}
+.ms-title{font-size:22px;font-weight:800;color:var(--ink);margin-bottom:8px}
+.ms-sub{font-size:14px;color:var(--ghost);margin-bottom:20px;line-height:1.55}
+.ms-options{display:flex;flex-direction:column;gap:8px;margin-bottom:24px}
+.ms-opt{display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:12px;border:1.5px solid var(--line);background:var(--paper);cursor:pointer;font-size:14px;font-weight:500;color:var(--ghost);font-family:'Instrument Sans',sans-serif;width:100%;text-align:left;-webkit-tap-highlight-color:transparent;min-height:52px}
+.ms-opt:active{border-color:var(--mist)}
+.ms-opt.selected{border-color:var(--accent);background:rgba(59,130,246,0.06);color:var(--ink)}
+.ms-opt-icon{font-size:18px;width:26px;text-align:center;flex-shrink:0}
+.ms-footer{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.btn-ms-next{padding:12px 24px;background:var(--ink);color:var(--paper);border:none;border-radius:12px;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent;min-height:48px}
+.btn-ms-skip{background:none;border:none;font-family:'Instrument Sans',sans-serif;font-size:13px;color:var(--ghost);cursor:pointer;text-decoration:underline;text-underline-offset:3px;-webkit-tap-highlight-color:transparent;min-height:44px}
+.cfetti{position:fixed;pointer-events:none;z-index:300;border-radius:3px;animation:confettiFall linear forwards}
+
+/* ─ RESPONSIVE ──────────────────────────────────────────── */
+@media(max-width:700px){
+  .nav-links,.nav-progress{display:none}
+  .ham{display:flex}
+  .hero-ctas{flex-direction:column;align-items:stretch;max-width:320px;margin-left:auto;margin-right:auto}
+  .btn-primary,.btn-secondary{width:100%}
+  .rw-branch{grid-template-columns:1fr}
+  .bloque-badge{display:none}
+  .prog-grid{grid-template-columns:1fr}
+  .latam-grid{grid-template-columns:1fr}
+  .logros-grid{grid-template-columns:1fr 1fr}
+  .nodo-footer{flex-direction:column}
+  .btn-seguir,.btn-volver{width:100%;text-align:center}
+  .constellation{height:220px}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <button type="button" class="nav-logo" onclick="ir('home')">bib<span>IA</span></button>
+  <div class="nav-links">
+    <button type="button" class="nav-link active" id="nl-home" onclick="ir('home')">Inicio</button>
+    <button type="button" class="nav-link" id="nl-ruta" onclick="ir('ruta')">Mi ruta</button>
+    <button type="button" class="nav-link" id="nl-nodo" onclick="ir('nodo')">Nodo activo</button>
+    <button type="button" class="nav-link" id="nl-progreso" onclick="ir('progreso')">Progreso</button>
+  </div>
+  <div class="nav-progress">
+    <span>Bloque 4</span>
+    <div class="np-bar"><div class="np-fill"></div></div>
+    <span>43%</span>
+  </div>
+  <button type="button" class="ham" id="ham" onclick="toggleDrawer()" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="drawer" id="drawer">
+  <button type="button" class="drawer-btn active" id="dl-home" onclick="ir('home')">Inicio</button>
+  <button type="button" class="drawer-btn" id="dl-ruta" onclick="ir('ruta')">Mi ruta</button>
+  <button type="button" class="drawer-btn" id="dl-nodo" onclick="ir('nodo')">Nodo activo</button>
+  <button type="button" class="drawer-btn" id="dl-progreso" onclick="ir('progreso')">Progreso</button>
+</div>
+
+<!-- HOME -->
+<div class="screen active" id="screen-home">
+  <div class="home-hero">
+    <div class="hero-bg"></div>
+    <div class="hero-tag"><div class="tag-dot"></div>Sistema de aprendizaje guiado</div>
+    <h1 class="hero-title">Entendé el mundo tech.<br><em>Sin perderte.</em></h1>
+    <p class="hero-sub">No es un curso. No es una wiki. Es un recorrido que te lleva de no saber nada a poder participar en cualquier conversación técnica — con criterio real.</p>
+    <div class="hero-ctas">
+      <button type="button" class="btn-primary" onclick="ir('ruta')">Empezar desde cero →</button>
+      <button type="button" class="btn-secondary" onclick="abrirOnboarding()">Ya sé algo, ubicarme</button>
+      <button type="button" class="btn-ghost-sm" onclick="ir('ruta')">Explorar libremente</button>
+    </div>
+    <div class="constellation-wrap">
+      <div class="constellation-label">El mapa del conocimiento</div>
+      <div class="constellation">
+        <div class="c-bg"></div>
+        <svg class="c-svg" viewBox="0 0 700 320" preserveAspectRatio="xMidYMid meet">
+          <line x1="120" y1="160" x2="210" y2="100" stroke="#C8C0B0" stroke-width="1.5" stroke-dasharray="4,4"/>
+          <line x1="210" y1="100" x2="310" y2="130" stroke="#C8C0B0" stroke-width="1.5" stroke-dasharray="4,4"/>
+          <line x1="310" y1="130" x2="400" y2="80" stroke="#C8C0B0" stroke-width="1.5" stroke-dasharray="4,4"/>
+          <line x1="400" y1="80" x2="490" y2="130" stroke="#3B82F6" stroke-width="2"/>
+          <line x1="490" y1="130" x2="580" y2="100" stroke="#E5DFD4" stroke-width="1.5" stroke-dasharray="4,4"/>
+        </svg>
+        <div class="c-node" style="left:17%;top:50%"><button type="button" style="all:unset;cursor:pointer;display:flex;flex-direction:column;align-items:center" onclick="abrirBloque(1)"><div class="c-dot done" style="width:40px;height:40px"><div class="c-dot-inner"></div></div><div class="c-num">B1</div><div class="c-label">Computadoras</div></button></div>
+        <div class="c-node" style="left:30%;top:32%"><button type="button" style="all:unset;cursor:pointer;display:flex;flex-direction:column;align-items:center" onclick="abrirBloque(15)"><div class="c-dot done" style="width:36px;height:36px"><div class="c-dot-inner"></div></div><div class="c-num">B1.5</div><div class="c-label">Ejecución</div></button></div>
+        <div class="c-node" style="left:44%;top:41%"><button type="button" style="all:unset;cursor:pointer;display:flex;flex-direction:column;align-items:center" onclick="abrirBloque(2)"><div class="c-dot done" style="width:36px;height:36px"><div class="c-dot-inner"></div></div><div class="c-num">B2</div><div class="c-label">Datos</div></button></div>
+        <div class="c-node" style="left:57%;top:26%"><button type="button" style="all:unset;cursor:pointer;display:flex;flex-direction:column;align-items:center" onclick="abrirBloque(3)"><div class="c-dot done" style="width:40px;height:40px"><div class="c-dot-inner"></div></div><div class="c-num">B3</div><div class="c-label">Conexiones</div></button></div>
+        <div class="c-node" style="left:70%;top:41%"><button type="button" style="all:unset;cursor:pointer;display:flex;flex-direction:column;align-items:center" onclick="abrirBloque(4)"><div class="c-dot active" style="width:48px;height:48px"><div class="c-dot-inner"></div></div><div class="c-num">B4 · Ahora</div><div class="c-label">Seguridad</div></button></div>
+        <div class="c-node" style="left:83%;top:32%"><button type="button" style="all:unset;cursor:pointer;display:flex;flex-direction:column;align-items:center" onclick="abrirBloque(5)"><div class="c-dot pending" style="width:32px;height:32px"><div class="c-dot-inner"></div></div><div class="c-num">B5</div><div class="c-label">Producto</div></button></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- RUTA -->
+<div class="screen" id="screen-ruta">
+  <div class="section-wrap">
+    <div class="section-header">
+      <div class="section-eyebrow">Tu recorrido</div>
+      <h2 class="section-title">Ruta evolutiva</h2>
+      <p class="section-sub">Cada bloque te prepara para el siguiente. No hace falta saber nada para empezar.</p>
+    </div>
+    <div class="ruta-grid">
+      <div class="bloque-card" id="bc1">
+        <button type="button" class="bloque-header" onclick="toggleBloque('bc1')">
+          <div class="bloque-num bn-done">1</div>
+          <div class="bloque-meta"><div class="bloque-title">Cómo piensan las computadoras</div><div class="bloque-desc">Algoritmos, lenguajes, variables, funciones</div></div>
+          <div class="bloque-badge bb-done">Completado</div>
+          <div class="bloque-toggle">›</div>
+        </button>
+        <div class="bloque-nodes"><div class="nodes-list">
+          <button type="button" class="node-row" onclick="abrirBloque(1)"><div class="node-state ns-done"></div><div class="node-name">¿Qué es un algoritmo?</div><div class="node-time">8 min</div><span class="node-cta">Leer</span></button>
+          <button type="button" class="node-row" onclick="abrirBloque(1)"><div class="node-state ns-done"></div><div class="node-name">Lenguajes de programación</div><div class="node-time">10 min</div><span class="node-cta">Leer</span></button>
+          <button type="button" class="node-row" onclick="abrirBloque(1)"><div class="node-state ns-done"></div><div class="node-name">Variables, funciones y condiciones</div><div class="node-time">12 min</div><span class="node-cta">Leer</span></button>
+          <button type="button" class="node-row" onclick="abrirBloque(1)"><div class="node-state ns-done"></div><div class="node-name">Librerías vs frameworks · MercadoLibre</div><div class="node-time">8 min</div><span class="node-cta">Leer</span></button>
+        </div></div>
+      </div>
+      <div class="bloque-card" id="bc15">
+        <button type="button" class="bloque-header" onclick="toggleBloque('bc15')">
+          <div class="bloque-num bn-done" style="font-size:13px">1.5</div>
+          <div class="bloque-meta"><div class="bloque-title">Cómo se ejecuta un programa</div><div class="bloque-desc">RAM, procesos, sistema operativo, ambientes</div></div>
+          <div class="bloque-badge bb-done">Completado</div>
+          <div class="bloque-toggle">›</div>
+        </button>
+        <div class="bloque-nodes"><div class="nodes-list">
+          <button type="button" class="node-row" onclick="abrirBloque(15)"><div class="node-state ns-done"></div><div class="node-name">Del texto al resultado</div><div class="node-time">8 min</div><span class="node-cta">Leer</span></button>
+          <button type="button" class="node-row" onclick="abrirBloque(15)"><div class="node-state ns-done"></div><div class="node-name">Procesos, RAM y sistema operativo</div><div class="node-time">10 min</div><span class="node-cta">Leer</span></button>
+          <button type="button" class="node-row" onclick="abrirBloque(15)"><div class="node-state ns-done"></div><div class="node-name">Los entornos: dev, staging, producción</div><div class="node-time">8 min</div><span class="node-cta">Leer</span></button>
+        </div></div>
+      </div>
+      <div class="bloque-card" id="bc2">
+        <button type="button" class="bloque-header" onclick="toggleBloque('bc2')">
+          <div class="bloque-num bn-done">2</div>
+          <div class="bloque-meta"><div class="bloque-title">Cómo se guarda la información</div><div class="bloque-desc">Bases de datos, SQL, ACID, NoSQL · Rappi</div></div>
+          <div class="bloque-badge bb-done">Completado</div>
+          <div class="bloque-toggle">›</div>
+        </button>
+        <div class="bloque-nodes"><div class="nodes-list">
+          <button type="button" class="node-row" onclick="abrirBloque(2)"><div class="node-state ns-done"></div><div class="node-name">El problema que las bases de datos resolvieron</div><div class="node-time">6 min</div><span class="node-cta">Leer</span></button>
+          <button type="button" class="node-row" onclick="abrirBloque(2)"><div class="node-state ns-done"></div><div class="node-name">Tablas, claves primarias y SQL</div><div class="node-time">14 min</div><span class="node-cta">Leer</span></button>
+          <button type="button" class="node-row" onclick="abrirBloque(2)"><div class="node-state ns-done"></div><div class="node-name">Schema, migraciones y ACID</div><div class="node-time">10 min</div><span class="node-cta">Leer</span></button>
+          <button type="button" class="node-row" onclick="abrirBloque(2)"><div class="node-state ns-done"></div><div class="node-name">NoSQL y ecosistema moderno</div><div class="node-time">8 min</div><span class="node-cta">Leer</span></button>
+        </div></div>
+      </div>
+      <div class="bloque-card" id="bc3">
+        <button type="button" class="bloque-header" onclick="toggleBloque('bc3')">
+          <div class="bloque-num bn-done">3</div>
+          <div class="bloque-meta"><div class="bloque-title">Cómo se conectan las cosas</div><div class="bloque-desc">HTTP, APIs, autenticación, DNS · MercadoPago</div></div>
+          <div class="bloque-badge bb-done">Completado</div>
+          <div class="bloque-toggle">›</div>
+        </button>
+        <div class="bloque-nodes"><div class="nodes-list">
+          <button type="button" class="node-row" onclick="abrirBloque(3)"><div class="node-state ns-done"></div><div class="node-name">Fase 1 — Cliente, servidor, request, response</div><div class="node-time">8 min</div><span class="node-cta">Leer</span></button>
+          <button type="button" class="node-row" onclick="abrirBloque(3)"><div class="node-state ns-done"></div><div class="node-name">Fase 2 — HTTP, GET/POST, JSON</div><div class="node-time">12 min</div><span class="node-cta">Leer</span></button>
+          <button type="button" class="node-row" onclick="abrirBloque(3)"><div class="node-state ns-done"></div><div class="node-name">Fase 3 — Autenticación y autorización</div><div class="node-time">10 min</div><span class="node-cta">Leer</span></button>
+          <button type="button" class="node-row" onclick="abrirBloque(3)"><div class="node-state ns-done"></div><div class="node-name">Fase 4 — APIs, REST, DNS, WebSockets</div><div class="node-time">12 min</div><span class="node-cta">Leer</span></button>
+        </div></div>
+      </div>
+      <div class="bloque-card open" id="bc4">
+        <button type="button" class="bloque-header" onclick="toggleBloque('bc4')">
+          <div class="bloque-num bn-active">4</div>
+          <div class="bloque-meta"><div class="bloque-title">Seguridad y privacidad</div><div class="bloque-desc">Contraseñas, 2FA, ransomware · caso PAMI</div></div>
+          <div class="bloque-badge bb-active">En curso</div>
+          <div class="bloque-toggle">›</div>
+        </button>
+        <div class="bloque-nodes"><div class="nodes-list">
+          <button type="button" class="node-row" style="background:rgba(59,130,246,0.06);border-color:rgba(59,130,246,0.2)" onclick="abrirBloque(4)"><div class="node-state ns-active"></div><div class="node-name" style="color:var(--accent)">Contraseñas, 2FA y las 5 decisiones clave</div><div class="node-time">10 min</div><span class="node-cta">Continuar</span></button>
+          <button type="button" class="node-row" onclick="abrirBloque(4)"><div class="node-state ns-pending"></div><div class="node-name">Phishing e ingeniería social</div><div class="node-time">10 min</div><span class="node-cta">Ir</span></button>
+          <button type="button" class="node-row" onclick="abrirBloque(4)"><div class="node-state ns-pending"></div><div class="node-name">Malware y ransomware · caso PAMI</div><div class="node-time">12 min</div><span class="node-cta">Ir</span></button>
+          <button type="button" class="node-row" onclick="abrirBloque(4)"><div class="node-state ns-pending"></div><div class="node-name">VPNs, HTTPS y cifrado E2E</div><div class="node-time">8 min</div><span class="node-cta">Ir</span></button>
+        </div></div>
+      </div>
+      <div class="bloque-card" id="bc5">
+        <button type="button" class="bloque-header" onclick="toggleBloque('bc5')">
+          <div class="bloque-num bn-pending">5</div>
+          <div class="bloque-meta"><div class="bloque-title">Cómo nace un producto digital</div><div class="bloque-desc">Discovery, MVP, Agile, OKRs, PMF</div></div>
+          <div class="bloque-badge bb-pending">Disponible</div>
+          <div class="bloque-toggle">›</div>
+        </button>
+        <div class="bloque-nodes"><div class="nodes-list">
+          <button type="button" class="node-row" onclick="abrirBloque(5)"><div class="node-state ns-pending"></div><div class="node-name">Todo producto es una hipótesis</div><div class="node-time">8 min</div><span class="node-cta">Leer</span></button>
+          <button type="button" class="node-row" onclick="abrirBloque(5)"><div class="node-state ns-pending"></div><div class="node-name">Discovery, backlog y roadmap</div><div class="node-time">10 min</div><span class="node-cta">Leer</span></button>
+          <button type="button" class="node-row" onclick="abrirBloque(5)"><div class="node-state ns-pending"></div><div class="node-name">Agile, Scrum y los roles</div><div class="node-time">12 min</div><span class="node-cta">Leer</span></button>
+          <button type="button" class="node-row" onclick="abrirBloque(5)"><div class="node-state ns-pending"></div><div class="node-name">MVP, CI/CD y deuda técnica</div><div class="node-time">10 min</div><span class="node-cta">Leer</span></button>
+          <button type="button" class="node-row" onclick="abrirBloque(5)"><div class="node-state ns-pending"></div><div class="node-name">Product-market fit y métricas</div><div class="node-time">12 min</div><span class="node-cta">Leer</span></button>
+        </div></div>
+      </div>
+      <div class="bloque-card" id="bc6">
+        <button type="button" class="bloque-header" onclick="toggleBloque('bc6')">
+          <div class="bloque-num bn-pending">6</div>
+          <div class="bloque-meta"><div class="bloque-title">Qué es la IA</div><div class="bloque-desc">ML, LLMs, RLHF, alucinaciones, RAG</div></div>
+          <div class="bloque-badge bb-pending">Disponible</div>
+          <div class="bloque-toggle">›</div>
+        </button>
+        <div class="bloque-nodes"><div class="nodes-list">
+          <button type="button" class="node-row" onclick="abrirBloque(6)"><div class="node-state ns-pending"></div><div class="node-name">Las matrioskas: IA, ML, Deep Learning, IA Gen</div><div class="node-time">10 min</div><span class="node-cta">Leer</span></button>
+          <button type="button" class="node-row" onclick="abrirBloque(6)"><div class="node-state ns-pending"></div><div class="node-name">Cómo funciona un LLM y RLHF</div><div class="node-time">12 min</div><span class="node-cta">Leer</span></button>
+          <button type="button" class="node-row" onclick="abrirBloque(6)"><div class="node-state ns-pending"></div><div class="node-name">Tokens y context window</div><div class="node-time">8 min</div><span class="node-cta">Leer</span></button>
+          <button type="button" class="node-row" onclick="abrirBloque(6)"><div class="node-state ns-pending"></div><div class="node-name">Alucinaciones, sesgos y RAG</div><div class="node-time">14 min</div><span class="node-cta">Leer</span></button>
+        </div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NODO -->
+<div class="screen" id="screen-nodo">
+  <div class="nodo-wrap" id="nodo-content"><!-- inyectado por JS --></div>
+</div>
+
+<!-- PROGRESO -->
+<div class="screen" id="screen-progreso">
+  <div class="section-wrap">
+    <div class="section-header">
+      <div class="section-eyebrow">Tu avance</div>
+      <h2 class="section-title">Progreso</h2>
+    </div>
+    <div class="microcopy">Ya entendés <span class="mc-em">cómo piensan las computadoras</span>, <span class="mc-em">cómo se guardan los datos</span>, <span class="mc-em">cómo se conectan los sistemas</span> y estás entrando en <span class="mc-em">seguridad</span>.</div>
+    <div class="prog-grid">
+      <div class="prog-card"><div class="pc-label">Progreso general</div><div class="pc-stat">43<span>%</span></div><div class="pc-desc">4 de 7 bloques completados. Bloque 4 en curso.</div></div>
+      <div class="prog-card"><div class="pc-label">Bloques disponibles</div><div class="pc-stat">7<span> total</span></div><div class="pc-desc">Todos los bloques disponibles para leer.</div></div>
+      <div class="prog-card full"><div class="pc-label">Avance por bloque</div><div style="display:flex;flex-direction:column;gap:12px;margin-top:8px">
+        <div class="bar-wrap"><div class="bar-label"><span>B1 — Computadoras</span><span style="color:var(--green)">100%</span></div><div class="bar-track"><div class="bar-fill bf-done" style="width:100%"></div></div></div>
+        <div class="bar-wrap"><div class="bar-label"><span>B1.5 — Ejecución</span><span style="color:var(--green)">100%</span></div><div class="bar-track"><div class="bar-fill bf-done" style="width:100%"></div></div></div>
+        <div class="bar-wrap"><div class="bar-label"><span>B2 — Datos</span><span style="color:var(--green)">100%</span></div><div class="bar-track"><div class="bar-fill bf-done" style="width:100%"></div></div></div>
+        <div class="bar-wrap"><div class="bar-label"><span>B3 — Conexiones</span><span style="color:var(--green)">100%</span></div><div class="bar-track"><div class="bar-fill bf-done" style="width:100%"></div></div></div>
+        <div class="bar-wrap"><div class="bar-label"><span>B4 — Seguridad</span><span style="color:var(--accent)">En curso</span></div><div class="bar-track"><div class="bar-fill bf-active" style="width:20%"></div></div></div>
+        <div class="bar-wrap"><div class="bar-label"><span>B5 — Producto</span><span>Disponible</span></div><div class="bar-track"><div class="bar-fill bf-pending" style="width:0%"></div></div></div>
+        <div class="bar-wrap"><div class="bar-label"><span>B6 — IA</span><span>Disponible</span></div><div class="bar-track"><div class="bar-fill bf-pending" style="width:0%"></div></div></div>
+      </div></div>
+      <div class="prog-card"><div class="pc-label">Logros</div><div class="logros-grid" style="margin-top:8px">
+        <div class="logro unlocked"><span class="logro-icon">🧠</span><div class="logro-name">Primera clase</div></div>
+        <div class="logro unlocked"><span class="logro-icon">💾</span><div class="logro-name">Data saver</div></div>
+        <div class="logro unlocked"><span class="logro-icon">🔗</span><div class="logro-name">Conectada</div></div>
+        <div class="logro logro-locked"><span class="logro-icon">🔐</span><div class="logro-name">Blindada</div></div>
+        <div class="logro logro-locked"><span class="logro-icon">🚀</span><div class="logro-name">PM mode</div></div>
+        <div class="logro logro-locked"><span class="logro-icon">🤖</span><div class="logro-name">IA nativa</div></div>
+      </div></div>
+      <div class="prog-card full"><div class="pc-label">El ecosistema que aprendés a leer</div>
+        <div class="latam-grid">
+          <div class="latam-card"><div class="lc-company">MercadoLibre · Buenos Aires</div><div class="lc-fact">Más de 30.000 microservicios. Stack: React, Go, Python y multicloud.</div><span class="lc-tag">B1 + B3</span></div>
+          <div class="latam-card"><div class="lc-company">Rappi · Bogotá</div><div class="lc-fact">Migró de monolito a microservicios con AWS DocumentDB, Elasticsearch y arquitectura por país.</div><span class="lc-tag">B2 + B3</span></div>
+          <div class="latam-card"><div class="lc-company">NotCo · Santiago</div><div class="lc-fact">Su algoritmo "Giuseppe" analiza miles de ingredientes para replicar sabores animales. ML aplicado.</div><span class="lc-tag">B6</span></div>
+          <div class="latam-card"><div class="lc-company">PAMI · Argentina (2023)</div><div class="lc-fact">Ataque ransomware Rhysida. 831 GB de datos filtrados. Vector: email de phishing.</div><span class="lc-tag">B4</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal-box">
+    <div class="modal-step active" id="ms1">
+      <div class="ms-eyebrow">Ubicarte rápido<div class="ms-step-dots"><div class="sd active"></div><div class="sd"></div><div class="sd"></div></div></div>
+      <h3 class="ms-title">¿Cómo llegás?</h3>
+      <p class="ms-sub">Sin juzgar. Esto nos ayuda a ubicarte en el punto correcto del recorrido.</p>
+      <div class="ms-options">
+        <button type="button" class="ms-opt" onclick="elegirOpt(this)"><span class="ms-opt-icon">🌱</span>Vengo de cero, no sé nada de tech</button>
+        <button type="button" class="ms-opt" onclick="elegirOpt(this)"><span class="ms-opt-icon">📱</span>Uso tecnología pero no sé cómo funciona por dentro</button>
+        <button type="button" class="ms-opt" onclick="elegirOpt(this)"><span class="ms-opt-icon">💼</span>Trabajo cerca de equipos técnicos y quiero entenderlos mejor</button>
+        <button type="button" class="ms-opt" onclick="elegirOpt(this)"><span class="ms-opt-icon">🧭</span>Tengo algo de base y quiero ordenar lo que sé</button>
+      </div>
+      <div class="ms-footer"><button type="button" class="btn-ms-skip" onclick="cerrarModal()">Saltar</button><button type="button" class="btn-ms-next" onclick="paso(2)">Siguiente →</button></div>
+    </div>
+    <div class="modal-step" id="ms2">
+      <div class="ms-eyebrow">Ubicarte rápido<div class="ms-step-dots"><div class="sd"></div><div class="sd active"></div><div class="sd"></div></div></div>
+      <h3 class="ms-title">¿Qué querés lograr?</h3>
+      <p class="ms-sub">No tiene que ser un objetivo enorme.</p>
+      <div class="ms-options">
+        <button type="button" class="ms-opt" onclick="elegirOpt(this)"><span class="ms-opt-icon">🗣️</span>Poder hablar con mi equipo técnico sin perderme</button>
+        <button type="button" class="ms-opt" onclick="elegirOpt(this)"><span class="ms-opt-icon">📊</span>Tomar mejores decisiones de producto o negocio</button>
+        <button type="button" class="ms-opt" onclick="elegirOpt(this)"><span class="ms-opt-icon">🤖</span>Entender qué es la IA de verdad y cómo usarla</button>
+        <button type="button" class="ms-opt" onclick="elegirOpt(this)"><span class="ms-opt-icon">🌐</span>Entender cómo funciona internet y los sistemas</button>
+      </div>
+      <div class="ms-footer"><button type="button" class="btn-ms-skip" onclick="paso(3)">Saltar</button><button type="button" class="btn-ms-next" onclick="paso(3)">Siguiente →</button></div>
+    </div>
+    <div class="modal-step" id="ms3">
+      <div class="ms-eyebrow">Casi listo<div class="ms-step-dots"><div class="sd"></div><div class="sd"></div><div class="sd active"></div></div></div>
+      <h3 class="ms-title">¿Cómo preferís aprender?</h3>
+      <p class="ms-sub">Esto afecta cómo te mostramos el contenido.</p>
+      <div class="ms-options">
+        <button type="button" class="ms-opt" onclick="elegirOpt(this)"><span class="ms-opt-icon">📖</span>Leyendo con calma, entendiendo bien cada concepto</button>
+        <button type="button" class="ms-opt" onclick="elegirOpt(this)"><span class="ms-opt-icon">🎬</span>Viendo videos y después leyendo para profundizar</button>
+        <button type="button" class="ms-opt" onclick="elegirOpt(this)"><span class="ms-opt-icon">⚡</span>Rápido — dame lo esencial y yo después busco más</button>
+        <button type="button" class="ms-opt" onclick="elegirOpt(this)"><span class="ms-opt-icon">🧪</span>Haciendo — necesito ejemplos reales y ejercicios</button>
+      </div>
+      <div class="ms-footer"><button type="button" class="btn-ms-skip" onclick="cerrarModal()">Saltar</button><button type="button" class="btn-ms-next" onclick="cerrarModal()">Empezar →</button></div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+// ═══════════════════════════════════════════════════════════════════════
+// CONTENIDO DE BLOQUES
+// ═══════════════════════════════════════════════════════════════════════
+const BLOQUES = {
+  1: {
+    eyebrow:'Bloque 1 · Núcleo', title:'Cómo piensan las computadoras',
+    resumen:'Algoritmos, lenguajes de programación, variables, funciones y el ecosistema que ya conocés. Si entendés esto, el resto deja de parecer magia.',
+    meta:['~38 min','4 secciones','3 videos clave','+60 XP'],
+    nextId:15, nextLabel:'Bloque 1.5 →',
+    html:`
+<div class="nodo-section"><div class="ns-block"><div class="prose">
+<p><strong>¿Qué es un algoritmo?</strong> Un algoritmo es un conjunto de pasos usados para completar una tarea específica. Cuando te levantás a la mañana y preparás mate — hervís el agua, esperás que baje a 80 grados, ponés la yerba, cebás despacio desde el costado — estás ejecutando un algoritmo. Si hacés los pasos en distinto orden, el resultado cambia. Los algoritmos son sensibles al orden. Las computadoras también, pero con cero margen para la improvisación.</p>
+</div></div></div>
+<div class="etq etq-spoiler"><div class="etq-tag">⚡ Spoiler técnico</div><div class="etq-text">Cuando alguien dice "el algoritmo de Instagram decidió no mostrar tu post", está hablando exactamente de esto — una secuencia de reglas que una empresa definió para decidir qué mostrar a quién, cuándo, y con qué prioridad. No es magia. Son instrucciones escritas por personas, con criterios definidos por personas, que reflejan los intereses de un negocio.</div></div>
+<div class="nodo-section"><div class="ns-block"><div class="prose">
+<p><strong>¿Qué es un lenguaje de programación?</strong> Las computadoras solo entienden ceros y unos. Escribir instrucciones directamente en ceros y unos es técnicamente posible y prácticamente una pesadilla. Por eso se inventaron los lenguajes de programación: idiomas intermedios que los humanos pueden escribir y leer, y que se traducen automáticamente al lenguaje de la máquina.</p>
+<p>Dos tipos de traducción: <strong>Compilado</strong> — traduce todo el código de una sola vez antes de ejecutar (C++, Go, Rust). Muy rápido al correr. <strong>Interpretado</strong> — ejecuta el código línea por línea, traduciéndolo mientras corre (Python, Ruby). Más flexible y fácil de probar.</p>
+</div></div></div>
+<div class="etq etq-pensalo"><div class="etq-tag">▸ Pensalo así</div><div class="etq-text">Imaginá que querés darle instrucciones a alguien que solo habla mandarín y vos solo hablás castellano. Necesitás un intérprete en el medio. Los lenguajes de programación son ese intérprete entre vos y la máquina — solo que mucho más rápido y sin errores de traducción. Compilado es traducir un libro entero antes de publicarlo. Interpretado es tener un intérprete en vivo que traduce cada oración mientras el orador habla.</div></div>
+<div class="profundizacion" id="pf1a"><button class="prof-toggle" onclick="toggleProf('pf1a')"><span>⚙ La vuelta de tuerca técnica — JIT Compilation</span><span class="prof-arrow">›</span></button><div class="prof-content">JavaScript es técnicamente interpretado, pero los navegadores modernos lo compilan "justo a tiempo" (Just-In-Time, JIT) para hacerlo más rápido. Es lo mejor de los dos mundos — y es parte de por qué la web hoy puede correr apps tan complejas directamente en el navegador.</div></div>
+<div class="nodo-section"><div class="ns-block"><div class="prose">
+<p><strong>Variables, funciones y condiciones — los tres ladrillos de todo.</strong> Estos tres conceptos aparecen en todos los lenguajes de programación, sin excepción. Si entendés esto, entendés el 60% de cómo piensa cualquier programa.</p>
+<p><strong>Variable:</strong> un cajón con nombre donde guardás información. El valor puede cambiar. (Pizarra con etiqueta — escribís algo, lo borrás, escribís otra cosa.)<br><strong>Función:</strong> una receta guardada que podés reusar cuantas veces quieras sin reescribirla. (La receta del bizcochuelo de tu abuela.)<br><strong>Condición:</strong> una bifurcación. "Si pasa esto, hacés aquello. Si no, hacés lo otro." (El semáforo: verde = avanzar, rojo = esperar.)</p>
+</div></div></div>
+<div class="etq etq-criollo"><div class="etq-tag">▸ En criollo</div><div class="etq-text">Toda la lógica de cualquier app del mundo — desde Instagram hasta el sistema de turnos del hospital — está construida sobre estas tres ideas apiladas de formas cada vez más complejas. La diferencia entre una app simple y una compleja no es que usa conceptos distintos. Es que apila estos mismos conceptos en capas más profundas.</div></div>
+<div class="nodo-section"><div class="ns-block"><div class="prose">
+<p><strong>Los lenguajes que vas a escuchar siempre:</strong></p>
+<p><strong>Python</strong> — IA, datos, automatizaciones. El lenguaje más popular del mundo en 2025. "El modelo fue entrenado en Python."<br><strong>JavaScript</strong> — web frontend, todo lo que el usuario ve e interactúa. Único lenguaje que corre nativo en el navegador. "La app está en React + JavaScript."<br><strong>SQL</strong> — consultar y manipular datos en bases de datos relacionales. No construye interfaces — habla con los datos. "Hacé una query en SQL."</p>
+</div></div></div>
+<div class="etq etq-criollo"><div class="etq-tag">▸ En criollo</div><div class="etq-text">Python es el chef que sabe hacer de todo. JavaScript es el mozo — el que interactúa con vos directamente en la mesa. SQL es el sistema de inventario de la cocina — no cocina nada, pero sabe exactamente qué hay, dónde está, y te lo trae cuando lo pedís. Sin el sistema de inventario, el chef más talentoso del mundo no sabe si tiene huevos.</div></div>
+<div class="nodo-section"><div class="ns-block"><div class="prose">
+<p><strong>Librería vs framework — la diferencia que importa en las conversaciones técnicas.</strong></p>
+<p>Una <strong>librería</strong> es una colección de herramientas que podés usar cuando quieras, en el orden que quieras. Vos decidís cuándo y cómo usarla.</p>
+<p>Un <strong>framework</strong> es una estructura que define cómo se organiza todo tu proyecto — te dice dónde van las cosas, qué orden tienen que tener, cómo se conectan las partes. El framework pone las reglas del juego; vos jugás dentro de esas reglas.</p>
+</div></div></div>
+<div class="etq etq-criollo"><div class="etq-tag">▸ En criollo</div><div class="etq-text">Con una librería, vos llamás al código. Con un framework, el framework te llama a vos. La diferencia no es de tamaño sino de control — quién tiene el control del flujo del programa.</div></div>
+<div class="profundizacion" id="pf1b"><button class="prof-toggle" onclick="toggleProf('pf1b')"><span>⚙ Profundización — React, Node.js, TypeScript y npm</span><span class="prof-arrow">›</span></button><div class="prof-content"><p><strong>React</strong> — librería de JavaScript de código abierto mantenida por Meta. Construye interfaces con componentes. Cuando le das "me gusta" a algo en Instagram y el corazón se pone rojo sin que la página entera se recargue — eso es React.</p><p style="margin-top:10px"><strong>Node.js</strong> — JavaScript corriendo en el servidor. Usa programación asíncrona: puede seguir trabajando mientras espera tareas. Como el mozo que toma tu pedido, lo pasa a la cocina, y mientras espera va tomando el pedido de otras tres mesas.</p><p style="margin-top:10px"><strong>TypeScript</strong> — JavaScript con un sistema de tipos. Obliga a declarar de antemano qué tipo de dato tiene cada variable, previniendo errores antes de ejecutar. Armar un mueble sin el manual es JavaScript. TypeScript es el manual incluido, que además te grita si estás poniendo el tornillo equivocado.</p><p style="margin-top:10px"><strong>npm</strong> — el App Store del código. Más de 2 millones de paquetes disponibles. El <code>package.json</code> es la lista de ingredientes de cualquier proyecto JavaScript.</p></div></div>
+<div class="etq etq-dato"><div class="etq-tag">✦ Dato de color — MercadoLibre</div><div class="etq-text">MercadoLibre, el mayor marketplace de la región con sede en Buenos Aires, usa React en su frontend junto con Angular y Next.js. Su equipo de más de 15.000 ingenieros maneja más de 30.000 microservicios. El blog técnico de MercadoLibre documenta cómo evolucionaron de una arquitectura monolítica a una plataforma multicloud. Cuando en una entrevista de producto preguntan si conocés el stack de ML — ahora sabés que es React, Go, Python y microservicios en la nube.</div></div>
+<div class="etq etq-cambia"><div class="etq-tag">⚡ Esto cambia cómo decidís</div><ul class="cambia-list etq-text">
+<li><div class="cl-num">1</div><div>Cuando tu equipo discute "usar Python o Go para el servicio nuevo", ya sabés que están hablando de compilado vs interpretado — velocidad vs flexibilidad. Podés hacer la pregunta correcta: ¿cuánto importa la velocidad en este caso?</div></li>
+<li><div class="cl-num">2</div><div>Cuando alguien dice "usemos un framework en lugar de hacerlo desde cero", ya sabés que eso implica aceptar las reglas del framework a cambio de velocidad de desarrollo. Es un trade-off, no una solución mágica.</div></li>
+<li><div class="cl-num">3</div><div>Cuando ves "React + TypeScript" en una oferta de trabajo — ya sabés que están eligiendo el estándar de la industria para frontend web, no un experimento.</div></li>
+</ul></div>
+<div class="etq etq-puente"><div class="etq-tag">→ Se conecta con</div><div class="etq-text">Ahora sabés qué es el código y cómo está escrito. Lo que no sabés todavía es qué pasa desde que el código existe hasta que algo ocurre en tu pantalla. Eso es exactamente lo que explica el Bloque 1.5 — el puente entre escribir y ejecutar.</div></div>
+<div class="rec-section-title">Videos curados</div>
+<a class="recurso-card" href="https://www.youtube.com/watch?v=8hly31xKli0" target="_blank"><div class="rec-icon">▶</div><div class="rec-info"><div class="rec-type">Video · Básico · Inglés subtitulado</div><div class="rec-name">freeCodeCamp — Algorithms and Data Structures for Beginners</div><div class="rec-meta">~5 hs · YouTube</div></div><div class="rec-arrow">›</div></a>
+<a class="recurso-card" href="https://www.youtube.com/watch?v=N2bXEUSAiTI" target="_blank"><div class="rec-icon">▶</div><div class="rec-info"><div class="rec-type">Video · Básico · Inglés</div><div class="rec-name">Fireship — Compiled vs Interpreted in 100 Seconds</div><div class="rec-meta">2 min · YouTube</div></div><div class="rec-arrow">›</div></a>
+<a class="recurso-card" href="https://www.youtube.com/watch?v=x7X9w_GIm1s" target="_blank"><div class="rec-icon">▶</div><div class="rec-info"><div class="rec-type">Video · Básico · Inglés subtitulado</div><div class="rec-name">Programming with Mosh — Python Tutorial for Beginners</div><div class="rec-meta">~6 hs · YouTube</div></div><div class="rec-arrow">›</div></a>
+<a class="recurso-card" href="https://www.youtube.com/watch?v=SqcY0GlETPk" target="_blank"><div class="rec-icon">▶</div><div class="rec-info"><div class="rec-type">Video · Básico · Inglés subtitulado</div><div class="rec-name">The Net Ninja — React Tutorial for Beginners</div><div class="rec-meta">~10 hs · YouTube</div></div><div class="rec-arrow">›</div></a>`
+  },
+  15: {
+    eyebrow:'Bloque 1.5 · Núcleo', title:'Cómo se ejecuta un programa',
+    resumen:'El viaje del código desde que se escribe hasta que algo ocurre en tu pantalla. El puente que nadie explica.',
+    meta:['~26 min','3 secciones','2 videos clave','+40 XP'],
+    nextId:2, nextLabel:'Bloque 2 →',
+    html:`
+<div class="nodo-section"><div class="ns-block"><div class="prose">
+<p><strong>Del texto al resultado — el flujo completo.</strong> Todo programa empieza como texto plano. Un archivo .py o .js es literalmente un documento de texto con instrucciones escritas en un lenguaje que los humanos pueden leer.</p>
+<p><strong>1. Código fuente</strong> — el programador escribe instrucciones (la receta escrita en papel).<br><strong>2. Traducción</strong> — el compilador o intérprete convierte el código al lenguaje de la máquina (el intérprete que traduce del castellano al mandarín).<br><strong>3. Carga en memoria</strong> — el SO carga el programa en RAM (abrir el libro en la mesa para poder leerlo).<br><strong>4. Ejecución</strong> — el procesador ejecuta las instrucciones (leer y seguir los pasos de la receta).<br><strong>5. Input/Output</strong> — el programa recibe información y devuelve resultados.</p>
+</div></div></div>
+<div class="nodo-section"><div class="ns-block"><div class="prose">
+<p><strong>Proceso y memoria — dos conceptos que explican muchos errores.</strong> Cuando ejecutás un programa, el sistema operativo crea un proceso — una instancia del programa corriendo en memoria, con sus propios recursos asignados. Cada tab de Chrome que abrís es un proceso separado. Por eso cuando un tab se congela, los otros siguen funcionando.</p>
+<p>La <strong>memoria RAM</strong> es el espacio de trabajo temporal. Es rápida pero volátil — cuando apagás la computadora, todo lo que estaba en RAM desaparece. Por eso los programas necesitan bases de datos y archivos para guardar cosas de forma permanente.</p>
+</div></div></div>
+<div class="etq etq-pensalo"><div class="etq-tag">▸ Pensalo así</div><div class="etq-text">La RAM es el escritorio — donde tenés todo lo que estás usando ahora. El disco es el cajón — donde guardás las cosas cuando terminás. Si el escritorio es muy chico y tenés demasiadas cosas abiertas, empezás a pisarlas entre sí. Eso es lo que pasa cuando una app "se queda sin memoria".</div></div>
+<div class="nodo-section"><div class="ns-block"><div class="prose">
+<p><strong>El sistema operativo — el intermediario que nadie ve.</strong> El SO (Windows, macOS, Linux) es el intermediario entre los programas y el hardware. Cuando tu app necesita mostrar algo en pantalla, leer un archivo, o enviar datos por la red — no lo hace directamente. Le pide permiso y recursos al sistema operativo, que decide cómo distribuir los recursos disponibles entre todos los programas que están corriendo.</p>
+</div></div></div>
+<div class="etq etq-criollo"><div class="etq-tag">▸ En criollo</div><div class="etq-text">El sistema operativo es el administrador del edificio. Los programas son los inquilinos. Cada vez que un inquilino necesita usar una instalación común — el ascensor, la sala de reuniones — le pide al administrador. El administrador decide cuándo y cómo según los recursos disponibles y las reglas del edificio.</div></div>
+<div class="nodo-section"><div class="ns-block"><div class="prose">
+<p><strong>Los entornos — dónde corre el código en el mundo real.</strong></p>
+<p><strong>Development (dev)</strong> — solo los desarrolladores. Donde se construye y prueba localmente. Sin consecuencias para usuarios.<br><strong>Staging</strong> — el equipo interno. Copia casi idéntica a producción para testear antes de lanzar.<br><strong>Production (prod)</strong> — los usuarios reales. El ambiente real. Un error acá tiene consecuencias reales de negocio.</p>
+</div></div></div>
+<div class="etq etq-resumen"><div class="etq-tag">▸ El resumen para contarle a alguien en el subte</div><div class="etq-text">Cuando un desarrollador dice "funciona en dev pero no en prod", está diciendo que algo que funciona en su computadora no funciona en el servidor real donde corren los usuarios. Ese gap es uno de los problemas más comunes — y más costosos — en el desarrollo de software. Entender por qué existe cambia cómo participás en esas conversaciones.</div></div>
+<div class="etq etq-cambia"><div class="etq-tag">⚡ Esto cambia cómo decidís</div><ul class="cambia-list etq-text">
+<li><div class="cl-num">1</div><div>Cuando tu equipo dice "el bug solo ocurre en producción", ya sabés que no es negligencia — es que el ambiente de producción tiene configuraciones que el de desarrollo no replica perfectamente.</div></li>
+<li><div class="cl-num">2</div><div>Cuando alguien pide "más memoria para el servidor", ya sabés que están hablando de RAM — el espacio de trabajo del programa.</div></li>
+<li><div class="cl-num">3</div><div>Cuando tu equipo propone "subir a staging primero", ya sabés que es una práctica de calidad — no una demora innecesaria. Staging existe exactamente para atrapar errores antes de que lleguen a los usuarios.</div></li>
+</ul></div>
+<div class="etq etq-puente"><div class="etq-tag">→ Se conecta con</div><div class="etq-text">Un programa corre y hace su trabajo. Pero para ser útil en el mundo real necesita dos cosas más: guardar información y comunicarse con otros sistemas. El Bloque 2 explica cómo se guarda. El Bloque 3 explica cómo se comunica.</div></div>
+<div class="rec-section-title">Videos curados</div>
+<a class="recurso-card" href="https://www.youtube.com/watch?v=WgXR2QpNS1o" target="_blank"><div class="rec-icon">▶</div><div class="rec-info"><div class="rec-type">Video · Básico · Inglés subtitulado</div><div class="rec-name">CS50 Harvard — How Computers Work</div><div class="rec-meta">~45 min · YouTube</div></div><div class="rec-arrow">›</div></a>
+<a class="recurso-card" href="https://www.youtube.com/watch?v=FZGugFqdr60" target="_blank"><div class="rec-icon">▶</div><div class="rec-info"><div class="rec-type">Video · Básico · Inglés subtitulado</div><div class="rec-name">Crash Course — Computer Science: How Computers Calculate</div><div class="rec-meta">~10 min · YouTube</div></div><div class="rec-arrow">›</div></a>
+<a class="recurso-card" href="https://www.youtube.com/watch?v=26QPDBe-NB8" target="_blank"><div class="rec-icon">▶</div><div class="rec-info"><div class="rec-type">Video · Básico · Inglés subtitulado</div><div class="rec-name">Crash Course — Operating Systems</div><div class="rec-meta">~12 min · YouTube</div></div><div class="rec-arrow">›</div></a>`
+  },
+  2: {
+    eyebrow:'Bloque 2 · Núcleo', title:'Cómo se guarda la información',
+    resumen:'Todo lo que hacés en internet queda en algún lado. Este bloque explica en dónde y cómo — y por qué agregar una columna no es un cambio de cinco minutos.',
+    meta:['~46 min','5 secciones','4 videos clave','+80 XP'],
+    nextId:3, nextLabel:'Bloque 3 →',
+    html:`
+<div class="nodo-section"><div class="ns-block"><div class="prose">
+<p><strong>El problema que las bases de datos vinieron a resolver.</strong> Imaginá que tenés una verdulería. Al principio anotás todo en un cuaderno. Funciona bien cuando tenés 10 clientes. Cuando tenés 50.000 clientes comprando al mismo tiempo desde sus teléfonos — el cuaderno se prende fuego metafóricamente.</p>
+<p>Una base de datos es un sistema organizado para almacenar, gestionar y recuperar información de manera eficiente. Cada vez que iniciás sesión en Instagram, comprás en MercadoLibre, o chequeás tu saldo bancario, hay una base de datos respondiendo tu consulta en tiempo real.</p>
+</div></div></div>
+<div class="etq etq-pensalo"><div class="etq-tag">▸ Pensalo así</div><div class="etq-text">Excel es una libreta de apuntes. Una base de datos es el sistema de inventario de un supermercado que sabe en tiempo real cuántas unidades de cada producto quedan, cuándo vencen, qué proveedor las trajo, y cuántas se vendieron hoy — y puede responder esa pregunta para 50 empleados al mismo tiempo mientras los clientes compran.</div></div>
+<div class="nodo-section"><div class="ns-block"><div class="prose">
+<p><strong>Tablas, claves y SQL.</strong> Las bases de datos relacionales almacenan datos en tablas con columnas y filas. A cada tabla se le asigna una <strong>clave primaria</strong>: un identificador único para cada registro. Las tablas se vinculan entre sí mediante <strong>claves foráneas</strong>, evitando repetir datos innecesariamente — eso se llama normalización.</p>
+<p><strong>SQL</strong> (Structured Query Language) es el idioma con el que le hacés preguntas a una base de datos. Es declarativo: le decís qué querés, no cómo buscarlo.</p>
+<p><strong>SELECT</strong> — "Mostrame el nombre de todos los clientes de Buenos Aires."<br><strong>INSERT</strong> — "Agregá a Emi con email emi@mail.com en la tabla usuarios."<br><strong>UPDATE</strong> — "Cambiá el email de Emi a emi@nuevoemail.com."<br><strong>DELETE</strong> — "Borrá al usuario con ID 001 de la tabla usuarios."</p>
+</div></div></div>
+<div class="etq etq-criollo"><div class="etq-tag">▸ En criollo</div><div class="etq-text">Todo lo que hace una app con sus datos — registrar un usuario, mostrar un feed, procesar un pago, generar un reporte — es alguna combinación de estos cuatro comandos. La diferencia entre apps simples y complejas no es que usan comandos distintos. Es que combinan estos cuatro en formas cada vez más sofisticadas.</div></div>
+<div class="nodo-section"><div class="ns-block"><div class="prose">
+<p><strong>Schema y migraciones — por qué cambiar la estructura es un trabajo serio.</strong> El schema es la estructura predefinida de una base de datos: qué tablas existen, qué columnas tiene cada una, qué tipo de dato acepta cada campo, y qué reglas se aplican. Cuando esa estructura necesita cambiar — agregar una columna, cambiar el tipo de un campo — se hace una <strong>migración de schema</strong>.</p>
+</div></div></div>
+<div class="etq etq-pensalo"><div class="etq-tag">▸ Pensalo así</div><div class="etq-text">El schema es el plano de un edificio antes de construirlo. Si alguien quiere agregar una habitación después de que el edificio está construido, hay que hacer una reforma — que en el mundo de las bases de datos se llama migración de schema. Y si en el edificio ya viven 1000 personas, esa reforma tiene que hacerse sin que nadie tenga que mudarse mientras dura la obra.</div></div>
+<div class="etq etq-resumen"><div class="etq-tag">▸ El resumen para contarle a alguien en el subte</div><div class="etq-text">Cuando le pedís a tu equipo "agregar el campo de fecha de nacimiento al perfil de usuario", lo que estás pidiendo técnicamente es una migración de schema. Si la tabla de usuarios ya tiene un millón de registros, esa migración tiene que ejecutarse sin interrumpir el servicio. No es un cambio de cinco minutos — y entender por qué te convierte en una mejor PM.</div></div>
+<div class="nodo-section"><div class="ns-block"><div class="prose">
+<p><strong>Transacciones y propiedades ACID.</strong> Una transacción es un conjunto de operaciones que se ejecutan como una unidad indivisible. O todas tienen éxito, o ninguna se aplica. El ejemplo clásico: transferís $1000. Eso requiere dos operaciones — restar de una cuenta y sumar en la otra. Si la primera tiene éxito pero la segunda falla, perdiste $1000.</p>
+<p><strong>A</strong>tomicity — todo o nada.<br><strong>C</strong>onsistency — la base siempre pasa de un estado válido a otro.<br><strong>I</strong>solation — las transacciones concurrentes no se "ven" entre sí hasta que terminan.<br><strong>D</strong>urability — una vez confirmada la transacción, los cambios son permanentes.</p>
+</div></div></div>
+<div class="nodo-section"><div class="ns-block"><div class="prose">
+<p><strong>Relacional vs NoSQL — cuándo cada uno tiene sentido.</strong></p>
+<p><strong>Documentos (MongoDB)</strong> — datos variables o no estructurados. Un catálogo donde cada producto puede tener atributos distintos.<br><strong>Clave-valor (Redis)</strong> — búsquedas ultrarápidas. Cache, sesiones de usuario.<br><strong>Columnas anchas (Cassandra)</strong> — datasets masivos distribuidos. Apps de mensajería con millones de mensajes.<br><strong>Grafos (Neo4j)</strong> — datos con relaciones complejas. Redes sociales, detección de fraude.</p>
+</div></div></div>
+<div class="etq etq-criollo"><div class="etq-tag">▸ En criollo</div><div class="etq-text">Una base relacional es un placard con cajones etiquetados — todo tiene su lugar fijo. Una base no relacional es una mochila — tirás lo que necesitás, en el formato que sea, y lo encontrás cuando lo precisás. El error clásico es elegir la mochila cuando lo que necesitás es el placard.</div></div>
+<div class="etq etq-dato"><div class="etq-tag">✦ Dato de color — Rappi</div><div class="etq-text">Rappi, la startup colombiana de delivery, comenzó con una arquitectura monolítica que pronto resultó insuficiente. Al escalar a 9 países, migró a microservicios con Amazon DocumentDB (compatible con MongoDB) para datos de pedidos, Elasticsearch para búsqueda de catálogo, y AWS para su infraestructura cloud. Cada microservicio está organizado por unidad de negocio y por país. Fuente: AWS Case Study.</div></div>
+<div class="etq etq-cambia"><div class="etq-tag">⚡ Esto cambia cómo decidís</div><ul class="cambia-list etq-text">
+<li><div class="cl-num">1</div><div>Cuando pedís "agregar un campo nuevo al perfil de usuario" — ya sabés que estás pidiendo una migración de schema. Si hay millones de usuarios, eso requiere planificación, no es un cambio de una tarde.</div></li>
+<li><div class="cl-num">2</div><div>Cuando el equipo dice "tenemos que normalizar la base" — no es un capricho técnico. Es que la estructura actual genera inconsistencias — datos repetidos que pueden contradecirse entre sí.</div></li>
+<li><div class="cl-num">3</div><div>Cuando el equipo habla de "performance de queries" — están hablando de que las consultas a la base tardan demasiado, con impacto directo en la velocidad de la app que ven los usuarios.</div></li>
+</ul></div>
+<div class="etq etq-puente"><div class="etq-tag">→ Se conecta con</div><div class="etq-text">Ya sabés cómo se guarda la información. Ahora falta entender cómo viaja — cómo un sistema le pide información a otro, cómo esa información se transporta, y qué reglas gobiernan esa conversación. Eso es exactamente lo que explica el Bloque 3.</div></div>
+<div class="rec-section-title">Videos curados</div>
+<a class="recurso-card" href="https://www.youtube.com/watch?v=HXV3zeQKqGY" target="_blank"><div class="rec-icon">▶</div><div class="rec-info"><div class="rec-type">Video · Básico · Inglés subtitulado</div><div class="rec-name">freeCodeCamp — Database Management Systems Full Course</div><div class="rec-meta">~8 hs · YouTube</div></div><div class="rec-arrow">›</div></a>
+<a class="recurso-card" href="https://www.youtube.com/watch?v=zsjvFFKOm3c" target="_blank"><div class="rec-icon">▶</div><div class="rec-info"><div class="rec-type">Video · Básico · Inglés</div><div class="rec-name">Fireship — SQL Explained in 100 Seconds</div><div class="rec-meta">2 min · YouTube</div></div><div class="rec-arrow">›</div></a>
+<a class="recurso-card" href="https://www.youtube.com/watch?v=7S_tz1z_5bA" target="_blank"><div class="rec-icon">▶</div><div class="rec-info"><div class="rec-type">Video · Básico · Inglés subtitulado</div><div class="rec-name">Programming with Mosh — SQL Tutorial for Beginners</div><div class="rec-meta">~3 hs · YouTube</div></div><div class="rec-arrow">›</div></a>
+<a class="recurso-card" href="https://www.youtube.com/watch?v=W2Z7fbCLSTw" target="_blank"><div class="rec-icon">▶</div><div class="rec-info"><div class="rec-type">Video · Básico · Inglés subtitulado</div><div class="rec-name">ByteByteGo — SQL vs NoSQL Explained</div><div class="rec-meta">~10 min · YouTube</div></div><div class="rec-arrow">›</div></a>`
+  },
+  3: {
+    eyebrow:'Bloque 3 · Núcleo', title:'Cómo se conectan las cosas',
+    resumen:'HTTP, APIs, autenticación, DNS y el ejemplo completo de Spotify en menos de un segundo. El internet no es magia — es un sistema de sobres, direcciones y protocolos.',
+    meta:['~50 min','4 fases','5 videos clave','+100 XP'],
+    nextId:4, nextLabel:'Bloque 4 →',
+    html:`
+<div class="etq etq-criollo"><div class="etq-tag">▸ En criollo — Internet vs la web</div><div class="etq-text">Internet son las rutas del país. La web son los autos que circulan por ellas. Podés usar internet sin usar la web — cuando mandás un email o usás WhatsApp, estás usando internet pero no la web.</div></div>
+<div class="nodo-section"><div class="ns-block"><div class="prose">
+<p><strong>FASE 1 — Cliente, servidor, request, response.</strong> Todo intercambio de información en internet involucra dos roles: el que pide y el que responde.</p>
+<p><strong>Cliente</strong> — inicia la solicitud. Pide un recurso o servicio. (Tu navegador, tu app de Instagram, tu app del banco.)<br><strong>Servidor</strong> — espera solicitudes, las procesa y devuelve una respuesta. (Los servidores de Google, Meta, MercadoLibre.)</p>
+<p>Un <strong>request</strong> es la solicitud que manda el cliente. Una <strong>response</strong> es la respuesta que devuelve el servidor. Ese ciclo — request/response — es el patrón fundamental de toda la web. Sucede cientos de veces mientras navegás durante un día.</p>
+</div></div></div>
+<div class="nodo-section"><div class="ns-block"><div class="prose">
+<p><strong>FASE 2 — HTTP, GET/POST, JSON y códigos de estado.</strong> HTTP (HyperText Transfer Protocol) fue inventado en 1989 por Tim Berners-Lee. HTTPS agrega encriptación — la S es de Secure — usando criptografía de clave pública.</p>
+<p><strong>GET</strong> — de solo lectura. Podés repetirlo mil veces y el servidor no cambia. Los parámetros viajan en la URL — visibles en la barra del navegador.<br><strong>POST</strong> — cada vez que lo ejecutás, hace algo nuevo. Los datos viajan en el cuerpo de la solicitud, invisibles en la URL. Formularios de pago, registros, envíos.</p>
+<p><strong>JSON</strong> es el formato en que viajan los datos en el 90% de las APIs modernas: {"nombre":"Emi","bloque":3}</p>
+<p><strong>Códigos de estado:</strong> 200 OK · 201 Created · 401 Unauthorized · 403 Forbidden · 404 Not Found · 429 Too Many Requests · 500 Server Error.</p>
+</div></div></div>
+<div class="etq etq-pensalo"><div class="etq-tag">▸ Pensalo así — GET vs POST</div><div class="etq-text">Si un formulario de pago usa GET en lugar de POST, está exponiendo los datos del pago en la URL — visible para cualquiera que mire por encima de tu hombro, guardado en el historial, y potencialmente procesando el cobro dos veces si el usuario recarga. Cuando ves una URL que termina en ?monto=5000 — alguien usó GET donde debería ir POST. Es un error de seguridad grave.</div></div>
+<div class="etq etq-dato"><div class="etq-tag">✦ Dato de color — el candadito</div><div class="etq-text">El candadito verde fue una decisión de diseño de Netscape Navigator en 1994, pensado para darle a los usuarios una señal visual de confianza. Treinta años después, ese mismo símbolo sigue siendo la señal universal de "este sitio es seguro." Lo que empezó como un detalle de UX se convirtió en el estándar global de la web.</div></div>
+<div class="nodo-section"><div class="ns-block"><div class="prose">
+<p><strong>FASE 3 — Autenticación, autorización, sesiones, tokens.</strong></p>
+<p><strong>Autenticación</strong> — responde ¿quién sos? Verifica tu identidad. Cuando ingresás tu usuario y contraseña, te autenticás.<br><strong>Autorización</strong> — responde ¿qué podés hacer? Una vez que el sistema sabe quién sos, decide a qué tenés acceso.</p>
+<p>En un boliche, el portero que te pide el DNI hace autenticación. La lista VIP es autorización — no importa que seas mayor de edad, si no estás en la lista, no pasás. Dos filtros distintos, dos propósitos distintos.</p>
+<p><strong>OAuth</strong> — el protocolo detrás del botón "Iniciar sesión con Google". Tu app nunca ve tu contraseña de Google — recibe un token temporal con los permisos que aprobaste.</p>
+</div></div></div>
+<div class="nodo-section"><div class="ns-block"><div class="prose">
+<p><strong>FASE 4 — APIs, endpoints, REST y DNS.</strong></p>
+<p>Una <strong>API</strong> (Application Programming Interface) es un conjunto de reglas que define cómo dos sistemas pueden comunicarse entre sí. Un <strong>endpoint</strong> es la dirección específica de un recurso dentro de una API. Si la API es el edificio, el endpoint es la puerta específica.</p>
+<p><strong>REST</strong> fue definido por Roy Fielding en su tesis doctoral en el 2000. La idea: usar los métodos HTTP (GET, POST, PUT, DELETE) para operar sobre recursos identificados por URLs.</p>
+<p>El <strong>DNS</strong> (Domain Name System) es la guía telefónica de internet: traduce instagram.com a la dirección IP del servidor correspondiente. En 2016, un ataque masivo tiró el DNS de Dyn y dejó sin acceso a Twitter, Netflix, Spotify y Amazon durante casi 12 horas. Sus servidores estaban perfectos. Solo el DNS había caído.</p>
+</div></div></div>
+<div class="profundizacion" id="pf3a"><button class="prof-toggle" onclick="toggleProf('pf3a')"><span>✦ Todo junto — el ejemplo completo de Spotify</span><span class="prof-arrow">›</span></button><div class="prof-content"><p>Abrís Spotify y apretás "play". En menos de un segundo:</p><p style="margin-top:8px"><strong>1.</strong> Tu app arma una solicitud HTTP/2 GET al endpoint api.spotify.com/tracks/12345, incluyendo tu API key y tu token.</p><p><strong>2.</strong> La solicitud viaja con HTTPS — encriptada.</p><p><strong>3.</strong> El DNS traduce api.spotify.com a la IP del servidor.</p><p><strong>4.</strong> El servidor verifica tu token (autenticación) y que tenés plan activo (autorización).</p><p><strong>5.</strong> Verifica que no superaste el rate limit.</p><p><strong>6.</strong> Responde con 200 OK y un JSON con los datos de la canción.</p><p><strong>7.</strong> Tu app recibe el JSON y empieza a reproducir.</p></div></div>
+<div class="etq etq-dato"><div class="etq-tag">✦ Dato de color — MercadoPago</div><div class="etq-text">MercadoPago, el procesador de pagos más grande de América Latina, expone su API REST pública para que cualquier desarrollador de la región integre pagos. Cada transacción involucra: API keys para identificar la aplicación del comercio, tokens OAuth para identificar al usuario que paga, HTTPS para encriptar los datos de la tarjeta, y propiedades ACID en su base de datos para garantizar que el pago se acredite o se revierta completamente — nunca a medias.</div></div>
+<div class="etq etq-cambia"><div class="etq-tag">⚡ Esto cambia cómo decidís</div><ul class="cambia-list etq-text">
+<li><div class="cl-num">1</div><div>Cuando tu equipo propone "integrar con la API de X", la pregunta correcta no es "¿cuánto tarda?" sino "¿qué datos expone esa API, qué rate limits tiene, y qué pasa cuando la API de X falla?"</div></li>
+<li><div class="cl-num">2</div><div>Cuando alguien dice "el endpoint devuelve un 500", ya sabés que el problema está del lado del servidor — no de la app que hace la solicitud. Cambia completamente quién tiene que resolver el problema.</div></li>
+<li><div class="cl-num">3</div><div>Preguntar "¿tiene API pública?" ya no es una pregunta técnica — es una pregunta de estrategia. Una herramienta con API pública se puede integrar con el resto de tu stack. Una sin API pública es una isla.</div></li>
+</ul></div>
+<div class="etq etq-puente"><div class="etq-tag">→ Se conecta con</div><div class="etq-text">Ahora que entendés cómo se comunican los sistemas, surge la pregunta obvia: ¿qué pasa cuando esa comunicación es interceptada, manipulada, o usada con malas intenciones? Eso es exactamente de lo que trata el Bloque 4.</div></div>
+<div class="rec-section-title">Videos curados</div>
+<a class="recurso-card" href="https://www.youtube.com/watch?v=iYM2zFP3Zn0" target="_blank"><div class="rec-icon">▶</div><div class="rec-info"><div class="rec-type">Video · Básico-intermedio · Inglés</div><div class="rec-name">Fireship — HTTP Crash Course & Exploration</div><div class="rec-meta">~30 min · YouTube</div></div><div class="rec-arrow">›</div></a>
+<a class="recurso-card" href="https://www.youtube.com/watch?v=SLwpqD8n3d0" target="_blank"><div class="rec-icon">▶</div><div class="rec-info"><div class="rec-type">Video · Básico · Inglés subtitulado</div><div class="rec-name">Programming with Mosh — What is a REST API?</div><div class="rec-meta">~45 min · YouTube</div></div><div class="rec-arrow">›</div></a>
+<a class="recurso-card" href="https://www.youtube.com/watch?v=-mN3VyJuCjM" target="_blank"><div class="rec-icon">▶</div><div class="rec-info"><div class="rec-type">Video · Básico · Inglés subtitulado</div><div class="rec-name">ByteByteGo — What Is An API?</div><div class="rec-meta">~8 min · YouTube</div></div><div class="rec-arrow">›</div></a>
+<a class="recurso-card" href="https://www.youtube.com/watch?v=1BfCnjr_Vjg" target="_blank"><div class="rec-icon">▶</div><div class="rec-info"><div class="rec-type">Video · Básico · Inglés subtitulado</div><div class="rec-name">ByteByteGo — How DNS Works</div><div class="rec-meta">~8 min · YouTube</div></div><div class="rec-arrow">›</div></a>
+<a class="recurso-card" href="https://www.youtube.com/watch?v=996OiexHze0" target="_blank"><div class="rec-icon">▶</div><div class="rec-info"><div class="rec-type">Video · Básico-intermedio · Inglés</div><div class="rec-name">Fireship — OAuth 2.0 & OpenID Connect</div><div class="rec-meta">~12 min · YouTube</div></div><div class="rec-arrow">›</div></a>`
+  },
+  4: {
+    eyebrow:'Bloque 4 · Núcleo', title:'Seguridad y privacidad',
+    resumen:'El mundo digital tiene puertas. Este bloque explica quién tiene la llave, quién quiere forzarlas, y cómo protegerte. Con el caso PAMI 2023.',
+    meta:['~54 min','6 secciones','4 videos clave','+100 XP'],
+    nextId:5, nextLabel:'Bloque 5 →',
+    html:`
+<div class="nodo-section"><div class="ns-block"><div class="prose">
+<p><strong>Las contraseñas — el problema más viejo del mundo digital.</strong> Tres reglas importan más que todo lo demás: longitud, unicidad y complejidad. Una contraseña debería tener al menos 16 caracteres. El problema real no es que la gente use contraseñas débiles — es que usa la misma en múltiples servicios. Cuando una empresa sufre una brecha y tu contraseña queda expuesta, los atacantes la prueban automáticamente en cientos de otros servicios. Si usás la misma en Gmail, en tu banco, y en un foro cualquiera — todas tus cuentas quedan expuestas de golpe.</p>
+</div></div></div>
+<div class="etq etq-dato"><div class="etq-tag">✦ Dato de color</div><div class="etq-text">La contraseña más usada del mundo en 2024 fue "123456". En segundo lugar, "password". La contraseña "123456" tarda menos de un segundo en ser descifrada por herramientas automatizadas básicas. En el cuarto puesto apareció "admin" — probablemente de routers y dispositivos que nadie configuró correctamente. Fuente: NordPass Most Common Passwords Report 2024.</div></div>
+<div class="nodo-section"><div class="ns-block"><div class="prose">
+<p><strong>Las 5 decisiones concretas — los dos que cambian todo y los tres que suman.</strong></p>
+<p>🔑 <strong>1. Gestor de contraseñas</strong> — Bitwarden (bitwarden.com) es gratuito y open source. Lo instalás en 5 minutos. Genera contraseñas únicas para cada servicio y las recuerda por vos. Sin esto, todo lo demás tiene menos impacto.</p>
+<p>🔒 <strong>2. 2FA en cuentas críticas</strong> — Descargá Google Authenticator o Authy. Activalo primero en tu email — es la cuenta más crítica porque desde ahí se recuperan todas las demás. Después banco y redes sociales.</p>
+<p>🔄 <strong>3. Actualizaciones de software</strong> — Activá las actualizaciones automáticas. Cada actualización que posponés es un parche de seguridad que no instalaste.</p>
+<p>⏸ <strong>4. Desconfiá de la urgencia</strong> — Ante cualquier mensaje que te presione a actuar "ahora mismo", esperá 5 minutos antes de hacer cualquier cosa.</p>
+<p>🔍 <strong>5. Have I Been Pwned</strong> — Ingresá tu email en haveibeenpwned.com. Si aparece en brechas, cambiá la contraseña de esa cuenta y cualquier otra donde uses la misma.</p>
+</div></div></div>
+<div class="nodo-section"><div class="ns-block"><div class="prose">
+<p><strong>Phishing — cuando el ataque viene disfrazado de confianza.</strong> El phishing funciona no porque las personas sean tontas, sino porque explota algo muy humano: la tendencia a confiar en lo que parece familiar y actuar cuando sentimos urgencia.</p>
+<p>La receta del phishing: urgencia artificial ("Tu cuenta será suspendida en 24 horas"), autoridad falsa (parece venir de tu banco, de Google, de la ARCA), y un link o adjunto que lleva a un sitio falso.</p>
+<p>Señales de alerta: el dominio del remitente (soporte@banco-seguro.com no es soporte@banco.com), hacer hover sobre cualquier link antes de hacer click, errores de ortografía, tono de urgencia extrema, saludos genéricos ("Estimado cliente").</p>
+</div></div></div>
+<div class="etq etq-dato"><div class="etq-tag">✦ Dato de color — deepfakes</div><div class="etq-text">En 2024, la empresa británica Arup pagó 25 millones de dólares a estafadores después de una videollamada donde todos los participantes — excepto el empleado que autorizó la transferencia — eran deepfakes generados por IA. El FBI emitió una alerta específica en mayo de 2024 sobre el uso creciente de IA y deepfakes en ataques de phishing. Fuente: FBI Advisory IC3 2024.</div></div>
+<div class="nodo-section"><div class="ns-block">
+<div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--rose);margin-bottom:14px;font-family:'Syne',sans-serif">Diagrama — Ciclo completo de un ataque de ransomware</div>
+<div class="rw-diag">
+  <div class="rw-step"><div class="rw-ico">📧</div><div class="rw-txt"><strong>1. Phishing</strong><span>Un empleado recibe un email de aspecto legítimo y abre un adjunto o link malicioso</span></div></div>
+  <div class="rw-step"><div class="rw-ico">⬇️</div><div class="rw-txt"><strong>2. Descarga de malware</strong><span>El ransomware se instala silenciosamente. Puede permanecer inactivo días explorando la red</span></div></div>
+  <div class="rw-step"><div class="rw-ico">🔒</div><div class="rw-txt"><strong>3. Encriptación de archivos</strong><span>El malware encripta todos los archivos — fotos, documentos, bases de datos — haciéndolos inaccesibles</span></div></div>
+  <div class="rw-step"><div class="rw-ico">💬</div><div class="rw-txt"><strong>4. Mensaje de rescate</strong><span>"Pagá X en criptomonedas en las próximas 48 horas o perdés todo"</span></div></div>
+  <div class="rw-step"><div class="rw-ico">⚖️</div><div class="rw-txt"><strong>5. Decisión</strong><span>La víctima decide: pagar o no pagar</span></div></div>
+  <div class="rw-branch">
+    <div class="rw-br br-pay"><strong>💰 Si pagás</strong>Sin garantía de recuperación. Te marcan como "pagador" para futuros ataques. Financiás al crimen organizado.</div>
+    <div class="rw-br br-nopay"><strong>🚫 Si no pagás</strong>Los datos se publican en la dark web o se destruyen. El PAMI eligió este camino: 831 GB de historias clínicas quedaron expuestos.</div>
+  </div>
+</div>
+</div></div>
+<div class="etq etq-dato"><div class="etq-tag">✦ Caso real — PAMI Argentina (agosto 2023)</div><div class="etq-text">El 2 de agosto de 2023, los sistemas del PAMI — que atiende a más de 5 millones de afiliados — fueron atacados por el grupo criminal Rhysida, operando bajo el modelo RaaS (Ransomware-as-a-Service). El vector de entrada fue un email de phishing que un empleado abrió. Rhysida exigió 25 Bitcoin (~$700.000 dólares) como rescate. El PAMI no pagó. En represalia, el grupo publicó 831 GB de información en la dark web: historias clínicas, estudios médicos, datos personales de afiliados mayores. Fuentes: La Nación + WeLiveSecurity/ESET + resolución oficial INSSJP.</div></div>
+<div class="nodo-section"><div class="ns-block"><div class="prose">
+<p><strong>VPNs — qué son, qué hacen, y qué NO hacen.</strong></p>
+<p>✓ Una VPN SÍ hace: encripta tu conexión en redes públicas (wifi de café, aeropuerto), oculta tu IP real, permite acceder a contenido bloqueado geográficamente.</p>
+<p>✗ Una VPN NO hace: no te hace anónimo (si iniciás sesión en Google, Google sabe quién sos), no te protege de malware ni phishing, no encripta el contenido de tus mensajes en apps.</p>
+</div></div></div>
+<div class="etq etq-criollo"><div class="etq-tag">▸ En criollo</div><div class="etq-text">Una VPN es como cambiar de auto antes de salir a la ruta. El auto nuevo tiene vidrios polarizados y placas diferentes — más difícil identificarte en el camino. Pero cuando llegás a destino y te bajás con tu cara, todos saben quién sos. La VPN protege el trayecto, no el destino.</div></div>
+<div class="nodo-section"><div class="ns-block"><div class="prose">
+<p><strong>HTTPS vs cifrado de extremo a extremo — dos capas distintas.</strong></p>
+<p><strong>HTTPS</strong> — encripta el trayecto entre tu dispositivo y el servidor de la app. La empresa puede leer tus mensajes. Protege tu conexión, no tu contenido.<br><strong>Cifrado de extremo a extremo (E2E)</strong> — encripta el contenido de tal forma que SOLO vos y tu destinatario pueden descifrarlo. Ni siquiera la plataforma puede leerlo. WhatsApp aplica E2E en todos sus chats por defecto. Telegram solo en "chats secretos".</p>
+</div></div></div>
+<div class="etq etq-dato"><div class="etq-tag">✦ En Argentina — el cuento del tío digital</div><div class="etq-text">Los intentos de phishing aumentaron un 140% en Latinoamérica en 2024. Argentina registró un crecimiento del 300%. La estafa más denunciada: el WhatsApp robado — alguien te escribe diciendo "me llegó un código por error al tuyo, me lo mandás?" Si lo mandás, perdés acceso a tu cuenta. ARCA aclaró oficialmente que nunca se comunica por email, WhatsApp o redes sociales para solicitar pagos o datos personales. Fuente: Kaspersky Threat Landscape 2024 + UFECI.</div></div>
+<div class="etq etq-cambia"><div class="etq-tag">⚡ La regla de oro</div><ul class="cambia-list etq-text">
+<li><div class="cl-num">!</div><div>Cualquier entidad oficial, banco, o empresa seria NUNCA te va a pedir tu contraseña, tu clave fiscal, o un código que te llegó por SMS. Si alguien te lo pide — sea por teléfono, WhatsApp, email — es una estafa. No importa cuán oficial parezca, no importa la urgencia que genere. Esperá 5 minutos, buscá el número oficial de la entidad, y confirmá directamente.</div></li>
+</ul></div>
+<div class="etq etq-puente"><div class="etq-tag">→ Se conecta con</div><div class="etq-text">Ahora entendés cómo se protegen los sistemas. El siguiente bloque explica cómo se construyen — cómo nace un producto digital de punta a punta, desde la idea hasta el usuario real.</div></div>
+<div class="rec-section-title">Videos curados</div>
+<a class="recurso-card" href="https://www.youtube.com/watch?v=8mBmBarFRwc" target="_blank"><div class="rec-icon">▶</div><div class="rec-info"><div class="rec-type">Video · Básico-intermedio · Inglés subtitulado</div><div class="rec-name">CS50 Harvard — Cybersecurity (Lecture 10)</div><div class="rec-meta">~2 hs · YouTube</div></div><div class="rec-arrow">›</div></a>
+<a class="recurso-card" href="https://www.youtube.com/watch?v=aEmXa_1OC0w" target="_blank"><div class="rec-icon">▶</div><div class="rec-info"><div class="rec-type">Video · Básico · Inglés</div><div class="rec-name">Computerphile — Password Security</div><div class="rec-meta">~15 min · YouTube</div></div><div class="rec-arrow">›</div></a>
+<a class="recurso-card" href="https://www.youtube.com/watch?v=jWf9vPBhwNo" target="_blank"><div class="rec-icon">▶</div><div class="rec-info"><div class="rec-type">Video · Básico · Inglés</div><div class="rec-name">Computerphile — How Ransomware Works</div><div class="rec-meta">~15 min · YouTube</div></div><div class="rec-arrow">›</div></a>
+<a class="recurso-card" href="https://www.youtube.com/watch?v=KVTou1sL67E" target="_blank"><div class="rec-icon">▶</div><div class="rec-info"><div class="rec-type">Video · Básico · Inglés subtitulado</div><div class="rec-name">ByteByteGo — How Big Tech Uses Your Data</div><div class="rec-meta">~10 min · YouTube</div></div><div class="rec-arrow">›</div></a>`
+  },
+  5: {
+    eyebrow:'Bloque 5 · Núcleo', title:'Cómo nace un producto digital',
+    resumen:'Detrás de cada app que usás hubo un proceso. Este bloque lo explica de punta a punta — sin romantizarlo. De la hipótesis al usuario real.',
+    meta:['~58 min','5 secciones','4 videos clave','+100 XP'],
+    nextId:6, nextLabel:'Bloque 6 →',
+    html:`
+<div class="etq etq-criollo"><div class="etq-tag">▸ En criollo — La idea no es el producto</div><div class="etq-text">El mejor producto del mundo que resuelve un problema que nadie tiene es un fracaso garantizado. El producto mediano que resuelve un problema que le duele a mucha gente tiene posibilidades reales. El problema siempre va antes que la solución.</div></div>
+<div class="nodo-section"><div class="ns-block"><div class="prose">
+<p><strong>Todo producto es una hipótesis.</strong> Todo lo que un equipo cree sobre su producto antes de lanzarlo es una hipótesis — no una verdad.</p>
+<p>"Nuestros usuarios tienen este problema" — si es falsa: construiste algo que nadie quería (el fracaso más caro).<br>"Esta solución lo resuelve" — si es falsa: lanzaste algo que funciona pero no resuelve el dolor real.<br>"Estarán dispuestos a pagar X" — si es falsa: tu modelo de negocio no funciona aunque el producto sea bueno.</p>
+</div></div></div>
+<div class="etq etq-spoiler"><div class="etq-tag">⚡ Spoiler técnico</div><div class="etq-text">El 35% de las startups que fracasan lo hacen por "no market need" — no existía demanda real para el producto. No porque el equipo no supiera programar — sino porque construyeron sobre una hipótesis que nunca validaron. Fuente: CB Insights 2024.</div></div>
+<div class="nodo-section"><div class="ns-block"><div class="prose">
+<p><strong>Discovery — antes de construir una línea de código.</strong> La fase de discovery es el período donde el equipo entiende el problema antes de proponer soluciones. Es la fase que más se saltea cuando hay prisa — y la que más caro cuesta omitir.</p>
+<p><strong>Entrevistas con usuarios</strong> — conversaciones abiertas donde escuchás más de lo que hablás. Comportamientos reales: qué hacen hoy, qué les frustra, cómo lo resuelven actualmente. Nunca preguntar "¿usarías esto?" — siempre recibe "sí" por cortesía.<br><strong>User personas</strong> — perfiles semi-ficticios basados en investigación real. Arquetipos de grupos de usuarios — no demografías genéricas.<br><strong>Benchmarking</strong> — análisis de soluciones existentes. Qué hacen bien, qué hacen mal, qué no hacen.</p>
+</div></div></div>
+<div class="etq etq-pensalo"><div class="etq-tag">▸ Pensalo así</div><div class="etq-text">La fase de discovery es como hacer el diagnóstico antes de operar. Ningún médico serio opera sin diagnóstico. Lo que cambia si salteás el diagnóstico: operás el órgano equivocado, y el paciente sigue igual de enfermo — solo que ahora con cicatriz.</div></div>
+<div class="nodo-section"><div class="ns-block"><div class="prose">
+<p><strong>Backlog, priorización y roadmap.</strong></p>
+<p><strong>Backlog</strong> — la lista de todo lo que el equipo podría construir. Puede tener decenas o cientos de items. No todo va a llegar a producción — la mayor parte del backlog muere ahí, y eso está bien.<br><strong>Priorización</strong> — el proceso de decidir qué va primero. Marcos como RICE, MoSCoW e ICE ayudan a tomar esas decisiones con criterio en lugar de intuición o política interna.<br><strong>Roadmap</strong> — la hoja de ruta: qué se va a construir, en qué orden, y con qué horizonte temporal. No es un plan rígido ni un contrato — es una hipótesis de qué crear basada en la información disponible hoy.</p>
+</div></div></div>
+<div class="nodo-section"><div class="ns-block"><div class="prose">
+<p><strong>Agile, Scrum y los roles.</strong> Antes de Agile, la forma dominante era Waterfall: primero definís todo, después diseñás, después desarrollás, después testeás, después lanzás. El problema: el mundo cambia mientras construís. En 2001, diecisiete desarrolladores escribieron el Manifiesto Ágil en Snowbird, Utah — construir en ciclos cortos, validar frecuentemente, y adaptarse rápido al cambio.</p>
+<p><strong>Scrum</strong> organiza el trabajo en sprints de dos semanas. Ceremonias: Sprint Planning · Daily standup (15 min max) · Sprint Review · Sprint Retrospective.</p>
+<p><strong>Roles:</strong> PM — visión estratégica (¿por qué existe este producto?) · PO — ejecución táctica sprint a sprint · Scrum Master — proceso y bloqueos · UX Designer — experiencia de usuario · Developers — construcción técnica.</p>
+</div></div></div>
+<div class="nodo-section"><div class="ns-block"><div class="prose">
+<p><strong>MVP — el concepto más mal usado de la industria.</strong> MVP (Minimum Viable Product) no es una versión barata o incompleta del producto final. Es la versión más pequeña posible de un producto que permite validar la hipótesis central del negocio con usuarios reales. El objetivo no es lanzar rápido — es aprender rápido.</p>
+</div></div></div>
+<div class="etq etq-dato"><div class="etq-tag">✦ Dato de color — Dropbox</div><div class="etq-text">Dropbox no fue lanzado como un producto — fue lanzado como un video de demostración. Antes de escribir una línea de código, el fundador Drew Houston quería saber si la gente quería eso. Cuando el video se hizo viral en la comunidad tech, la lista de espera del beta explotó de 5.000 a 75.000 registros en una sola noche. Eso fue señal suficiente para construir el producto real. El MVP de Dropbox no tenía código. Fuente: First Round Review.</div></div>
+<div class="nodo-section"><div class="ns-block"><div class="prose">
+<p><strong>CI/CD y deuda técnica.</strong></p>
+<p><strong>CI (Continuous Integration)</strong> — cada vez que un desarrollador sube código, un sistema automatizado lo integra con el resto del proyecto y ejecuta tests para detectar si algo se rompió.<br><strong>CD (Continuous Deployment)</strong> — una vez que el código pasó por CI, el deploy a producción ocurre automáticamente (o semi-automáticamente). Un equipo con CI/CD maduro puede lanzar un fix en horas. Sin CI/CD puede tardar semanas.</p>
+<p><strong>Deuda técnica</strong> — el costo futuro de haber tomado atajos en el código para entregar más rápido. Como deuda financiera, acumula intereses. Cuando tu equipo pide tiempo para "refactorizar", no están siendo lentos — están tratando de pagar deuda antes de que los intereses hagan imposible seguir avanzando.</p>
+</div></div></div>
+<div class="nodo-section"><div class="ns-block"><div class="prose">
+<p><strong>Product-Market Fit y métricas.</strong> PMF es el momento en que un producto encuentra el mercado que lo necesita de verdad. Marc Andreessen dijo que es "el único momento que importa en la vida de una startup." Sean Ellis lo operacionalizó: si más del 40% de los usuarios activos dice que estaría "muy decepcionado" si el producto desapareciera mañana, hay PMF.</p>
+<p><strong>North Star Metric</strong> — el norte unificador de todo el equipo. Spotify: tiempo de escucha. Airbnb: noches reservadas. Facebook (temprano): usuarios que agregan 7 amigos en 10 días.<br><strong>OKRs</strong> — objetivo cualitativo + resultados clave cuantificables. Conectan la North Star con los objetivos del negocio.<br><strong>Vanity metrics</strong> — el anti-patrón. Descargas totales sin medir retención. Registros sin medir onboarding. Seguidores sin medir conversión.</p>
+</div></div></div>
+<div class="etq etq-cambia"><div class="etq-tag">⚡ Esto cambia cómo decidís</div><ul class="cambia-list etq-text">
+<li><div class="cl-num">1</div><div>Cuando el equipo de ventas le promete a un cliente una feature "para el Q3", está prometiendo algo que depende de decenas de variables que pueden cambiar. La gestión de expectativas del roadmap es una de las habilidades más valiosas de un PM.</div></li>
+<li><div class="cl-num">2</div><div>Cuando evaluás si un producto tiene PMF, la retención no miente: si los usuarios que llegaron siguen usando el producto semanas después, hay una señal real. Si no siguen, no importa cuántos llegaron.</div></li>
+<li><div class="cl-num">3</div><div>Cuando el equipo propone "lanzar el MVP", la pregunta correcta es: ¿cuál es la hipótesis central que estamos validando? Si no podés responder eso, el MVP va a estar mal definido.</div></li>
+</ul></div>
+<div class="etq etq-puente"><div class="etq-tag">→ Se conecta con</div><div class="etq-text">Sabés cómo se construyen los productos. El siguiente bloque explica la tecnología que está redefiniendo cómo se construyen — qué es la IA de verdad, sin mitos ni exageraciones.</div></div>
+<div class="rec-section-title">Videos curados</div>
+<a class="recurso-card" href="https://www.youtube.com/watch?v=MT4Ig2uqjTc" target="_blank"><div class="rec-icon">▶</div><div class="rec-info"><div class="rec-type">Video · Básico · Inglés subtitulado</div><div class="rec-name">Y Combinator — How to Talk to Users</div><div class="rec-meta">~30 min · YouTube</div></div><div class="rec-arrow">›</div></a>
+<a class="recurso-card" href="https://www.youtube.com/watch?v=RF8OjbmE8rE" target="_blank"><div class="rec-icon">▶</div><div class="rec-info"><div class="rec-type">Video · Básico · Inglés</div><div class="rec-name">Fireship — Agile Explained in 100 Seconds</div><div class="rec-meta">2 min · YouTube</div></div><div class="rec-arrow">›</div></a>
+<a class="recurso-card" href="https://www.youtube.com/watch?v=9TycLR0TqFA" target="_blank"><div class="rec-icon">▶</div><div class="rec-info"><div class="rec-type">Video · Básico · Inglés subtitulado</div><div class="rec-name">freeCodeCamp — Scrum Crash Course</div><div class="rec-meta">~35 min · YouTube</div></div><div class="rec-arrow">›</div></a>
+<a class="recurso-card" href="https://www.youtube.com/watch?v=RoY3ekCCxlc" target="_blank"><div class="rec-icon">▶</div><div class="rec-info"><div class="rec-type">Video · Básico · Inglés</div><div class="rec-name">Atlassian — OKRs Explained</div><div class="rec-meta">~8 min · YouTube</div></div><div class="rec-arrow">›</div></a>`
+  },
+  6: {
+    eyebrow:'Bloque 6 · Núcleo', title:'Qué es la IA',
+    resumen:'No es magia. No es ciencia ficción. Es matemática aplicada a patrones — y entender cómo funciona cambia cómo la usás.',
+    meta:['~62 min','5 secciones','5 videos clave','+120 XP'],
+    nextId:null, nextLabel:null,
+    html:`
+<div class="nodo-section"><div class="ns-block"><div class="prose">
+<p><strong>Las matrioskas — IA, Machine Learning, Deep Learning e IA Generativa.</strong> Cuando la gente habla de "inteligencia artificial" en 2026, generalmente está hablando de tres o cuatro cosas distintas sin distinguirlas. La mejor forma de entender cómo se relacionan es imaginar muñecas matrioskas — cada capa contiene a la anterior y agrega algo nuevo encima.</p>
+</div></div></div>
+<div class="matrioska m1"><div class="m-num">Capa 1 — la más amplia</div><div class="m-name">🧠 Inteligencia Artificial</div><div class="m-desc">Cualquier sistema diseñado para realizar tareas que típicamente requieren inteligencia humana — tomar decisiones, reconocer patrones, responder a estímulos. Ejemplo: un termostato que enciende la calefacción cuando la temperatura baja de cierto punto.</div></div>
+<div class="matrioska m2"><div class="m-num">Capa 2</div><div class="m-name">📊 Machine Learning</div><div class="m-desc">En lugar de programar explícitamente las reglas, le damos al sistema ejemplos y dejamos que encuentre las reglas por sí mismo — sin que nadie se las escriba. Ejemplo: un filtro de spam que aprende a detectar spam a partir de miles de ejemplos.</div></div>
+<div class="matrioska m3"><div class="m-num">Capa 3</div><div class="m-name">🔬 Deep Learning</div><div class="m-desc">ML que usa redes neuronales con múltiples capas. Puede procesar datos no estructurados (imágenes, audio, texto) y encontrar patrones que ningún humano podría programar. Ejemplo: reconocimiento facial, subtítulos automáticos de YouTube, detección de cáncer en imágenes médicas.</div></div>
+<div class="matrioska m4"><div class="m-num">Capa 4 — la más específica</div><div class="m-name">✨ IA Generativa</div><div class="m-desc">Usa todo lo anterior para crear contenido original — texto, imágenes, audio, video, código. No solo reconoce patrones existentes: genera nuevos. Ejemplo: ChatGPT, Claude, Midjourney, Sora, GitHub Copilot.</div></div>
+<div class="etq etq-resumen"><div class="etq-tag">▸ El resumen para contarle a alguien en el subte</div><div class="etq-text">IA es el campo. Machine Learning es la técnica de aprender de datos. Deep Learning es ML con redes neuronales complejas. IA Generativa es Deep Learning aplicado a crear cosas nuevas. Son capas que se construyen una sobre la otra — no tecnologías competidoras.</div></div>
+<div class="nodo-section"><div class="ns-block"><div class="prose">
+<p><strong>Cómo funciona un LLM — sin matemática.</strong> ChatGPT, Claude, Gemini — todos son Large Language Models (LLMs). Un LLM aprende haciendo una tarea aparentemente simple: predecir la siguiente palabra en una secuencia. Hace eso miles de millones de veces — ajustando sus parámetros internos cada vez que se equivoca — hasta que se vuelve muy bueno en predecir qué texto viene después de qué texto.</p>
+<p>Lo revelador: para predecir bien el texto, el modelo termina aprendiendo implícitamente gramática, hechos sobre el mundo, relaciones entre conceptos — todo sin que nadie se lo enseñe explícitamente. Todo emerge del objetivo de predecir la siguiente palabra a escala masiva.</p>
+<p><strong>RLHF</strong> (Reinforcement Learning from Human Feedback) es la segunda etapa que convierte el modelo base en un asistente. Evaluadores humanos califican distintos outputs del modelo según cuáles son más útiles, honestos y seguros. Esa es la diferencia entre GPT-base y ChatGPT. Lo que parece "personalidad" en un chatbot es en gran parte el resultado de ese proceso de alineación humana.</p>
+</div></div></div>
+<div class="nodo-section"><div class="ns-block"><div class="prose">
+<p><strong>Tokens y context window — los límites del modelo.</strong> Un LLM no procesa palabras directamente — procesa tokens. Un token es un fragmento de texto: a veces una palabra completa, a veces parte de una palabra, a veces un símbolo de puntuación. Esto explica algunos comportamientos extraños — como que cuenten mal las letras de una palabra.</p>
+<p>El <strong>context window</strong> es la cantidad máxima de texto que un LLM puede "ver" simultáneamente en una conversación. Todo lo que está fuera de esa ventana no existe para el modelo.</p>
+<p>GPT-4 (OpenAI): ~128.000 tokens · Claude 3 (Anthropic): ~200.000 tokens · Gemini 1.5 Pro (Google): ~1.000.000 tokens</p>
+<p style="font-size:13px;color:var(--mist)">Nota: estos tamaños son correctos a la fecha de escritura (2026) pero evolucionan con cada nueva versión. Lo importante es el concepto, no los números exactos.</p>
+</div></div></div>
+<div class="nodo-section"><div class="ns-block"><div class="prose">
+<p><strong>Alucinaciones — el problema técnico más importante.</strong> El término alucinación en IA describe cuando un modelo genera información falsa con total confianza. No es que el modelo "mienta" deliberadamente. Es una consecuencia de cómo funciona: predice qué texto es estadísticamente probable que venga después, sin tener un mecanismo interno que verifique si lo que genera es verdad.</p>
+</div></div></div>
+<div class="etq etq-dato"><div class="etq-tag">✦ Dato de color — el abogado y los casos inventados</div><div class="etq-text">En 2023, un abogado de Nueva York presentó ante la justicia federal citas de casos legales generadas por ChatGPT — casos que no existían. El juez descubrió que las referencias eran inventadas. ChatGPT había generado títulos de casos perfectamente plausibles, con nombres de jueces reales y fechas reales — pero los casos eran ficticios. El abogado fue multado con 5.000 dólares. El modelo no supo que no sabía. Fuente: MIT Sloan (caso Mata v. Avianca).</div></div>
+<div class="nodo-section"><div class="ns-block"><div class="prose">
+<p><strong>Sesgos y RAG.</strong> Los modelos de IA aprenden de datos generados por humanos. Y los humanos tienen sesgos — históricos, culturales, sociales. Un modelo entrenado mayormente en inglés y en contenido de Estados Unidos y Europa tendrá una visión sesgada. El proyecto Gender Shades de Joy Buolamwini (MIT) encontró disparidades del orden del 30% en tasas de error entre mujeres de piel oscura y hombres de piel clara en sistemas de reconocimiento facial.</p>
+<p><strong>RAG</strong> (Retrieval-Augmented Generation) es la técnica por la cual un LLM puede acceder a información externa en tiempo real antes de generar su respuesta — documentos, bases de datos, búsquedas web. Es la solución más usada al problema de las alucinaciones y al problema del knowledge cutoff (fecha de corte de conocimiento).</p>
+</div></div></div>
+<div class="etq etq-pensalo"><div class="etq-tag">▸ Pensalo así — RAG</div><div class="etq-text">Sin RAG, el LLM es como un experto que estudió muchísimo hasta hace un año y desde entonces no leyó nada nuevo. Sabe mucho, pero su conocimiento tiene una fecha de vencimiento y puede inventar cosas sobre temas donde sus datos son escasos. Con RAG, ese mismo experto puede consultar documentos actualizados antes de responderte.</div></div>
+<div class="profundizacion" id="pf6a"><button class="prof-toggle" onclick="toggleProf('pf6a')"><span>⚙ La vuelta de tuerca técnica — El Transformer</span><span class="prof-arrow">›</span></button><div class="prof-content"><p>El mecanismo que hace posibles los LLMs modernos se llama Transformer, introducido en el paper "Attention Is All You Need" de investigadores de Google en 2017. La idea central: el modelo puede prestar atención a cualquier parte del texto de entrada simultáneamente, independientemente de qué tan lejos esté. Antes del Transformer, las redes recurrentes (RNNs) procesaban el texto secuencialmente y "olvidaban" el contexto lejano. El paper "Attention Is All You Need" es uno de los trabajos académicos más citados de la historia de la computación — en solo 7 años cambió completamente el campo. Referencia: arxiv.org/abs/1706.03762.</p></div></div>
+<div class="etq etq-dato"><div class="etq-tag">✦ IA en Latinoamérica</div><div class="etq-text"><strong>NotCo (Chile)</strong> — empresa de foodtech unicornio que usa IA para diseñar productos de origen vegetal que replican el sabor y textura de la carne y los lácteos. Su algoritmo "Giuseppe" analiza miles de ingredientes y sus combinaciones. <strong>MercadoLibre</strong> — usa ML extensivamente para detección de fraude en tiempo real en MercadoPago, sistemas de recomendación de productos, y predicción de demanda en su red logística. <strong>El desafío del idioma:</strong> los modelos de lenguaje están predominantemente entrenados en inglés. El español latinoamericano está subrepresentado — un área activa de investigación.</div></div>
+<div class="etq etq-cambia"><div class="etq-tag">⚡ Esto cambia cómo decidís</div><ul class="cambia-list etq-text">
+<li><div class="cl-num">1</div><div>La pregunta relevante no es "¿la IA va a reemplazar mi trabajo?" sino "¿qué tareas de mi trabajo puede automatizar la IA, y hacia dónde puedo redirigir mi energía?" Un trabajo es un conjunto de tareas. La IA automatiza tareas, no necesariamente trabajos completos.</div></li>
+<li><div class="cl-num">2</div><div>Cualquier output de un LLM que involucre hechos específicos, cifras, citas, o información técnica requiere verificación independiente antes de usarse en un contexto donde la exactitud importa. Siempre.</div></li>
+<li><div class="cl-num">3</div><div>Si estás construyendo un producto que usa IA para tomar decisiones sobre personas — filtrar CVs, aprobar créditos, recomendar contenido — los sesgos del modelo son sesgos del producto. Son tu responsabilidad.</div></li>
+</ul></div>
+<div class="rec-section-title">Videos curados</div>
+<a class="recurso-card" href="https://www.youtube.com/watch?v=aircAruvnKk" target="_blank"><div class="rec-icon">▶</div><div class="rec-info"><div class="rec-type">Video · Básico · Inglés subtitulado · OBLIGATORIO</div><div class="rec-name">3Blue1Brown — But what is a neural network?</div><div class="rec-meta">~19 min · YouTube</div></div><div class="rec-arrow">›</div></a>
+<a class="recurso-card" href="https://www.youtube.com/watch?v=wjZofJX0v4M" target="_blank"><div class="rec-icon">▶</div><div class="rec-info"><div class="rec-type">Video · Básico-intermedio · Inglés subtitulado · OBLIGATORIO</div><div class="rec-name">3Blue1Brown — But what is GPT? Visual intro to transformers</div><div class="rec-meta">~27 min · YouTube</div></div><div class="rec-arrow">›</div></a>
+<a class="recurso-card" href="https://www.youtube.com/watch?v=zjkBMFhNj_g" target="_blank"><div class="rec-icon">▶</div><div class="rec-info"><div class="rec-type">Video · Básico-intermedio · Inglés subtitulado</div><div class="rec-name">Andrej Karpathy — Intro to Large Language Models</div><div class="rec-meta">~1 hora · YouTube</div></div><div class="rec-arrow">›</div></a>
+<a class="recurso-card" href="https://www.youtube.com/watch?v=5sLYAQS9sWQ" target="_blank"><div class="rec-icon">▶</div><div class="rec-info"><div class="rec-type">Video · Básico · Inglés</div><div class="rec-name">Fireship — ChatGPT Explained in 5 Minutes</div><div class="rec-meta">5 min · YouTube</div></div><div class="rec-arrow">›</div></a>
+<a class="recurso-card" href="https://www.youtube.com/watch?v=86ib0sfdFtw" target="_blank"><div class="rec-icon">▶</div><div class="rec-info"><div class="rec-type">Video · Básico · Inglés</div><div class="rec-name">Computerphile — AI Hallucination</div><div class="rec-meta">~15 min · YouTube</div></div><div class="rec-arrow">›</div></a>`
+  }
+};
+
+// ═══════════════════════════════════════════════════════════════════════
+// QUIZ DATA
+// ═══════════════════════════════════════════════════════════════════════
+const QUIZ = {
+  1:[
+    {q:"¿Qué es un algoritmo?",opts:["Una función matemática compleja","Un conjunto de pasos para completar una tarea específica","Un lenguaje de programación","El idioma nativo de las computadoras"],c:1,fb:"Correcto. Pasos ordenados para llegar a un resultado — finitos, deterministas y sensibles al orden."},
+    {q:"¿Qué lenguaje es el único que corre nativo en el navegador?",opts:["Python","TypeScript","JavaScript","SQL"],c:2,fb:"JavaScript es el único lenguaje que los navegadores entienden directamente."},
+    {q:"¿Para qué sirve SQL?",opts:["Para construir interfaces web","Para entrenar modelos de IA","Para consultar y manipular datos en bases de datos relacionales","Para gestionar el sistema operativo"],c:2,fb:"SQL habla con los datos."}
+  ],
+  15:[
+    {q:"¿Cuál es la diferencia entre RAM y disco?",opts:["La RAM es más lenta pero puede guardar más datos","La RAM es el espacio de trabajo temporal y rápido; el disco es el almacenamiento permanente","El disco solo lo usan los desarrolladores","Son lo mismo con distintos nombres"],c:1,fb:"RAM = escritorio (rápido, temporal). Disco = cajón (permanente)."},
+    {q:"¿Por qué existe el ambiente de staging?",opts:["Para que los desarrolladores trabajen más rápido","Para atrapar errores en un ambiente que simula producción antes de que lleguen a los usuarios reales","Porque production es demasiado caro","Es opcional"],c:1,fb:"Staging es la última red de seguridad. Un error en staging es barato; en producción es costoso."}
+  ],
+  2:[
+    {q:"¿Qué es un schema de base de datos?",opts:["El lenguaje de programación usado","La estructura predefinida que define qué tablas existen, qué columnas tienen y qué tipo de dato acepta cada campo","El archivo de respaldo","El sistema de autenticación"],c:1,fb:"El schema es el plano del edificio. Cambiarlo cuando ya hay datos es una migración."},
+    {q:"¿Qué significa la A de ACID?",opts:["Authorization","Atomicity — que la transacción se ejecuta completa o no se ejecuta en absoluto","Availability","Asynchronous"],c:1,fb:"Atomicity: o todo pasa o nada pasa."},
+    {q:"¿Cuándo conviene usar una base de datos no relacional?",opts:["Siempre, porque es más moderna","Cuando los datos son muy estructurados y predecibles","Cuando los datos son variables o no estructurados, o se necesita escalar a volúmenes masivos con baja latencia","Solo para redes sociales"],c:2,fb:"NoSQL brilla cuando la estructura varía o cuando se necesita escalar masivamente."}
+  ],
+  3:[
+    {q:"¿Cuál es la diferencia entre internet y la World Wide Web?",opts:["Son exactamente lo mismo","Internet es la infraestructura de red global; la web es el sistema de páginas y contenido que corre sobre esa infraestructura","La web es más antigua que internet","Internet es privado; la web es pública"],c:1,fb:"Internet son las rutas. La web son los autos que circulan por ellas."},
+    {q:"¿Cuál es la diferencia entre autenticación y autorización?",opts:["Son sinónimos","Autenticación verifica quién sos; autorización decide qué podés hacer — son dos filtros distintos","Autenticación es para usuarios; autorización es para aplicaciones","La autorización siempre va antes"],c:1,fb:"El portero del boliche hace autenticación (DNI). La lista VIP es autorización."},
+    {q:"¿Qué pasa cuando el DNS falla?",opts:["Internet se cae completamente","Solo los sitios nuevos dejan de funcionar","Los sitios web son inaccesibles aunque los servidores estén funcionando perfectamente","La conexión se vuelve más lenta"],c:2,fb:"En 2016, el ataque a Dyn tiró Twitter, Netflix y Amazon. Sus servidores estaban perfectos. Solo el DNS había caído."},
+    {q:"¿Por qué GET no debería usarse para formularios de pago?",opts:["GET es más lento que POST","Los parámetros de GET viajan visibles en la URL — expone datos sensibles y puede procesar el cobro dos veces si el usuario recarga","GET no soporta datos encriptados","Los servidores de pagos no aceptan GET"],c:1,fb:"Una URL con ?monto=5000 visible en el historial es un error de seguridad grave."},
+    {q:"¿Qué es un endpoint?",opts:["El servidor principal de una empresa","La dirección específica de un recurso dentro de una API — la puerta exacta para pedir algo específico","El formato en que viajan los datos","El sistema de autenticación de una API"],c:1,fb:"Si la API es el edificio, el endpoint es la puerta específica."},
+    {q:"¿Cuándo conviene usar WebSockets en lugar de una API REST?",opts:["Siempre — WebSockets es más moderno","Cuando necesitás comunicación en tiempo real bidireccional — chats, precios en vivo, colaboración simultánea","Solo para aplicaciones móviles","Cuando el rate limit de la API REST es insuficiente"],c:1,fb:"REST es para solicitud-respuesta. WebSockets es para cuando necesitás una conexión que quede abierta."}
+  ],
+  4:[
+    {q:"¿Cuál es el mayor riesgo de reusar la misma contraseña?",opts:["Que sea más fácil de adivinar","Que una sola brecha en cualquier servicio expone todas tus cuentas automáticamente","Que los servicios la compartan entre sí","Que sea rechazada por ser demasiado simple"],c:1,fb:"Eso se llama credential stuffing."},
+    {q:"¿Qué es el 2FA?",opts:["Una contraseña más larga","Un segundo factor de verificación que requiere algo que tenés (tu teléfono) además de algo que sabés (tu contraseña)","Un sistema de backup para contraseñas olvidadas","El nombre técnico para el login biométrico"],c:1,fb:"El 2FA agrega una capa que un atacante no puede superar aunque tenga tu contraseña."},
+    {q:"La diferencia entre HTTPS y cifrado de extremo a extremo:",opts:["HTTPS es más seguro porque lo usan los bancos","HTTPS encripta el trayecto — la empresa puede leer el contenido. El E2E encripta el contenido de forma que ni la plataforma puede leerlo","Son sinónimos","El cifrado E2E solo funciona en apps de pago"],c:1,fb:"Con HTTPS el servidor puede leer lo que mandás. Con E2E ni el servidor puede leerlo."},
+    {q:"¿Por qué el ransomware pide pagos en Bitcoin o Monero?",opts:["Porque es más rápido","Porque las transacciones son difíciles de rastrear e irreversibles — no hay banco que pueda revertir una transferencia","Porque los atacantes no tienen cuentas bancarias","Por razones fiscales"],c:1,fb:"La irreversibilidad es la clave. Una vez transferido el dinero, no hay chargeback posible."}
+  ],
+  5:[
+    {q:"¿Cuál es la razón número uno por la que fallan los productos digitales según CB Insights?",opts:["Problemas técnicos irresolubles","Falta de financiamiento","No existía demanda real — construyeron algo que nadie quería","El equipo no tenía experiencia"],c:2,fb:"El 35% de las startups falla por 'no market need'."},
+    {q:"¿Qué es un MVP correctamente entendido?",opts:["Una versión barata e incompleta del producto final","La versión más pequeña posible que permite validar la hipótesis central del negocio con usuarios reales","El primer prototipo visual","El producto lanzado antes de tener todas las features"],c:1,fb:"La palabra clave es 'viable' — no 'mínimo'."},
+    {q:"La diferencia entre CI y CD es:",opts:["Son exactamente lo mismo","CI integra y testea el código automáticamente; CD lleva ese código a producción — son dos etapas distintas","CI es para el frontend y CD es para el backend","CI es para equipos pequeños y CD para equipos grandes"],c:1,fb:"CI = integración + testing automático. CD = deploy automático o semi-automático."},
+    {q:"¿Cómo saber si un producto alcanzó el product-market fit según Sean Ellis?",opts:["Cuando tiene más de 1.000 usuarios activos","Cuando el 40% o más de los usuarios activos dice que estaría 'muy decepcionado' si el producto desapareciera","Cuando el churn es menor al 5% mensual","Cuando la North Star Metric supera el benchmark"],c:1,fb:"El 40% de Ellis es el umbral empírico que separa a los productos que crecen de los que no."}
+  ],
+  6:[
+    {q:"¿Cuál es la relación correcta entre IA, ML, Deep Learning e IA Generativa?",opts:["Son sinónimos","Son tecnologías competidoras","Son capas donde cada concepto es un subconjunto del anterior — IA contiene ML, ML contiene Deep Learning, Deep Learning contiene IA Generativa","Son etapas históricas secuenciales"],c:2,fb:"Son matrioskas. IA es el campo más amplio, IA Generativa es la capa más específica."},
+    {q:"¿Qué es RLHF y por qué importa?",opts:["Es el proceso de entrenamiento inicial donde el modelo aprende de internet","Es la segunda etapa donde feedback humano alinea el modelo para que sea útil, honesto y seguro — es la diferencia entre GPT-base y ChatGPT","Es el sistema que detecta alucinaciones en tiempo real","Permite al modelo actualizar su conocimiento automáticamente"],c:1,fb:"Sin RLHF, un LLM puede generar texto plausible pero sin distinguir entre contenido útil y dañino."},
+    {q:"Una alucinación en un LLM ocurre porque:",opts:["El modelo fue entrenado con datos incorrectos deliberadamente","El modelo predice qué texto es estadísticamente probable sin verificar si lo que genera es verdad","El modelo intenta engañar al usuario","El modelo no tiene suficientes parámetros"],c:1,fb:"La alucinación no es intencional — el modelo puede generar una cita perfectamente formateada de un paper que no existe."},
+    {q:"¿Qué es RAG?",opts:["Una técnica para hacer modelos más pequeños","La técnica por la cual un LLM puede acceder a información externa actualizada antes de generar su respuesta — solución principal a alucinaciones y knowledge cutoff","Un método de entrenamiento alternativo al RLHF","Un tipo de prompt engineering"],c:1,fb:"Sin RAG el LLM sabe solo lo que aprendió hasta su fecha de corte. Con RAG puede consultar documentos actualizados."}
+  ]
+};
+
+// ─── ESTADO ──────────────────────────────────────────────
+let bloqueActual = 4;
+const qState = {};
+const BIDS = [1,15,2,3,4,5,6];
+const SCREENS = ['home','ruta','nodo','progreso'];
+
+// ─── NAVEGACIÓN ──────────────────────────────────────────
+function ir(id){
+  SCREENS.forEach(s=>{
+    document.getElementById('screen-'+s).classList.toggle('active', s===id);
+    const nd=document.getElementById('nl-'+s);
+    const dd=document.getElementById('dl-'+s);
+    if(nd) nd.classList.toggle('active', s===id);
+    if(dd) dd.classList.toggle('active', s===id);
+  });
+  cerrarDrawer();
+  window.scrollTo(0,0);
+}
+
+function toggleDrawer(){
+  const d=document.getElementById('drawer');
+  d.classList.toggle('open');
+}
+function cerrarDrawer(){
+  document.getElementById('drawer').classList.remove('open');
+}
+
+function toggleBloque(id){
+  document.getElementById(id).classList.toggle('open');
+}
+function toggleProf(id){
+  document.getElementById(id).classList.toggle('open');
+}
+
+function abrirBloque(bid){
+  bloqueActual=bid;
+  cerrarDrawer();
+  renderBloque(bid);
+  ir('nodo');
+}
+
+// ─── RENDERIZAR BLOQUE ────────────────────────────────────
+function renderBloque(bid){
+  const b=BLOQUES[bid];
+  if(!b) return;
+  const label=bid===15?'1.5':String(bid);
+  const navBtns=BIDS.map(id=>`<button type="button" class="bnav-btn${id===bid?' cur':''}" onclick="abrirBloque(${id})">${id===15?'B1.5':'B'+id}</button>`).join('');
+  const nextBtn=b.nextId
+    ? `<button type="button" class="btn-seguir" onclick="abrirBloque(${b.nextId})">${b.nextLabel}</button>`
+    : `<button type="button" class="btn-seguir" onclick="celebrar()">Completar biblioteca 🎉</button>`;
+
+  document.getElementById('nodo-content').innerHTML=`
+    <div class="nodo-breadcrumb">
+      <button type="button" class="bc-back" onclick="ir('ruta')">Mi ruta</button>
+      <span class="bc-sep">›</span>
+      <span>Bloque ${label}</span>
+      <span class="bc-sep">›</span>
+      <span class="bc-current">${b.title}</span>
+    </div>
+    <div class="nodo-hero">
+      <div class="nodo-eyebrow">${b.eyebrow}</div>
+      <h1 class="nodo-title">${b.title}</h1>
+      <p class="nodo-resumen">${b.resumen}</p>
+    </div>
+    <div class="nodo-meta-row">
+      ${b.meta.map(m=>`<div class="nmeta"><div class="nmeta-dot"></div>${m}</div>`).join('')}
+    </div>
+    ${b.html}
+    <div id="quiz-zone"></div>
+    <div class="bloque-nav-bar">${navBtns}</div>
+    <div class="nodo-footer">
+      <button type="button" class="btn-volver" onclick="ir('ruta')">← Mi ruta</button>
+      ${nextBtn}
+    </div>
+  `;
+  renderQuiz(bid);
+}
+
+// ─── QUIZ ────────────────────────────────────────────────
+function renderQuiz(bid){
+  if(!qState[bid]) qState[bid]={idx:0,score:0,done:false,answered:false};
+  const zone=document.getElementById('quiz-zone');
+  if(!zone) return;
+  const qs=QUIZ[bid];
+  const s=qState[bid];
+  const L=['A','B','C','D'];
+
+  if(s.idx>=qs.length){
+    const emoji=s.score===qs.length?'🎉':s.score>=qs.length*0.7?'✅':'📖';
+    const msg=s.score===qs.length?'Perfecto — entendiste todo el bloque.':s.score>=qs.length*0.7?'Muy bien. Podés seguir.':'Repasá el bloque antes de seguir.';
+    zone.innerHTML=`<div class="ejercicio-card"><div class="ej-label">Quiz — Resultado</div><div class="quiz-done-wrap"><h3>${emoji} ${s.score}/${qs.length} correctas</h3><p>${msg}</p><button type="button" class="quiz-restart-btn" onclick="reiniciarQuiz(${bid})">Intentar de nuevo</button></div></div>`;
+    return;
+  }
+
+  const q=qs[s.idx];
+  zone.innerHTML=`<div class="ejercicio-card">
+    <div class="ej-label">Quiz · Pregunta ${s.idx+1} de ${qs.length}</div>
+    <div class="ej-pregunta">${q.q}</div>
+    <div class="ej-options">${q.opts.map((o,i)=>`<button type="button" class="ej-opt" id="qo${i}" onclick="responder(${bid},${i})"><span class="ej-letter">${L[i]}</span>${o}</button>`).join('')}</div>
+    <div class="ej-feedback" id="qfb"></div>
+    <div class="quiz-nav">
+      <span class="quiz-prog">Pregunta ${s.idx+1} de ${qs.length}</span>
+      <button type="button" class="quiz-next-btn" id="qnext" onclick="siguiente(${bid})">Siguiente →</button>
+    </div>
+  </div>`;
+}
+
+function responder(bid,idx){
+  const s=qState[bid];
+  if(s.answered) return;
+  s.answered=true;
+  const q=QUIZ[bid][s.idx];
+  document.querySelectorAll('.ej-opt').forEach(o=>o.disabled=true);
+  const ok=idx===q.c;
+  document.getElementById('qo'+idx).classList.add(ok?'correct':'wrong');
+  if(!ok) document.getElementById('qo'+q.c).classList.add('correct');
+  if(ok) s.score++;
+  const fb=document.getElementById('qfb');
+  fb.textContent=(ok?'✓ ':'✗ ')+q.fb;
+  fb.className=ok?'ej-feedback ej-fb-ok':'ej-feedback ej-fb-err';
+  document.getElementById('qnext').style.display='inline-block';
+}
+
+function siguiente(bid){
+  qState[bid].idx++;
+  qState[bid].answered=false;
+  renderQuiz(bid);
+}
+
+function reiniciarQuiz(bid){
+  qState[bid]={idx:0,score:0,done:false,answered:false};
+  renderQuiz(bid);
+}
+
+// ─── MODAL ───────────────────────────────────────────────
+function abrirOnboarding(){document.getElementById('modal').classList.add('show')}
+function cerrarModal(){document.getElementById('modal').classList.remove('show');ir('ruta')}
+function paso(n){document.querySelectorAll('.modal-step').forEach(s=>s.classList.remove('active'));document.getElementById('ms'+n).classList.add('active')}
+function elegirOpt(el){el.closest('.ms-options').querySelectorAll('.ms-opt').forEach(o=>o.classList.remove('selected'));el.classList.add('selected')}
+
+// ─── CONFETTI ────────────────────────────────────────────
+function celebrar(){confetti();setTimeout(()=>ir('ruta'),600)}
+function confetti(){
+  const cols=['#3B82F6','#059669','#D97706','#E11D48','#6366F1','#0D9488'];
+  for(let i=0;i<60;i++){
+    const p=document.createElement('div');p.className='cfetti';
+    p.style.cssText=`left:${Math.random()*100}vw;top:-10px;background:${cols[~~(Math.random()*cols.length)]};width:${Math.random()*8+4}px;height:${Math.random()*8+4}px;animation-duration:${Math.random()*2+1.5}s;animation-delay:${Math.random()*.4}s;`;
+    document.body.appendChild(p);setTimeout(()=>p.remove(),4000);
+  }
+}
+
+// ─── INIT ────────────────────────────────────────────────
+// Cargar bloque 4 en background SIN cambiar de pantalla
+// La pantalla inicial es HOME
+(function(){
+  renderBloque(4);
+})();
+</script>
+</body>
+</html>

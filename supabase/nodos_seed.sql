@@ -68,7 +68,7 @@ VALUES (
   'El mapa del territorio: Python, JavaScript y SQL',
   'Python es el chef que sabe hacer de todo. JavaScript es el mozo. SQL es el sistema de inventario.',
   '<table><thead><tr><th>LENGUAJE</th><th>PARA QUÉ SIRVE</th><th>DÓNDE LO VAS A ESCUCHAR</th></tr></thead><tbody><tr><td>Python</td><td>IA, datos, automatizaciones, ciencia de datos</td><td>''El modelo fue entrenado en Python'', ''usamos Python para análisis''</td></tr><tr><td>JavaScript</td><td>Web frontend — todo lo que el usuario ve e interactúa</td><td>''La app está en React + JavaScript'', ''el botón no funciona en el frontend''</td></tr><tr><td>SQL</td><td>Consultar y manipular datos en bases de datos relacionales</td><td>''Hacé una query en SQL'', ''el reporte viene de la base de datos''</td></tr></tbody></table>
-<div class="tag en-criollo"><strong>En criollo</strong><p>Python es el chef que sabe hacer de todo. JavaScript es el mozo — el que interactúa con vos directamente. SQL es el sistema de inventario de la cocina — no cocina nada, pero sabe exactamente qué hay, dónde está, y te lo trae cuando lo pedís. Sin el sistema de inventario, el chef más talentoso del mundo no sabe si tiene huevos.</p></div>',
+<div class="tag en-criollo"><strong>■ En criollo</strong><p>Python es el chef que sabe hacer de todo. JavaScript es el mozo — el que interactúa con vos directamente. SQL es el sistema de inventario de la cocina — no cocina nada, pero sabe exactamente qué hay, dónde está, y te lo trae cuando lo pedís. Sin el sistema de inventario, el chef más talentoso del mundo no sabe si tiene huevos.</p></div>',
   ARRAY['en-criollo'],
   'concepto',
   'basico',
@@ -100,7 +100,7 @@ VALUES (
   'Frameworks y librerías — la diferencia que importa',
   'Una librería es una colección de herramientas que podés usar cuando querás, en el orden que querás.',
   '<p>Una librería es una colección de herramientas que podés usar cuando querás, en el orden que querás. Un framework es una estructura que define cómo se organiza todo tu proyecto — te dice dónde van las cosas, qué orden tienen que tener, cómo se conectan las partes.</p>
-<div class="tag en-criollo"><strong>En criollo</strong><p>Con una librería, vos llamás al código. Con un framework, el framework te llama a vos. El framework pone las reglas del juego; vos jugás dentro de esas reglas.</p></div>',
+<div class="tag en-criollo"><strong>■ En criollo</strong><p>Con una librería, vos llamás al código. Con un framework, el framework te llama a vos. El framework pone las reglas del juego; vos jugás dentro de esas reglas.</p></div>',
   ARRAY['en-criollo'],
   'concepto',
   'basico',
@@ -148,7 +148,7 @@ VALUES (
   'En el mundo real, casi nadie escribe JavaScript puro en proyectos serios.',
   '<p>En el mundo real, casi nadie escribe JavaScript puro en proyectos serios. TypeScript es JavaScript con reglas más estrictas que resuelve el problema del tipado estático.</p>
 <p>En JavaScript puro, podés crear una variable que hoy guarda un número, mañana un texto, y pasado mañana una lista — y el lenguaje no se queja. Esa flexibilidad es cómoda cuando el proyecto es chico. Con 50 archivos y 8 personas trabajando en paralelo, esa flexibilidad se convierte en caos. Una función espera un número, alguien le manda un texto, y el sistema explota en producción a las 3 de la mañana.</p>
-<div class="tag en-criollo"><strong>En criollo</strong><p>Armar un mueble sin el manual es JavaScript. TypeScript es el manual incluido, que además te grita si estás poniendo el tornillo equivocado antes de que te des cuenta de que armaste la puerta al revés.</p></div>
+<div class="tag en-criollo"><strong>■ En criollo</strong><p>Armar un mueble sin el manual es JavaScript. TypeScript es el manual incluido, que además te grita si estás poniendo el tornillo equivocado antes de que te des cuenta de que armaste la puerta al revés.</p></div>
 <div class="tag vuelta-tecnica"><strong>■ La vuelta de tuerca técnica</strong><p>TypeScript no corre directamente en el navegador. Se transpila — se convierte automáticamente a JavaScript antes de ejecutarse. Es como escribir en un dialecto propio y tener un traductor que lo convierte al idioma que el navegador entiende. Hoy, la mayoría de los proyectos React en empresas serias usan TypeScript. Cuando ves ''React + TypeScript'' en una búsqueda de trabajo, no es un nice-to-have — es el estándar de la industria en 2026.</p></div>',
   ARRAY['en-criollo', 'vuelta-tecnica'],
   'herramienta',
@@ -303,7 +303,7 @@ VALUES (
 <p><strong>Clave-valor (Redis)</strong> — Búsquedas ultrarrápidas. Ideal para caché y sesiones.</p>
 <p><strong>Columnas anchas (Cassandra)</strong> — Datasets masivos distribuidos. Ideal para apps de alta escala.</p>
 <p><strong>Grafos (Neo4j)</strong> — Datos con relaciones complejas. Ideal para redes sociales y detección de fraude.</p>
-<div class="tag en-criollo"><strong>En criollo</strong><p>Una base relacional es un placard con cajones etiquetados — todo tiene su lugar fijo. Una base no relacional es una mochila — tirás lo que necesitás, en el formato que sea, y lo encontrás cuando lo precisás. Menos orden, más flexibilidad.</p></div>
+<div class="tag en-criollo"><strong>■ En criollo</strong><p>Una base relacional es un placard con cajones etiquetados — todo tiene su lugar fijo. Una base no relacional es una mochila — tirás lo que necesitás, en el formato que sea, y lo encontrás cuando lo precisás. Menos orden, más flexibilidad.</p></div>
 <div class="tag latam"><strong>■■ Rappi — De monolito a microservicios con AWS</strong><p>Rappi, la startup colombiana de delivery valuada en más de 5.200 millones de dólares, comenzó con una arquitectura monolítica que pronto resultó insuficiente. Al escalar a 9 países y 9 líneas de negocio, migró a una arquitectura de microservicios con múltiples bases de datos especializadas: Amazon DocumentDB (compatible con MongoDB) para datos de pedidos, Elasticsearch para búsqueda de catálogo y productos, y AWS para su infraestructura cloud. Cada microservicio está organizado por unidad de negocio y por país.</p></div>',
   ARRAY['en-criollo', 'latam'],
   'concepto',
@@ -338,7 +338,7 @@ VALUES (
   'Internet vs la web — una distinción que casi nadie hace',
   'Internet es la infraestructura — los cables submarinos, los servidores, la red global.',
   '<p>Internet es la infraestructura — los cables submarinos, los servidores, la red global de computadoras conectadas entre sí. La World Wide Web es el sistema de páginas, links y contenido que corre sobre esa infraestructura.</p>
-<div class="tag en-criollo"><strong>En criollo</strong><p>Internet son las rutas del país. La web son los autos que circulan por ellas. Podés usar internet sin usar la web — cuando mandás un email o usás WhatsApp, estás usando internet pero no la web.</p></div>',
+<div class="tag en-criollo"><strong>■ En criollo</strong><p>Internet son las rutas del país. La web son los autos que circulan por ellas. Podés usar internet sin usar la web — cuando mandás un email o usás WhatsApp, estás usando internet pero no la web.</p></div>',
   ARRAY['en-criollo'],
   'concepto',
   'basico',
@@ -369,8 +369,9 @@ VALUES (
   'La evolución del protocolo — HTTP/1.1, HTTP/2 y HTTP/3',
   'El protocolo HTTP no se quedó estático. Evolucionó en tres generaciones importantes.',
   '<p>El protocolo HTTP no se quedó estático. Evolucionó en tres generaciones importantes:</p>
-<table><thead><tr><th>Versión</th><th>Año</th><th>Mejora principal</th></tr></thead><tbody><tr><td>HTTP/1.1</td><td>1999</td><td>Base. Una solicitud a la vez por conexión. Genera ''head-of-line blocking'' — las solicitudes se acolan esperando.</td></tr><tr><td>HTTP/2</td><td>2015</td><td>Multiplexing: múltiples solicitudes simultáneas en una sola conexión. Mucho más rápido para sitios complejos.</td></tr><tr><td>HTTP/3</td><td>2022</td><td>Cambia el protocolo subyacente a QUIC. Más rápido y resiliente en conexiones móviles inestables.</td></tr></tbody></table>',
-  ARRAY[]::text[],
+<table><thead><tr><th>Versión</th><th>Año</th><th>Mejora principal</th></tr></thead><tbody><tr><td>HTTP/1.1</td><td>1999</td><td>Base. Una solicitud a la vez por conexión. Genera ''head-of-line blocking'' — las solicitudes se acolan esperando.</td></tr><tr><td>HTTP/2</td><td>2015</td><td>Multiplexing: múltiples solicitudes simultáneas en una sola conexión. Mucho más rápido para sitios complejos.</td></tr><tr><td>HTTP/3</td><td>2022</td><td>Cambia el protocolo subyacente a QUIC. Más rápido y resiliente en conexiones móviles inestables.</td></tr></tbody></table>
+<div class="tag spoiler-tecnico"><strong>■ Para los curiosos</strong><p>Abrís las DevTools de tu navegador (F12 → Network) y mirás cualquier solicitud. Podés ver qué versión de HTTP está usando el sitio. Es uno de esos detalles que solo los técnicos suelen notar — y que ahora vos también podés notar.</p></div>',
+  ARRAY['spoiler-tecnico'],
   'concepto',
   'basico',
   3,
@@ -499,7 +500,7 @@ VALUES (
   'WebSockets — cuando HTTP no alcanza',
   'HTTP funciona en modo solicitud-respuesta: vos preguntás, el servidor responde, se cierra la conversación.',
   '<p>HTTP funciona en modo solicitud-respuesta: vos preguntás, el servidor responde, se cierra la conversación. Para chats en tiempo real, precios que se actualizan solos, o Google Docs colaborativo, existe WebSockets — una conexión que queda abierta entre cliente y servidor.</p>
-<div class="tag en-criollo"><strong>En criollo</strong><p>HTTP es como mandarse cartas — cada una es una conversación separada. WebSockets es como hablar por teléfono — la línea queda abierta y cualquiera habla cuando quiere.</p></div>
+<div class="tag en-criollo"><strong>■ En criollo</strong><p>HTTP es como mandarse cartas — cada una es una conversación separada. WebSockets es como hablar por teléfono — la línea queda abierta y cualquiera habla cuando quiere.</p></div>
 <div class="tag resumen-subte"><strong>■ El resumen para contarle a alguien en el subte</strong><p>Cuando tu equipo dice ''esa feature de notificaciones en tiempo real requiere WebSockets'', están diciéndote que la infraestructura es más compleja y más cara que una API REST estándar. Es una decisión de arquitectura con impacto directo en costo y tiempo de desarrollo — y es una conversación de producto, no solo técnica.</p></div>',
   ARRAY['en-criollo', 'resumen-subte'],
   'concepto',
@@ -675,7 +676,7 @@ VALUES (
   'La ingeniería social es el arte de manipular personas para que hagan cosas que no deberían.',
   '<p>La ingeniería social es el arte de manipular personas para que hagan cosas que no deberían o divulguen información que no deberían. El phishing es un tipo — pero hay muchos más. Según el Verizon Data Breach Investigations Report 2024, el 68% de las brechas de datos involucró el elemento humano — errores, negligencia o manipulación. La tecnología no es el problema más grande. La educación es la defensa más efectiva.</p>
 <table><thead><tr><th>Tipo</th><th>Descripción</th><th>Cómo funciona</th></tr></thead><tbody><tr><td>Vishing</td><td>Voice phishing — llamada telefónica</td><td>Se hacen pasar por el banco, soporte técnico, o entidad gubernamental. Hoy potenciado con clonación de voz por IA.</td></tr><tr><td>Smishing</td><td>SMS phishing</td><td>''Tu paquete tiene un problema, hacé click acá.'' El formato cambia, la urgencia no.</td></tr><tr><td>Spear phishing</td><td>Phishing dirigido a personas específicas</td><td>El atacante investiga a la víctima — su empresa, cargo, contactos — y construye un mensaje personalizado difícil de detectar.</td></tr><tr><td>Pretexting</td><td>Escenario inventado para ganar confianza</td><td>''Soy del área de IT, necesito tu contraseña para actualizar el sistema.'' Siempre es falso.</td></tr></tbody></table>
-<div class="tag en-criollo"><strong>En criollo</strong><p>La ingeniería social no hackea computadoras — hackea personas. Funciona porque somos sociales por naturaleza. Cuando alguien parece legítimo, habla con confianza, y crea urgencia, nuestro cerebro tiende a cumplir antes de cuestionar. Conocer cómo funciona es la mejor defensa — porque ningún antivirus protege contra esto.</p></div>',
+<div class="tag en-criollo"><strong>■ En criollo</strong><p>La ingeniería social no hackea computadoras — hackea personas. Funciona porque somos sociales por naturaleza. Cuando alguien parece legítimo, habla con confianza, y crea urgencia, nuestro cerebro tiende a cumplir antes de cuestionar. Conocer cómo funciona es la mejor defensa — porque ningún antivirus protege contra esto.</p></div>',
   ARRAY['en-criollo'],
   'concepto',
   'intermedio',
@@ -712,7 +713,7 @@ VALUES (
   'Las VPNs son probablemente la tecnología de seguridad más malentendida del mundo digital.',
   '<p>Las VPNs son probablemente la tecnología de seguridad más malentendida del mundo digital. Hay un mito masivo de que una VPN te hace anónimo en internet. No es así, y creerlo puede crear una falsa sensación de seguridad que es peor que no tener VPN.</p>
 <table><thead><tr><th>Una VPN SÍ hace</th><th>Una VPN NO hace</th></tr></thead><tbody><tr><td>Encripta tu conexión en redes públicas (wifi de un café, aeropuerto, hotel)</td><td>No te hace anónimo — si iniciás sesión en Google con tu cuenta, Google sabe quién sos</td></tr><tr><td>Oculta tu IP real de los sitios que visitás</td><td>No te protege de malware ni phishing</td></tr><tr><td>Evita que tu proveedor de internet vea qué sitios visitás</td><td>No encripta el contenido de tus mensajes en apps — eso lo hace el cifrado de extremo a extremo</td></tr><tr><td>Permite acceder a contenido bloqueado geográficamente</td><td>No te protege si el proveedor de VPN mismo vende tus datos</td></tr></tbody></table>
-<div class="tag en-criollo"><strong>En criollo</strong><p>Una VPN es como cambiar de auto antes de salir a la ruta. El auto nuevo tiene vidrios polarizados y placas diferentes — más difícil identificarte en el camino. Pero cuando llegás a destino y te bajás con tu cara, todos saben quién sos. La VPN protege el trayecto, no el destino.</p></div>
+<div class="tag en-criollo"><strong>■ En criollo</strong><p>Una VPN es como cambiar de auto antes de salir a la ruta. El auto nuevo tiene vidrios polarizados y placas diferentes — más difícil identificarte en el camino. Pero cuando llegás a destino y te bajás con tu cara, todos saben quién sos. La VPN protege el trayecto, no el destino.</p></div>
 <div class="tag spoiler-tecnico"><strong>■ Spoiler técnico</strong><p>Una VPN gratuita es frecuentemente peor que no tener VPN. Los servicios gratuitos suelen monetizar registrando y vendiendo tu historial de navegación — que es exactamente lo que querías evitar. Si vas a usar VPN, Proton VPN tiene un plan gratuito genuinamente confiable con política verificada de no-logs.</p></div>',
   ARRAY['en-criollo', 'spoiler-tecnico'],
   'herramienta',
@@ -761,7 +762,7 @@ VALUES (
   'Superficie de ataque — el concepto que cambia cómo tomás decisiones',
   'Superficie de ataque es el conjunto total de puntos donde un atacante puede intentar entrar.',
   '<p>Superficie de ataque es el conjunto total de puntos donde un atacante puede intentar entrar a un sistema — cada app instalada, cada cuenta que tenés, cada dispositivo conectado a tu red, cada servicio externo que usa tu empresa. Cuanto más grande la superficie, más vectores de ataque disponibles. Cuanto más chica, menos posibilidades de que algo falle.</p>
-<div class="tag en-criollo"><strong>En criollo</strong><p>Cada app que instalás es una puerta más en tu casa. Más puertas, más chances de que alguna esté mal cerrada, tenga una cerradura vieja, o la fabricó alguien de dudosa reputación. No se trata de no tener puertas — se trata de saber cuántas tenés, para qué sirven, y si están bien cerradas.</p></div>
+<div class="tag en-criollo"><strong>■ En criollo</strong><p>Cada app que instalás es una puerta más en tu casa. Más puertas, más chances de que alguna esté mal cerrada, tenga una cerradura vieja, o la fabricó alguien de dudosa reputación. No se trata de no tener puertas — se trata de saber cuántas tenés, para qué sirven, y si están bien cerradas.</p></div>
 <div class="tag bonus-track"><strong>★ Bonus track</strong><p>Para PMs y emprendedores — aplicación directa: cada vez que tu equipo adopta una nueva herramienta (un SaaS, una integración, un servicio de terceros), está ampliando la superficie de ataque. La pregunta correcta antes de adoptar cualquier herramienta no es solo ''¿funciona?'' sino ''¿quién tiene acceso a nuestros datos a través de esta herramienta? ¿Tiene 2FA? ¿Cómo maneja una brecha?'' Eso no es paranoia — es criterio de producto.</p></div>',
   ARRAY['en-criollo', 'bonus-track'],
   'concepto',
@@ -835,7 +836,7 @@ VALUES (
   'La idea no es el producto',
   'Hay un error muy común en el mundo del emprendimiento: confundir la idea con el producto.',
   '<p>Hay un error muy común en el mundo del emprendimiento: confundir la idea con el producto. Una idea es el punto de partida. El producto es lo que sobrevive al contacto con usuarios reales, con limitaciones técnicas, con presupuesto acotado, y con un mercado que no siempre hace lo que esperás.</p>
-<div class="tag en-criollo"><strong>En criollo</strong><p>El mejor producto del mundo que resuelve un problema que nadie tiene es un fracaso garantizado. El producto mediano que resuelve un problema que le duele a mucha gente tiene posibilidades reales. El problema siempre va antes que la solución.</p></div>
+<div class="tag en-criollo"><strong>■ En criollo</strong><p>El mejor producto del mundo que resuelve un problema que nadie tiene es un fracaso garantizado. El producto mediano que resuelve un problema que le duele a mucha gente tiene posibilidades reales. El problema siempre va antes que la solución.</p></div>
 <div class="tag dato-color"><strong>✦ Dato de color</strong><p>El concepto de Jobs to Be Done fue desarrollado por Clayton Christensen, profesor de Harvard Business School. La idea central: las personas no compran productos, contratan soluciones para trabajos que necesitan hacer. Cuando McDonald''s estudió por qué la gente compraba milkshakes a la mañana temprano, descubrió que los ''contrataban'' para tener algo que comer mientras manejaban al trabajo. El competidor real no era otro milkshake: era una banana. Entender el trabajo real que hace un producto cambia completamente cómo se diseña.</p></div>',
   ARRAY['en-criollo', 'dato-color'],
   'concepto',
@@ -918,7 +919,7 @@ VALUES (
   'Scrum es el framework Agile más usado del mundo.',
   '<p>Scrum es el framework Agile más usado del mundo. Organiza el trabajo en ciclos cortos y predecibles llamados sprints — típicamente dos semanas. Al inicio de cada sprint el equipo selecciona items del backlog a construir. Al final hay algo funcional para mostrar — no una presentación: código que corre. Esto se conecta directamente con el concepto de hipótesis: cada sprint es una oportunidad de validar o invalidar algo sobre el producto.</p>
 <table><thead><tr><th>Ceremonia</th><th>Cuándo</th><th>Para qué</th></tr></thead><tbody><tr><td>Sprint Planning</td><td>Al inicio del sprint</td><td>¿Qué vamos a construir estas dos semanas y cómo?</td></tr><tr><td>Daily standup</td><td>Todos los días, 15 min max</td><td>¿Qué hice ayer, qué hago hoy, hay algo que me bloquea?</td></tr><tr><td>Sprint Review</td><td>Al final del sprint</td><td>Mostrar lo que se construyó. No una presentación — algo que funciona</td></tr><tr><td>Sprint Retrospective</td><td>Al final del sprint</td><td>¿Qué funcionó, qué no funcionó, qué cambiamos?</td></tr></tbody></table>
-<div class="tag en-criollo"><strong>En criollo</strong><p>Scrum es como cocinar un menú de degustación en lugar de una cena de cinco platos. En lugar de preparar todo y servir al final, sacás un plato a la vez, el comensal lo prueba, te dice qué le pareció, y ajustás el siguiente plato. Al final de la noche el menú fue co-creado con quien lo comió — no solo imaginado por el chef.</p></div>',
+<div class="tag en-criollo"><strong>■ En criollo</strong><p>Scrum es como cocinar un menú de degustación en lugar de una cena de cinco platos. En lugar de preparar todo y servir al final, sacás un plato a la vez, el comensal lo prueba, te dice qué le pareció, y ajustás el siguiente plato. Al final de la noche el menú fue co-creado con quien lo comió — no solo imaginado por el chef.</p></div>',
   ARRAY['en-criollo'],
   'concepto',
   'intermedio',
@@ -971,7 +972,7 @@ VALUES (
 <p><strong>CI (Continuous Integration)</strong> — cada vez que un desarrollador sube código, un sistema automatizado lo integra con el resto del proyecto y ejecuta tests para detectar si algo se rompió. Es una práctica de calidad que permite que muchos desarrolladores trabajen en paralelo sin pisarse.</p>
 <p><strong>CD (Continuous Deployment)</strong> — una vez que el código pasó por CI, el deploy a producción ocurre automáticamente (o semi-automáticamente con aprobación humana). Es una práctica de velocidad. Un equipo puede tener CI sin CD — integra y testea automáticamente, pero el deploy a producción requiere aprobación manual. En sectores regulados como fintech o salud eso es muy común.</p>
 <p>¿Por qué le importa esto a alguien que no programa? Porque determina directamente la velocidad a la que el equipo puede responder al feedback. Un equipo con CI/CD maduro puede lanzar un fix en horas. Un equipo sin él puede tardar semanas.</p>
-<div class="tag en-criollo"><strong>En criollo</strong><p>CI/CD es como tener una línea de montaje con control de calidad automático en cada paso, en lugar de ensamblar todo el auto y recién entonces revisar si funciona al final. Si algo falla, lo detectás en la pieza — no cuando el auto ya está vendido y el cliente lo devuelve.</p></div>',
+<div class="tag en-criollo"><strong>■ En criollo</strong><p>CI/CD es como tener una línea de montaje con control de calidad automático en cada paso, en lugar de ensamblar todo el auto y recién entonces revisar si funciona al final. Si algo falla, lo detectás en la pieza — no cuando el auto ya está vendido y el cliente lo devuelve.</p></div>',
   ARRAY['en-criollo'],
   'concepto',
   'intermedio',
