@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
-import { useParams } from 'next/navigation';
+import { useState, useEffect } from 'react';
+import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -13,36 +13,15 @@ const headers = {
   'Content-Type': 'application/json',
 };
 
-function getSessionId() {
-  if (typeof window === 'undefined') return null;
-  let id = localStorage.getItem('bibliai_session_id');
-  if (!id) {
-    id = crypto.randomUUID();
-    localStorage.setItem('bibliai_session_id', id);
-  }
-  return id;
-}
-
-export default function NodoPage() {
+export default function BloquePage() {
   const { slug } = useParams();
+  const router = useRouter();
 
-  const [nodo, setNodo] = useState(null);
-  const [recursos, setRecursos] = useState([]);
-  const [aportes, setAportes] = useState([]);
+  const [bloque, setBloque] = useState(null);
+  const [nodos, setNodos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Aporte form state
-  const [nombre, setNombre] = useState('');
-  const [texto, setTexto] = useState('');
-  const [submitting, setSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-
-  // Vote state
-  const [voted, setVoted] = useState(null); // 'util' | 'no_util' | null
-  const [voteLoading, setVoteLoading] = useState(false);
-
-  // Fetch nodo by slug
   useEffect(() => {
     if (!slug) return;
 
@@ -50,36 +29,29 @@ export default function NodoPage() {
       try {
         setLoading(true);
 
-        // Fetch nodo
-        const nodoRes = await fetch(
-          `${SUPABASE_URL}/rest/v1/nodos?slug=eq.${slug}&select=*`,
+        // Fetch bloque by slug
+        const bloqueRes = await fetch(
+          `${SUPABASE_URL}/rest/v1/bloques?slug=eq.${slug}&select=*`,
           { headers }
         );
-        const nodoData = await nodoRes.json();
+        const bloqueData = await bloqueRes.json();
 
-        if (!nodoData || nodoData.length === 0) {
-          setError('No se encontró este nodo.');
+        if (!bloqueData || bloqueData.length === 0) {
+          setError('No se encontró este bloque.');
           setLoading(false);
           return;
         }
 
-        const currentNodo = nodoData[0];
-        setNodo(currentNodo);
+        const currentBloque = bloqueData[0];
+        setBloque(currentBloque);
 
-        // Fetch recursos and aportes in parallel
-        const [recursosRes, aportesRes] = await Promise.all([
-          fetch(
-            `${SUPABASE_URL}/rest/v1/recursos?nodo_id=eq.${currentNodo.id}&select=*&order=orden.asc`,
-            { headers }
-          ),
-          fetch(`/api/aportes?nodo_id=${currentNodo.id}`),
-        ]);
-
-        const recursosData = await recursosRes.json();
-        const aportesData = await aportesRes.json();
-
-        setRecursos(Array.isArray(recursosData) ? recursosData : []);
-        setAportes(Array.isArray(aportesData) ? aportesData : []);
+        // Fetch nodos for this bloque
+        const nodosRes = await fetch(
+          `${SUPABASE_URL}/rest/v1/nodos?bloque_id=eq.${currentBloque.id}&select=*&order=orden_en_bloque.asc`,
+          { headers }
+        );
+        const nodosData = await nodosRes.json();
+        setNodos(Array.isArray(nodosData) ? nodosData : []);
       } catch (err) {
         setError('Error cargando el contenido.');
         console.error(err);
@@ -91,74 +63,6 @@ export default function NodoPage() {
     fetchData();
   }, [slug]);
 
-  // Submit aporte
-  const handleSubmitAporte = useCallback(
-    async (e) => {
-      e.preventDefault();
-      if (!texto.trim() || !nodo) return;
-
-      setSubmitting(true);
-      try {
-        const res = await fetch('/api/aportes', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            nodo_id: nodo.id,
-            contenido: texto.trim(),
-            autor_nombre: nombre.trim() || null,
-            session_id: getSessionId(),
-          }),
-        });
-
-        if (res.ok) {
-          setSubmitted(true);
-          setTexto('');
-          setNombre('');
-        }
-      } catch (err) {
-        console.error('Error enviando aporte:', err);
-      } finally {
-        setSubmitting(false);
-      }
-    },
-    [texto, nombre, nodo]
-  );
-
-  // Vote handler
-  const handleVote = useCallback(
-    async (tipo) => {
-      if (!nodo || voted || voteLoading) return;
-
-      const sessionId = getSessionId();
-      if (!sessionId) return;
-
-      setVoteLoading(true);
-      try {
-        const res = await fetch('/api/votos', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            nodo_id: nodo.id,
-            tipo,
-            session_id: sessionId,
-          }),
-        });
-
-        if (res.status === 409) {
-          setVoted('already');
-        } else if (res.ok) {
-          setVoted(tipo);
-        }
-      } catch (err) {
-        console.error('Error votando:', err);
-      } finally {
-        setVoteLoading(false);
-      }
-    },
-    [nodo, voted, voteLoading]
-  );
-
-  // --- Styles ---
   const colors = {
     bg: '#1A1A1A',
     text: '#F7F4EF',
@@ -180,7 +84,7 @@ export default function NodoPage() {
     );
   }
 
-  if (error || !nodo) {
+  if (error || !bloque) {
     return (
       <div style={{
         minHeight: '100vh', background: colors.bg,
@@ -188,7 +92,7 @@ export default function NodoPage() {
         justifyContent: 'center', gap: '16px',
       }}>
         <p style={{ color: colors.text, fontSize: '16px' }}>
-          {error || 'Nodo no encontrado.'}
+          {error || 'Bloque no encontrado.'}
         </p>
         <Link href="/biblioteca" style={{
           color: colors.accent, fontSize: '14px', textDecoration: 'none',
@@ -198,8 +102,6 @@ export default function NodoPage() {
       </div>
     );
   }
-
-  const tags = nodo.tags || [];
 
   return (
     <div style={{
@@ -211,308 +113,93 @@ export default function NodoPage() {
         <Link href="/biblioteca" style={{
           color: colors.accent, fontSize: '13px', textDecoration: 'none',
           display: 'inline-flex', alignItems: 'center', gap: '6px',
-          opacity: 0.8, transition: 'opacity 0.2s',
+          opacity: 0.8,
         }}>
           ← Volver a la Biblioteca
         </Link>
       </div>
 
-      {/* Header */}
+      {/* Bloque header */}
       <header style={{ maxWidth: '780px', margin: '0 auto', padding: '32px 20px 0' }}>
+        <p style={{
+          fontSize: '10px', fontWeight: 700, letterSpacing: '0.16em',
+          textTransform: 'uppercase', color: colors.accent, marginBottom: '12px',
+        }}>
+          Bloque {bloque.orden}
+        </p>
         <h1 style={{
           fontSize: 'clamp(28px, 5vw, 40px)', fontWeight: 700,
-          lineHeight: 1.15, marginBottom: '16px', color: colors.text,
+          lineHeight: 1.15, marginBottom: '12px', color: colors.text,
         }}>
-          {nodo.titulo}
+          {bloque.titulo}
         </h1>
-
-        {nodo.resumen_corto && (
+        {bloque.subtitulo && (
           <p style={{
             fontSize: '16px', lineHeight: 1.6, color: colors.muted,
-            fontStyle: 'italic', marginBottom: '20px',
+            fontStyle: 'italic', marginBottom: '40px',
           }}>
-            {nodo.resumen_corto}
+            {bloque.subtitulo}
           </p>
-        )}
-
-        {/* Tags */}
-        {tags.length > 0 && (
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '32px' }}>
-            {tags.map((tag, i) => (
-              <span key={i} style={{
-                background: 'rgba(197,232,50,0.12)',
-                color: colors.accent,
-                fontSize: '12px', fontWeight: 600,
-                padding: '4px 12px', borderRadius: '100px',
-                letterSpacing: '0.04em',
-              }}>
-                {tag}
-              </span>
-            ))}
-          </div>
         )}
       </header>
 
-      {/* Content HTML */}
-      {nodo.contenido_html && (
-        <article style={{ maxWidth: '780px', margin: '0 auto', padding: '0 20px' }}>
-          <div
-            dangerouslySetInnerHTML={{ __html: nodo.contenido_html }}
-            style={{
-              fontSize: '15px', lineHeight: 1.75, color: colors.text,
-              overflowWrap: 'break-word',
-            }}
-            className="nodo-content"
-          />
-        </article>
-      )}
-
-      {/* Recursos */}
-      {recursos.length > 0 && (
-        <section style={{
-          maxWidth: '780px', margin: '48px auto 0', padding: '0 20px',
+      {/* Nodos list */}
+      <section style={{ maxWidth: '780px', margin: '0 auto', padding: '0 20px' }}>
+        <p style={{
+          fontSize: '11px', fontWeight: 700, letterSpacing: '0.14em',
+          textTransform: 'uppercase', color: colors.lavanda, marginBottom: '20px',
         }}>
-          <h2 style={{
-            fontSize: '11px', fontWeight: 700, letterSpacing: '0.14em',
-            textTransform: 'uppercase', color: colors.lavanda,
-            marginBottom: '16px',
-          }}>
-            Recursos
-          </h2>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-            {recursos.map((recurso) => (
-              <a
-                key={recurso.id}
-                href={recurso.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  display: 'flex', alignItems: 'center', gap: '12px',
-                  background: colors.cardBg, border: `1px solid ${colors.border}`,
-                  borderRadius: '10px', padding: '14px 16px',
-                  textDecoration: 'none', transition: 'border-color 0.2s',
-                }}
-                onMouseEnter={(e) => e.currentTarget.style.borderColor = colors.lavanda}
-                onMouseLeave={(e) => e.currentTarget.style.borderColor = colors.border}
-              >
+          {nodos.length} nodos en este bloque
+        </p>
+
+        {nodos.length === 0 && (
+          <p style={{ fontSize: '14px', color: colors.muted, fontStyle: 'italic' }}>
+            Todavía no hay nodos cargados para este bloque.
+          </p>
+        )}
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1px', background: colors.border }}>
+          {nodos.map((nodo, i) => (
+            <div
+              key={nodo.id}
+              onClick={() => router.push(`/biblioteca/nodo/${nodo.slug}`)}
+              style={{
+                background: colors.bg,
+                padding: '20px 16px',
+                cursor: 'pointer',
+                transition: 'background 0.2s',
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(247,244,239,0.03)'}
+              onMouseLeave={(e) => e.currentTarget.style.background = colors.bg}
+            >
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '16px' }}>
                 <span style={{
-                  fontSize: '18px', flexShrink: 0,
+                  fontSize: '10px', fontWeight: 700, letterSpacing: '0.12em',
+                  color: colors.accent, minWidth: '20px', paddingTop: '4px',
                 }}>
-                  {recurso.tipo === 'video' ? '▶' : '🔗'}
+                  {String(i + 1).padStart(2, '0')}
                 </span>
-                <div>
-                  <p style={{
-                    fontSize: '14px', fontWeight: 600, color: colors.text,
-                    marginBottom: '2px',
+                <div style={{ flex: 1 }}>
+                  <h3 style={{
+                    fontSize: '16px', fontWeight: 600, color: colors.text,
+                    marginBottom: '4px', lineHeight: 1.3,
                   }}>
-                    {recurso.titulo}
-                  </p>
-                  {recurso.descripcion && (
-                    <p style={{ fontSize: '12px', color: colors.muted }}>
-                      {recurso.descripcion}
+                    {nodo.titulo}
+                  </h3>
+                  {nodo.resumen_corto && (
+                    <p style={{
+                      fontSize: '13px', color: colors.muted, lineHeight: 1.5,
+                    }}>
+                      {nodo.resumen_corto}
                     </p>
                   )}
                 </div>
-              </a>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* Vote section */}
-      <section style={{
-        maxWidth: '780px', margin: '48px auto 0', padding: '0 20px',
-        textAlign: 'center',
-      }}>
-        <p style={{
-          fontSize: '14px', color: colors.muted, marginBottom: '16px',
-        }}>
-          ¿Te resultó útil este contenido?
-        </p>
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '12px' }}>
-          <button
-            onClick={() => handleVote('util')}
-            disabled={!!voted || voteLoading}
-            style={{
-              padding: '10px 24px', borderRadius: '8px', border: 'none',
-              fontSize: '14px', fontWeight: 600, cursor: voted ? 'default' : 'pointer',
-              background: voted === 'util'
-                ? colors.accent
-                : 'rgba(197,232,50,0.15)',
-              color: voted === 'util' ? '#1A1A1A' : colors.accent,
-              opacity: voted && voted !== 'util' ? 0.4 : 1,
-              transition: 'all 0.2s',
-            }}
-          >
-            Útil
-          </button>
-          <button
-            onClick={() => handleVote('no_util')}
-            disabled={!!voted || voteLoading}
-            style={{
-              padding: '10px 24px', borderRadius: '8px', border: 'none',
-              fontSize: '14px', fontWeight: 600, cursor: voted ? 'default' : 'pointer',
-              background: voted === 'no_util'
-                ? colors.lavanda
-                : 'rgba(168,180,216,0.15)',
-              color: voted === 'no_util' ? '#1A1A1A' : colors.lavanda,
-              opacity: voted && voted !== 'no_util' ? 0.4 : 1,
-              transition: 'all 0.2s',
-            }}
-          >
-            No me sirvió
-          </button>
-        </div>
-        {voted === 'already' && (
-          <p style={{ fontSize: '12px', color: colors.muted, marginTop: '10px' }}>
-            Ya votaste en este nodo.
-          </p>
-        )}
-        {voted && voted !== 'already' && (
-          <p style={{ fontSize: '12px', color: colors.accent, marginTop: '10px' }}>
-            ¡Gracias por tu feedback!
-          </p>
-        )}
-      </section>
-
-      {/* Aportes section */}
-      <section style={{
-        maxWidth: '780px', margin: '48px auto 0', padding: '0 20px',
-      }}>
-        <h2 style={{
-          fontSize: '11px', fontWeight: 700, letterSpacing: '0.14em',
-          textTransform: 'uppercase', color: colors.lavanda,
-          marginBottom: '16px',
-        }}>
-          Aportes de la comunidad
-        </h2>
-
-        {aportes.length === 0 && (
-          <p style={{ fontSize: '13px', color: colors.muted, fontStyle: 'italic' }}>
-            Todavía no hay aportes aprobados para este nodo.
-          </p>
-        )}
-
-        {aportes.length > 0 && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-            {aportes.map((aporte) => (
-              <div key={aporte.id} style={{
-                background: colors.cardBg,
-                border: `1px solid ${colors.border}`,
-                borderRadius: '10px', padding: '16px',
-              }}>
-                <p style={{
-                  fontSize: '14px', lineHeight: 1.6, color: colors.text,
-                  marginBottom: '8px',
-                }}>
-                  {aporte.contenido}
-                </p>
-                <p style={{ fontSize: '11px', color: colors.muted }}>
-                  — {aporte.autor_nombre || 'Anónimo'}
-                </p>
+                <span style={{ fontSize: '14px', color: colors.muted, paddingTop: '2px' }}>
+                  →
+                </span>
               </div>
-            ))}
-          </div>
-        )}
-
-        {/* Aporte form */}
-        <div style={{
-          marginTop: '32px', background: colors.cardBg,
-          border: `1px solid ${colors.border}`,
-          borderRadius: '12px', padding: '24px',
-        }}>
-          <h3 style={{
-            fontSize: '15px', fontWeight: 600, color: colors.text,
-            marginBottom: '16px',
-          }}>
-            Dejá tu aporte
-          </h3>
-
-          {submitted ? (
-            <div style={{ textAlign: 'center', padding: '16px 0' }}>
-              <p style={{ fontSize: '14px', color: colors.accent, marginBottom: '8px' }}>
-                ¡Gracias por tu aporte!
-              </p>
-              <p style={{ fontSize: '12px', color: colors.muted }}>
-                Lo vamos a revisar antes de publicarlo.
-              </p>
             </div>
-          ) : (
-            <form onSubmit={handleSubmitAporte}>
-              <div style={{ marginBottom: '12px' }}>
-                <label style={{
-                  display: 'block', fontSize: '12px', color: colors.muted,
-                  marginBottom: '6px',
-                }}>
-                  Tu nombre (opcional)
-                </label>
-                <input
-                  type="text"
-                  value={nombre}
-                  onChange={(e) => setNombre(e.target.value)}
-                  placeholder="Anónimo"
-                  maxLength={100}
-                  style={{
-                    width: '100%', padding: '10px 14px',
-                    background: 'rgba(247,244,239,0.06)',
-                    border: `1px solid ${colors.border}`,
-                    borderRadius: '8px', color: colors.text,
-                    fontSize: '14px', outline: 'none',
-                    boxSizing: 'border-box',
-                  }}
-                  onFocus={(e) => e.target.style.borderColor = colors.lavanda}
-                  onBlur={(e) => e.target.style.borderColor = colors.border}
-                />
-              </div>
-              <div style={{ marginBottom: '12px' }}>
-                <label style={{
-                  display: 'block', fontSize: '12px', color: colors.muted,
-                  marginBottom: '6px',
-                }}>
-                  Tu aporte
-                </label>
-                <textarea
-                  value={texto}
-                  onChange={(e) => {
-                    if (e.target.value.length <= 500) setTexto(e.target.value);
-                  }}
-                  placeholder="Compartí algo que pueda sumar..."
-                  rows={4}
-                  maxLength={500}
-                  style={{
-                    width: '100%', padding: '10px 14px',
-                    background: 'rgba(247,244,239,0.06)',
-                    border: `1px solid ${colors.border}`,
-                    borderRadius: '8px', color: colors.text,
-                    fontSize: '14px', outline: 'none', resize: 'vertical',
-                    fontFamily: 'inherit', boxSizing: 'border-box',
-                  }}
-                  onFocus={(e) => e.target.style.borderColor = colors.lavanda}
-                  onBlur={(e) => e.target.style.borderColor = colors.border}
-                />
-                <p style={{
-                  fontSize: '11px', textAlign: 'right', marginTop: '4px',
-                  color: texto.length >= 450 ? colors.accent : colors.muted,
-                }}>
-                  {texto.length}/500
-                </p>
-              </div>
-              <button
-                type="submit"
-                disabled={!texto.trim() || submitting}
-                style={{
-                  padding: '10px 28px', borderRadius: '8px', border: 'none',
-                  fontSize: '14px', fontWeight: 600,
-                  cursor: !texto.trim() || submitting ? 'not-allowed' : 'pointer',
-                  background: !texto.trim() ? 'rgba(197,232,50,0.2)' : colors.accent,
-                  color: !texto.trim() ? 'rgba(197,232,50,0.5)' : '#1A1A1A',
-                  transition: 'all 0.2s',
-                }}
-              >
-                {submitting ? 'Enviando...' : 'Enviar aporte'}
-              </button>
-            </form>
-          )}
+          ))}
         </div>
       </section>
     </div>
