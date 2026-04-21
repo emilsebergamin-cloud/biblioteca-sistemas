@@ -1226,6 +1226,7 @@ VALUES (
   ARRAY['spoiler-tecnico'],
   'concepto',
   'avanzado',
+  
   11,
   'publicado'
 );
