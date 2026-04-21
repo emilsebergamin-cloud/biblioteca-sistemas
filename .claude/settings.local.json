@@ -19,7 +19,8 @@
       "Bash(python -c \"import PyPDF2; print\\('ok'\\)\")",
       "Bash(pip install:*)",
       "Bash(python:*)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(curl -sk http://localhost:4000/biblioteca/bloque-1)"
     ]
   }
 }

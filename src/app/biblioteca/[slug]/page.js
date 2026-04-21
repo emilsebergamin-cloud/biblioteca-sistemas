@@ -306,7 +306,7 @@ export default function BloquePage() {
               {/* Content */}
               {nodo.contenido_html && (
                 <div
-                  dangerouslySetInnerHTML={{ __html: nodo.contenido_html }}
+                  dangerouslySetInnerHTML={{ __html: nodo.contenido_html.replace(/text-align\s*:\s*justify/gi, 'text-align:left') }}
                   className="nodo-content"
                   style={{ fontSize: '15px', lineHeight: 1.75, color: colors.text, overflowWrap: 'break-word', textAlign: 'left' }}
                 />
