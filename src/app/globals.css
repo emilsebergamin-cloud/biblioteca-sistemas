@@ -183,9 +183,11 @@ body {
   overflow-wrap: break-word;
 }
 
+.nodo-content * { text-align: left !important; }
+
 .nodo-content p {
-  text-align: left;
-  line-height: 1.75;
+  text-align: left !important;
+  line-height: 1.75 !important;
   font-size: clamp(14px, 2vw, 16px);
   margin-bottom: 16px;
 }
