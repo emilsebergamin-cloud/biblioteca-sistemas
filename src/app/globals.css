@@ -184,6 +184,8 @@ body {
 }
 
 .nodo-content * { text-align: left !important; }
+.nodo-content [style*="text-align"] { text-align: left !important; }
+.nodo-content [style*="justify"] { text-align: left !important; }
 
 .nodo-content p {
   text-align: left !important;

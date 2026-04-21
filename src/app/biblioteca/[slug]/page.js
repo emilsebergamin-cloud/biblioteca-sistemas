@@ -308,7 +308,7 @@ export default function BloquePage() {
                 <div
                   dangerouslySetInnerHTML={{ __html: nodo.contenido_html }}
                   className="nodo-content"
-                  style={{ fontSize: '15px', lineHeight: 1.75, color: colors.text, overflowWrap: 'break-word' }}
+                  style={{ fontSize: '15px', lineHeight: 1.75, color: colors.text, overflowWrap: 'break-word', textAlign: 'left' }}
                 />
               )}
             </section>
