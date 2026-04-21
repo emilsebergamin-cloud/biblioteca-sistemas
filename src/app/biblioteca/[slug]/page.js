@@ -227,21 +227,23 @@ export default function BloquePage() {
       {/* Grid layout: sidebar (desktop) + main content */}
       <div style={{
         display: 'grid',
-        gridTemplateColumns: isMobile ? '1fr' : '220px 1fr',
-        gap: '0 48px',
-        maxWidth: '1100px',
-        margin: '0 auto',
+        gridTemplateColumns: isMobile ? '1fr' : '240px 1fr',
+        gap: '0',
+        width: '100%',
+        margin: '0',
+        padding: '0',
       }}>
 
         {/* Left column: sticky sidebar (desktop only) */}
         {!isMobile && nodos.length > 0 && (
           <aside className="indice-sidebar" style={{
             position: 'sticky',
-            top: '80px',
+            top: '60px',
             alignSelf: 'start',
             overflowY: 'auto',
-            maxHeight: 'calc(100vh - 100px)',
-            padding: '0 0 0 16px',
+            maxHeight: 'calc(100vh - 70px)',
+            padding: '48px 24px 48px 24px',
+            borderRight: '1px solid rgba(255,255,255,0.06)',
           }}>
             <p style={{
               fontSize: '10px', fontWeight: 700, letterSpacing: '0.14em',
@@ -251,41 +253,25 @@ export default function BloquePage() {
               Índice
             </p>
             <nav style={{ display: 'flex', flexDirection: 'column' }}>
-              {nodos.map((nodo, i) => {
-                const isActive = activeNodo === nodo.slug;
-                return (
-                  <a
-                    key={nodo.id}
-                    href={`#${nodo.slug}`}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      document.getElementById(nodo.slug)?.scrollIntoView({ behavior: 'smooth' });
-                    }}
-                    style={{
-                      display: 'block',
-                      padding: '6px 0 6px 12px',
-                      textDecoration: 'none',
-                      fontSize: '12px',
-                      color: isActive ? '#C5E832' : 'rgba(247,244,239,0.35)',
-                      fontWeight: isActive ? 600 : 400,
-                      borderLeft: isActive ? '2px solid #C5E832' : '2px solid transparent',
-                      cursor: 'pointer',
-                      transition: 'all 0.2s ease',
-                      lineHeight: 1.4,
-                    }}
-                    onMouseEnter={(e) => { if (!isActive) e.currentTarget.style.color = '#C5E832'; }}
-                    onMouseLeave={(e) => { if (!isActive) e.currentTarget.style.color = 'rgba(247,244,239,0.35)'; }}
-                  >
-                    {nodo.titulo}
-                  </a>
-                );
-              })}
+              {nodos.map((nodo) => (
+                <a
+                  key={nodo.id}
+                  href={`#${nodo.slug}`}
+                  className={`indice-item${activeNodo === nodo.slug ? ' activo' : ''}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document.getElementById(nodo.slug)?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                >
+                  {nodo.titulo}
+                </a>
+              ))}
             </nav>
           </aside>
         )}
 
         {/* Right column: main content */}
-        <div>
+        <div style={{ maxWidth: '780px', padding: '0 40px 80px 48px' }}>
           {/* Nodo sections */}
           {nodos.map((nodo, i) => (
             <section
