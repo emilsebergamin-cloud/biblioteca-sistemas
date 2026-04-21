@@ -215,7 +215,7 @@ export default function BloquePage() {
         )}
 
         {/* Breadcrumb — in column 2 on desktop */}
-        <nav style={{ gridColumn: isMobile ? '1' : '2', maxWidth: '780px', margin: '0 auto', padding: '24px 40px 0 48px', textAlign: 'center', width: '100%' }}>
+        <nav style={{ gridColumn: isMobile ? '1' : '2', maxWidth: '880px', margin: '0 auto', padding: '12px 40px 0 48px', textAlign: 'center', width: '100%' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', flexWrap: 'wrap' }}>
             <Link href="/biblioteca" style={{ color: colors.accent, textDecoration: 'none' }}>Biblioteca</Link>
             <span style={{ color: colors.muted }}>→</span>
@@ -224,15 +224,15 @@ export default function BloquePage() {
         </nav>
 
         {/* Bloque header — in column 2 on desktop */}
-        <header style={{ gridColumn: isMobile ? '1' : '2', maxWidth: '780px', margin: '0 auto', padding: isMobile ? '32px 20px 0' : '32px 40px 0 48px', textAlign: 'center', width: '100%' }}>
+        <header style={{ gridColumn: isMobile ? '1' : '2', maxWidth: '880px', margin: '0 auto', padding: isMobile ? '16px 20px 0' : '16px 40px 0 48px', textAlign: 'center', width: '100%' }}>
           <p style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '0.16em', textTransform: 'uppercase', color: colors.accent, marginBottom: '12px' }}>
             Bloque {bloque.orden}
           </p>
-          <h1 style={{ fontSize: 'clamp(28px, 5vw, 44px)', fontWeight: 700, lineHeight: 1.12, marginBottom: '12px' }}>
+          <h1 style={{ fontSize: 'clamp(26px, 4vw, 38px)', fontWeight: 700, lineHeight: 1.12, marginBottom: '12px' }}>
             {bloque.titulo}
           </h1>
           {bloque.subtitulo && (
-            <p style={{ fontSize: '16px', lineHeight: 1.6, color: colors.muted, fontStyle: 'italic', marginBottom: '40px' }}>
+            <p style={{ fontSize: '16px', lineHeight: 1.6, color: colors.muted, fontStyle: 'italic', marginBottom: '24px' }}>
               {bloque.subtitulo}
             </p>
           )}
