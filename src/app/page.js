@@ -12,7 +12,7 @@ export default function Home() {
           <p style={{
             fontSize: '10px', fontWeight: 700,
             letterSpacing: '0.16em', textTransform: 'uppercase',
-            color: '#9B9080', marginBottom: '20px',
+            color: '#6B6058', marginBottom: '20px',
             animation: 'fadeUp 0.6s ease 0.1s both',
           }}>
             Proyecto educativo personal
@@ -25,7 +25,7 @@ export default function Home() {
             animation: 'fadeUp 0.6s ease 0.25s both',
           }}>
             Entendé el mundo tech.<br />
-            <em style={{ fontStyle: 'italic', fontWeight: 400, color: '#9B9080' }}>
+            <em style={{ fontStyle: 'italic', fontWeight: 400, color: '#6B6058' }}>
               Sin perderte.
             </em>
           </h1>
@@ -38,7 +38,7 @@ export default function Home() {
             <svg width="280" height="10" viewBox="0 0 280 10">
               <path
                 d="M4 6 Q70 1 140 6 Q210 11 276 4"
-                fill="none" stroke="#C5E832" strokeWidth="2"
+                fill="none" stroke="#A8C41A" strokeWidth="2"
                 strokeLinecap="round"
                 style={{
                   strokeDasharray: 320,
@@ -50,7 +50,7 @@ export default function Home() {
           </div>
 
           <p style={{
-            fontSize: '16px', color: '#9B9080',
+            fontSize: '16px', color: '#6B6058',
             lineHeight: 1.65, maxWidth: '460px',
             margin: '0 auto 24px',
             animation: 'fadeUp 0.6s ease 0.7s both',
@@ -67,7 +67,7 @@ export default function Home() {
           }}>
             {[
               { num: '6', label: 'Bloques', color: '#0D0C0A' },
-              { num: '49', label: 'Nodos', color: '#C5E832' },
+              { num: '49', label: 'Nodos', color: '#A8C41A' },
               { num: '0', label: 'Excusas', color: '#0D0C0A' },
             ].map((s, i) => (
               <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
@@ -81,7 +81,7 @@ export default function Home() {
                   <div style={{
                     fontSize: '11px', fontWeight: 600,
                     letterSpacing: '0.1em', textTransform: 'uppercase',
-                    color: '#9B9080', marginTop: '4px',
+                    color: '#6B6058', marginTop: '4px',
                   }}>{s.label}</div>
                 </div>
               </div>
