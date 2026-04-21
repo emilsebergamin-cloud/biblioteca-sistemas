@@ -214,15 +214,20 @@ body {
 
 .tag.dato-color p { font-weight: 600; }
 
-.nodo-content tr:hover td {
+.tag p strong, .tag li strong { font-weight: 700; }
+.tag.dato-color strong:first-child { font-weight: 800; font-size: 11px; }
+
+.nodo-content tr:hover td,
+.nodo-content tbody tr:hover td {
   background: rgba(197,232,50,0.06);
+  cursor: default;
   transition: background 0.15s ease;
 }
 
 /* Scrollbar del índice lateral */
-.sidebar-index::-webkit-scrollbar { width: 4px; }
-.sidebar-index::-webkit-scrollbar-track { background: transparent; }
-.sidebar-index::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
+.indice-lateral::-webkit-scrollbar { width: 3px; }
+.indice-lateral::-webkit-scrollbar-track { background: transparent; }
+.indice-lateral::-webkit-scrollbar-thumb { background: rgba(197,232,50,0.25); border-radius: 99px; }
 
 /* Home sin scroll */
 .home-no-scroll { overflow: hidden; max-height: 100vh; }

@@ -228,20 +228,20 @@ export default function BloquePage() {
       <div style={{
         display: 'grid',
         gridTemplateColumns: isMobile ? '1fr' : '260px 1fr',
-        gap: '0',
+        gap: '0 48px',
         maxWidth: '1100px',
         margin: '0 auto',
       }}>
 
         {/* Left column: sticky sidebar (desktop only) */}
         {!isMobile && nodos.length > 0 && (
-          <aside className="sidebar-index" style={{
+          <aside className="indice-lateral" style={{
             position: 'sticky',
             top: '80px',
             alignSelf: 'start',
             overflowY: 'auto',
             maxHeight: 'calc(100vh - 100px)',
-            padding: '0 12px',
+            padding: '0 24px 0 12px',
             scrollbarWidth: 'thin',
           }}>
             <p style={{
@@ -487,30 +487,30 @@ export default function BloquePage() {
       {/* Scroll to top button */}
       <button
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(197,232,50,0.25)'}
+        onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(197,232,50,0.15)'}
         style={{
           position: 'fixed',
           bottom: '32px',
           right: '32px',
-          width: '40px',
-          height: '40px',
+          width: '44px',
+          height: '44px',
           borderRadius: '50%',
-          background: '#C5E832',
-          color: '#0D0C0A',
-          fontSize: '24px',
-          fontWeight: 700,
-          lineHeight: 1,
+          background: 'rgba(197,232,50,0.15)',
+          border: '1px solid rgba(197,232,50,0.3)',
+          backdropFilter: 'blur(8px)',
+          color: '#C5E832',
           padding: 0,
-          border: 'none',
           cursor: 'pointer',
           zIndex: 50,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+          transition: 'background 0.2s ease',
         }}
         aria-label="Volver arriba"
       >
-        ↑
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
       </button>
     </div>
   );

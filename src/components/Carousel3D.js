@@ -97,8 +97,16 @@ export default function Carousel3D() {
                 }
               }}
               {...(pos === "center" ? {
-                onMouseEnter: (e) => { e.currentTarget.style.transform = "translateX(0) translateZ(0) rotateY(0deg) scale(1.06)"; },
-                onMouseLeave: (e) => { e.currentTarget.style.transform = style.transform; },
+                onMouseEnter: (e) => {
+                  e.currentTarget.style.transform = "translateX(0) translateZ(120px) rotateY(0deg) scale(1.12)";
+                  e.currentTarget.style.boxShadow = "0 48px 96px rgba(0,0,0,0.7), 0 0 0 1.5px rgba(197,232,50,0.6), 0 0 40px rgba(197,232,50,0.15)";
+                  e.currentTarget.style.borderColor = "rgba(197,232,50,0.6)";
+                },
+                onMouseLeave: (e) => {
+                  e.currentTarget.style.transform = style.transform;
+                  e.currentTarget.style.boxShadow = "0 24px 64px rgba(13,12,10,0.14)";
+                  e.currentTarget.style.borderColor = "rgba(197,232,50,0.4)";
+                },
               } : {})}
               style={{
                 position: "absolute",
@@ -106,7 +114,7 @@ export default function Carousel3D() {
                 transform: style.transform,
                 zIndex: style.zIndex,
                 opacity: style.opacity,
-                transition: "all 0.3s ease",
+                transition: "all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
                 cursor: "pointer",
                 background: "#fff",
                 border: pos === "center" ? "0.5px solid rgba(197,232,50,0.4)" : "0.5px solid rgba(13,12,10,0.10)",
@@ -198,7 +206,7 @@ export default function Carousel3D() {
           }}
           aria-label="Anterior"
         >
-          ←
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M15 18l-6-6 6-6"/></svg>
         </button>
 
         <div className="flex items-center gap-2">
@@ -214,7 +222,7 @@ export default function Carousel3D() {
                 background: i === center ? "#0D0C0A" : "#C8C0B0",
                 border: "none",
                 cursor: "pointer",
-                transition: "all 0.3s ease",
+                transition: "all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
                 padding: 0,
               }}
             />
@@ -241,7 +249,7 @@ export default function Carousel3D() {
           }}
           aria-label="Siguiente"
         >
-          →
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M9 18l6-6-6-6"/></svg>
         </button>
       </div>
     </div>
