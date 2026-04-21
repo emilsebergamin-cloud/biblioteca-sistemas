@@ -166,72 +166,6 @@ export default function BloquePage() {
   return (
     <div style={{ minHeight: '100vh', background: colors.bg, color: colors.text, paddingBottom: '80px' }}>
 
-      {/* Breadcrumb */}
-      <nav style={{ maxWidth: '1100px', margin: '0 auto', padding: '24px 20px 0' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', flexWrap: 'wrap' }}>
-          <Link href="/biblioteca" style={{ color: colors.accent, textDecoration: 'none' }}>Biblioteca</Link>
-          <span style={{ color: colors.muted }}>→</span>
-          <span style={{ color: colors.muted }}>{bloque.titulo}</span>
-        </div>
-      </nav>
-
-      {/* Bloque header */}
-      <header style={{ maxWidth: '780px', margin: '0 auto', padding: '32px 20px 0', textAlign: 'center' }}>
-        <p style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '0.16em', textTransform: 'uppercase', color: colors.accent, marginBottom: '12px' }}>
-          Bloque {bloque.orden}
-        </p>
-        <h1 style={{ fontSize: 'clamp(28px, 5vw, 44px)', fontWeight: 700, lineHeight: 1.12, marginBottom: '12px' }}>
-          {bloque.titulo}
-        </h1>
-        {bloque.subtitulo && (
-          <p style={{ fontSize: '16px', lineHeight: 1.6, color: colors.muted, fontStyle: 'italic', marginBottom: '40px' }}>
-            {bloque.subtitulo}
-          </p>
-        )}
-      </header>
-
-      {/* Table of contents -- mobile toggle (only on mobile) */}
-      {isMobile && nodos.length > 0 && (
-        <div style={{ maxWidth: '780px', margin: '0 auto', padding: '0 20px' }}>
-          <button
-            onClick={() => setTocOpen(!tocOpen)}
-            style={{
-              width: '100%', padding: '14px 16px', background: colors.cardBg,
-              border: `1px solid ${colors.border}`, borderRadius: '10px',
-              color: colors.lavanda, fontSize: '12px', fontWeight: 700,
-              letterSpacing: '0.1em', textTransform: 'uppercase',
-              cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-            }}
-          >
-            <span>Índice · {nodos.length} secciones</span>
-            <span style={{ fontSize: '14px' }}>{tocOpen ? '−' : '+'}</span>
-          </button>
-          {tocOpen && (
-            <nav style={{ background: colors.cardBg, border: `1px solid ${colors.border}`, borderTop: 'none', borderRadius: '0 0 10px 10px', padding: '12px 16px' }}>
-              {nodos.map((nodo, i) => (
-                <a
-                  key={nodo.id}
-                  href={`#${nodo.slug}`}
-                  onClick={() => setTocOpen(false)}
-                  style={{
-                    display: 'flex', gap: '10px', padding: '8px 0',
-                    textDecoration: 'none', fontSize: '14px',
-                    color: activeNodo === nodo.slug ? colors.accent : colors.muted,
-                    borderBottom: i < nodos.length - 1 ? `1px solid ${colors.border}` : 'none',
-                    transition: 'color 0.2s',
-                  }}
-                >
-                  <span style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '0.12em', color: colors.accent, minWidth: '20px', paddingTop: '3px' }}>
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
-                  <span>{nodo.titulo}</span>
-                </a>
-              ))}
-            </nav>
-          )}
-        </div>
-      )}
-
       {/* Grid layout: sidebar (desktop) + main content */}
       <div style={{
         display: 'grid',
@@ -241,6 +175,72 @@ export default function BloquePage() {
         margin: '0',
         padding: '0',
       }}>
+
+        {/* Breadcrumb — in column 2 on desktop */}
+        <nav style={{ gridColumn: isMobile ? '1' : '2', padding: '24px 40px 0 48px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', flexWrap: 'wrap' }}>
+            <Link href="/biblioteca" style={{ color: colors.accent, textDecoration: 'none' }}>Biblioteca</Link>
+            <span style={{ color: colors.muted }}>→</span>
+            <span style={{ color: colors.muted }}>{bloque.titulo}</span>
+          </div>
+        </nav>
+
+        {/* Bloque header — in column 2 on desktop */}
+        <header style={{ gridColumn: isMobile ? '1' : '2', padding: isMobile ? '32px 20px 0' : '32px 40px 0 48px', textAlign: 'left' }}>
+          <p style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '0.16em', textTransform: 'uppercase', color: colors.accent, marginBottom: '12px' }}>
+            Bloque {bloque.orden}
+          </p>
+          <h1 style={{ fontSize: 'clamp(28px, 5vw, 44px)', fontWeight: 700, lineHeight: 1.12, marginBottom: '12px' }}>
+            {bloque.titulo}
+          </h1>
+          {bloque.subtitulo && (
+            <p style={{ fontSize: '16px', lineHeight: 1.6, color: colors.muted, fontStyle: 'italic', marginBottom: '40px' }}>
+              {bloque.subtitulo}
+            </p>
+          )}
+        </header>
+
+        {/* Table of contents -- mobile toggle (only on mobile) */}
+        {isMobile && nodos.length > 0 && (
+          <div style={{ gridColumn: '1', padding: '0 20px' }}>
+            <button
+              onClick={() => setTocOpen(!tocOpen)}
+              style={{
+                width: '100%', padding: '14px 16px', background: colors.cardBg,
+                border: `1px solid ${colors.border}`, borderRadius: '10px',
+                color: colors.lavanda, fontSize: '12px', fontWeight: 700,
+                letterSpacing: '0.1em', textTransform: 'uppercase',
+                cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+              }}
+            >
+              <span>Índice · {nodos.length} secciones</span>
+              <span style={{ fontSize: '14px' }}>{tocOpen ? '−' : '+'}</span>
+            </button>
+            {tocOpen && (
+              <nav style={{ background: colors.cardBg, border: `1px solid ${colors.border}`, borderTop: 'none', borderRadius: '0 0 10px 10px', padding: '12px 16px' }}>
+                {nodos.map((nodo, i) => (
+                  <a
+                    key={nodo.id}
+                    href={`#${nodo.slug}`}
+                    onClick={() => setTocOpen(false)}
+                    style={{
+                      display: 'flex', gap: '10px', padding: '8px 0',
+                      textDecoration: 'none', fontSize: '14px',
+                      color: activeNodo === nodo.slug ? colors.accent : colors.muted,
+                      borderBottom: i < nodos.length - 1 ? `1px solid ${colors.border}` : 'none',
+                      transition: 'color 0.2s',
+                    }}
+                  >
+                    <span style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '0.12em', color: colors.accent, minWidth: '20px', paddingTop: '3px' }}>
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <span>{nodo.titulo}</span>
+                  </a>
+                ))}
+              </nav>
+            )}
+          </div>
+        )}
 
         {/* Left column: sticky sidebar (desktop only) */}
         {!isMobile && nodos.length > 0 && (
