@@ -28,14 +28,22 @@ export default function BloquePage() {
   const [activeNodo, setActiveNodo] = useState(null);
   const [tocOpen, setTocOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [isTablet, setIsTablet] = useState(false);
 
-  // Detect mobile viewport
+  // Detect viewport size
   useEffect(() => {
-    const mql = window.matchMedia('(max-width: 768px)');
-    setIsMobile(mql.matches);
-    const handler = (e) => setIsMobile(e.matches);
-    mql.addEventListener('change', handler);
-    return () => mql.removeEventListener('change', handler);
+    const mqlMobile = window.matchMedia('(max-width: 768px)');
+    const mqlTablet = window.matchMedia('(min-width: 769px) and (max-width: 1024px)');
+    setIsMobile(mqlMobile.matches);
+    setIsTablet(mqlTablet.matches);
+    const handlerMobile = (e) => setIsMobile(e.matches);
+    const handlerTablet = (e) => setIsTablet(e.matches);
+    mqlMobile.addEventListener('change', handlerMobile);
+    mqlTablet.addEventListener('change', handlerTablet);
+    return () => {
+      mqlMobile.removeEventListener('change', handlerMobile);
+      mqlTablet.removeEventListener('change', handlerTablet);
+    };
   }, []);
 
   useEffect(() => {
@@ -227,7 +235,7 @@ export default function BloquePage() {
       {/* Grid layout: sidebar (desktop) + main content */}
       <div style={{
         display: 'grid',
-        gridTemplateColumns: isMobile ? '1fr' : '240px 1fr',
+        gridTemplateColumns: isMobile ? '1fr' : isTablet ? '200px 1fr' : '240px 1fr',
         gap: '0',
         width: '100%',
         margin: '0',
