@@ -219,4 +219,12 @@ body {
   transition: background 0.15s ease;
 }
 
+/* Scrollbar del índice lateral */
+.sidebar-index::-webkit-scrollbar { width: 4px; }
+.sidebar-index::-webkit-scrollbar-track { background: transparent; }
+.sidebar-index::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
+
+/* Home sin scroll */
+.home-no-scroll { overflow: hidden; max-height: 100vh; }
+
 @keyframes spin { to { transform: rotate(360deg); } }

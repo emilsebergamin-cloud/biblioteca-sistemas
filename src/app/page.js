@@ -1,8 +1,14 @@
 "use client";
 
+import { useEffect } from "react";
 import { BackgroundGradientAnimation } from "@/components/ui/BackgroundGradientAnimation";
 
 export default function Home() {
+  useEffect(() => {
+    document.body.classList.add('home-no-scroll');
+    return () => document.body.classList.remove('home-no-scroll');
+  }, []);
+
   return (
       <BackgroundGradientAnimation containerStyle={{ height: '100vh', overflow: 'hidden', padding: '60px 40px 40px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <div style={{ position: 'relative', zIndex: 2, textAlign: 'center' }}>

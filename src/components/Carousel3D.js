@@ -80,7 +80,7 @@ export default function Carousel3D() {
             letterSpacing: "0.1em",
             textTransform: "uppercase",
           }}>
-            <div style={{ width: 32, height: 32, border: '2px solid rgba(197,232,50,0.2)', borderTop: '2px solid #C5E832', borderRadius: '50%', animation: 'spin 0.8s linear infinite', margin: '40px auto' }} />
+            <div style={{ width: 36, height: 36, border: '3px solid rgba(197,232,50,0.15)', borderTop: '3px solid #C5E832', borderRadius: '50%', animation: 'spin 0.9s cubic-bezier(0.4,0,0.6,1) infinite', margin: '60px auto' }} />
           </div>
         )}
         {!loading && bloques.map((bloque, i) => {
@@ -190,7 +190,10 @@ export default function Carousel3D() {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            fontSize: "20px",
+            fontSize: "24px",
+            fontWeight: 700,
+            lineHeight: 1,
+            padding: 0,
             color: "#0D0C0A",
           }}
           aria-label="Anterior"
@@ -230,7 +233,10 @@ export default function Carousel3D() {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            fontSize: "20px",
+            fontSize: "24px",
+            fontWeight: 700,
+            lineHeight: 1,
+            padding: 0,
             color: "#0D0C0A",
           }}
           aria-label="Siguiente"

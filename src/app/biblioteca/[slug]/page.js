@@ -141,7 +141,7 @@ export default function BloquePage() {
   if (loading) {
     return (
       <div style={{ minHeight: '100vh', background: colors.bg, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <div style={{ width: 32, height: 32, border: '2px solid rgba(197,232,50,0.2)', borderTop: '2px solid #C5E832', borderRadius: '50%', animation: 'spin 0.8s linear infinite', margin: '40px auto' }} />
+        <div style={{ width: 36, height: 36, border: '3px solid rgba(197,232,50,0.15)', borderTop: '3px solid #C5E832', borderRadius: '50%', animation: 'spin 0.9s cubic-bezier(0.4,0,0.6,1) infinite', margin: '60px auto' }} />
       </div>
     );
   }
@@ -235,13 +235,14 @@ export default function BloquePage() {
 
         {/* Left column: sticky sidebar (desktop only) */}
         {!isMobile && nodos.length > 0 && (
-          <aside style={{
+          <aside className="sidebar-index" style={{
             position: 'sticky',
             top: '80px',
             alignSelf: 'start',
             overflowY: 'auto',
             maxHeight: 'calc(100vh - 100px)',
-            padding: '0 20px',
+            padding: '0 12px',
+            scrollbarWidth: 'thin',
           }}>
             <p style={{
               fontSize: '10px', fontWeight: 700, letterSpacing: '0.14em',
@@ -495,7 +496,10 @@ export default function BloquePage() {
           borderRadius: '50%',
           background: '#C5E832',
           color: '#0D0C0A',
-          fontSize: '18px',
+          fontSize: '24px',
+          fontWeight: 700,
+          lineHeight: 1,
+          padding: 0,
           border: 'none',
           cursor: 'pointer',
           zIndex: 50,
