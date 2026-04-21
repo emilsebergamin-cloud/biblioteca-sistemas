@@ -174,7 +174,45 @@ export default function BloquePage() {
         width: '100%',
         margin: '0',
         padding: '0',
+        alignItems: 'start',
       }}>
+
+        {/* Left column: sticky sidebar (desktop only) */}
+        {!isMobile && nodos.length > 0 && (
+          <aside className="indice-sidebar" style={{
+            position: 'sticky',
+            top: '60px',
+            alignSelf: 'start',
+            overflowY: 'auto',
+            maxHeight: 'calc(100vh - 70px)',
+            padding: '24px 24px 48px 24px',
+            borderRight: '1px solid rgba(255,255,255,0.06)',
+            gridColumn: '1',
+          }}>
+            <p style={{
+              fontSize: '10px', fontWeight: 700, letterSpacing: '0.14em',
+              textTransform: 'uppercase', color: colors.lavanda,
+              marginBottom: '16px', paddingTop: '0',
+            }}>
+              Índice
+            </p>
+            <nav style={{ display: 'flex', flexDirection: 'column' }}>
+              {nodos.map((nodo) => (
+                <a
+                  key={nodo.id}
+                  href={`#${nodo.slug}`}
+                  className={`indice-item${activeNodo === nodo.slug ? ' activo' : ''}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document.getElementById(nodo.slug)?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                >
+                  {nodo.titulo}
+                </a>
+              ))}
+            </nav>
+          </aside>
+        )}
 
         {/* Breadcrumb — in column 2 on desktop */}
         <nav style={{ gridColumn: isMobile ? '1' : '2', padding: '24px 40px 0 48px' }}>
@@ -240,42 +278,6 @@ export default function BloquePage() {
               </nav>
             )}
           </div>
-        )}
-
-        {/* Left column: sticky sidebar (desktop only) */}
-        {!isMobile && nodos.length > 0 && (
-          <aside className="indice-sidebar" style={{
-            position: 'sticky',
-            top: '60px',
-            alignSelf: 'start',
-            overflowY: 'auto',
-            maxHeight: 'calc(100vh - 70px)',
-            padding: '48px 24px 48px 24px',
-            borderRight: '1px solid rgba(255,255,255,0.06)',
-          }}>
-            <p style={{
-              fontSize: '10px', fontWeight: 700, letterSpacing: '0.14em',
-              textTransform: 'uppercase', color: colors.lavanda,
-              marginBottom: '16px', paddingTop: '48px',
-            }}>
-              Índice
-            </p>
-            <nav style={{ display: 'flex', flexDirection: 'column' }}>
-              {nodos.map((nodo) => (
-                <a
-                  key={nodo.id}
-                  href={`#${nodo.slug}`}
-                  className={`indice-item${activeNodo === nodo.slug ? ' activo' : ''}`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    document.getElementById(nodo.slug)?.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                >
-                  {nodo.titulo}
-                </a>
-              ))}
-            </nav>
-          </aside>
         )}
 
         {/* Right column: main content */}
