@@ -54,21 +54,28 @@ export default function BloquePage() {
         const currentBloque = bloqueData[0];
         setBloque(currentBloque);
 
-        // Fetch nodos, recursos, quiz in parallel
-        const [nodosRes, recursosRes, quizRes] = await Promise.all([
+        // Fetch nodos and quiz in parallel
+        const [nodosRes, quizRes] = await Promise.all([
           fetch(`${SUPABASE_URL}/rest/v1/nodos?bloque_id=eq.${currentBloque.id}&select=*&order=orden_en_bloque.asc`, { headers }),
-          fetch(`${SUPABASE_URL}/rest/v1/recursos?nodo_id=in.(select id from nodos where bloque_id=eq.${currentBloque.id})&select=*&order=orden.asc`, { headers }).catch(() => ({ json: () => [] })),
           fetch(`${SUPABASE_URL}/rest/v1/quiz_preguntas?bloque_id=eq.${currentBloque.id}&select=*&order=orden.asc`, { headers }).catch(() => ({ json: () => [] })),
         ]);
 
         const nodosData = await nodosRes.json();
         setNodos(Array.isArray(nodosData) ? nodosData : []);
 
-        const recursosData = await recursosRes.json();
-        setRecursos(Array.isArray(recursosData) ? recursosData : []);
-
         const quizData = await quizRes.json();
         setQuizPreguntas(Array.isArray(quizData) ? quizData : []);
+
+        // Fetch recursos for all nodos in this bloque
+        if (Array.isArray(nodosData) && nodosData.length > 0) {
+          const nodoIds = nodosData.map(n => n.id).join(',');
+          const recursosRes = await fetch(
+            `${SUPABASE_URL}/rest/v1/recursos?nodo_id=in.(${nodoIds})&select=*&order=orden.asc`,
+            { headers }
+          ).catch(() => ({ json: () => [] }));
+          const recursosData = await recursosRes.json();
+          setRecursos(Array.isArray(recursosData) ? recursosData : []);
+        }
       } catch (err) {
         setError('Error cargando el contenido.');
         console.error(err);
@@ -273,23 +280,29 @@ export default function BloquePage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
-                  display: 'flex', alignItems: 'center', gap: '12px',
+                  display: 'flex', alignItems: 'flex-start', gap: '12px',
                   background: colors.cardBg, border: `1px solid ${colors.border}`,
                   borderRadius: '10px', padding: '14px 16px',
                   textDecoration: 'none', transition: 'border-color 0.2s',
                 }}
-                onMouseEnter={(e) => e.currentTarget.style.borderColor = colors.lavanda}
-                onMouseLeave={(e) => e.currentTarget.style.borderColor = colors.border}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = colors.lavanda;
+                  e.currentTarget.querySelector('.video-title').style.color = colors.accent;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = colors.border;
+                  e.currentTarget.querySelector('.video-title').style.color = colors.text;
+                }}
               >
-                <span style={{ fontSize: '18px', flexShrink: 0 }}>▶</span>
+                <span style={{ fontSize: '16px', flexShrink: 0, paddingTop: '2px' }}>▶</span>
                 <div style={{ flex: 1 }}>
-                  <p style={{ fontSize: '14px', fontWeight: 600, color: colors.text, marginBottom: '2px' }}>
+                  <p className="video-title" style={{ fontSize: '14px', fontWeight: 600, color: colors.text, marginBottom: '4px', transition: 'color 0.2s' }}>
                     {recurso.titulo}
                   </p>
+                  <p style={{ fontSize: '11px', color: colors.muted, lineHeight: 1.5 }}>
+                    {[recurso.dificultad, recurso.tipo].filter(Boolean).join(' · ')}
+                  </p>
                 </div>
-                <span style={{ fontSize: '10px', color: colors.muted, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-                  {recurso.dificultad}
-                </span>
               </a>
             ))}
           </div>
@@ -383,7 +396,7 @@ export default function BloquePage() {
           borderTop: `1px solid ${colors.border}`, paddingTop: '24px',
         }}>
           {prevBloque ? (
-            <Link href={`/biblioteca/${prevBloque.slug}`} style={{
+            <Link href={`/biblioteca/${prevBloque.slug}`} scroll={true} onClick={() => window.scrollTo(0,0)} style={{
               color: colors.accent, textDecoration: 'none', fontSize: '13px',
               maxWidth: '45%',
             }}>
@@ -391,7 +404,7 @@ export default function BloquePage() {
             </Link>
           ) : <span />}
           {nextBloque ? (
-            <Link href={`/biblioteca/${nextBloque.slug}`} style={{
+            <Link href={`/biblioteca/${nextBloque.slug}`} scroll={true} onClick={() => window.scrollTo(0,0)} style={{
               color: colors.accent, textDecoration: 'none', fontSize: '13px',
               textAlign: 'right', maxWidth: '45%',
             }}>
