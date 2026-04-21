@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
+import DOMPurify from 'dompurify';
 
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const SUPABASE_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -311,7 +312,7 @@ export default function BloquePage() {
               {/* Content */}
               {nodo.contenido_html && (
                 <div
-                  dangerouslySetInnerHTML={{ __html: nodo.contenido_html }}
+                  dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(nodo.contenido_html, { ADD_ATTR: ['class', 'style'] }) }}
                   className="nodo-content"
                   style={{ fontSize: '15px', lineHeight: 1.75, color: colors.text, overflowWrap: 'break-word', textAlign: 'justify', textAlignLast: 'left', hyphens: 'auto', WebkitHyphens: 'auto', msHyphens: 'auto' }}
                 />
