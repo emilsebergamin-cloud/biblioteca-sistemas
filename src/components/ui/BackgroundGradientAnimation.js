@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 
-export const BackgroundGradientAnimation = ({ children, containerStyle = {} }) => {
+export const BackgroundGradientAnimation = ({ children, containerStyle = {}, containerClassName = '' }) => {
   const interactiveRef = useRef(null);
   const curXRef = useRef(0);
   const curYRef = useRef(0);
@@ -37,6 +37,7 @@ export const BackgroundGradientAnimation = ({ children, containerStyle = {} }) =
 
   return (
     <div
+      className={containerClassName}
       onMouseMove={handleMouseMove}
       style={{
         position: 'relative',

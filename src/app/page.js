@@ -10,7 +10,7 @@ export default function Home() {
   }, []);
 
   return (
-      <BackgroundGradientAnimation containerStyle={{ height: '100vh', overflow: 'hidden', padding: '60px 40px 40px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <BackgroundGradientAnimation containerClassName="hero-container" containerStyle={{ height: '100vh', overflow: 'hidden', padding: '60px 40px 40px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <div style={{ position: 'relative', zIndex: 2, textAlign: 'center' }}>
           <p style={{
             fontSize: '10px', fontWeight: 700,
@@ -52,7 +52,7 @@ export default function Home() {
             </svg>
           </div>
 
-          <p style={{
+          <p className="hero-desc" style={{
             fontSize: '16px', color: '#6B6058',
             lineHeight: 1.65, maxWidth: '460px',
             margin: '0 auto 16px',
@@ -62,7 +62,7 @@ export default function Home() {
           </p>
 
           {/* Stats */}
-          <div style={{
+          <div className="hero-stats" style={{
             display: 'flex', gap: '32px',
             justifyContent: 'center', alignItems: 'center',
             marginBottom: '20px',
