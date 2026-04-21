@@ -227,7 +227,7 @@ export default function BloquePage() {
       {/* Grid layout: sidebar (desktop) + main content */}
       <div style={{
         display: 'grid',
-        gridTemplateColumns: isMobile ? '1fr' : '260px 1fr',
+        gridTemplateColumns: isMobile ? '1fr' : '220px 1fr',
         gap: '0 48px',
         maxWidth: '1100px',
         margin: '0 auto',
@@ -235,14 +235,13 @@ export default function BloquePage() {
 
         {/* Left column: sticky sidebar (desktop only) */}
         {!isMobile && nodos.length > 0 && (
-          <aside className="indice-lateral" style={{
+          <aside className="indice-sidebar" style={{
             position: 'sticky',
             top: '80px',
             alignSelf: 'start',
             overflowY: 'auto',
             maxHeight: 'calc(100vh - 100px)',
-            padding: '0 24px 0 12px',
-            scrollbarWidth: 'thin',
+            padding: '0 0 0 16px',
           }}>
             <p style={{
               fontSize: '10px', fontWeight: 700, letterSpacing: '0.14em',
@@ -252,30 +251,35 @@ export default function BloquePage() {
               Índice
             </p>
             <nav style={{ display: 'flex', flexDirection: 'column' }}>
-              {nodos.map((nodo, i) => (
-                <a
-                  key={nodo.id}
-                  href={`#${nodo.slug}`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    document.getElementById(nodo.slug)?.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                  style={{
-                    display: 'block',
-                    padding: '8px 0',
-                    textDecoration: 'none',
-                    fontSize: '13px',
-                    color: activeNodo === nodo.slug ? '#C5E832' : 'rgba(247,244,239,0.4)',
-                    transition: 'color 0.2s',
-                    lineHeight: 1.4,
-                  }}
-                >
-                  <span style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '0.1em', marginRight: '8px' }}>
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
-                  {nodo.titulo}
-                </a>
-              ))}
+              {nodos.map((nodo, i) => {
+                const isActive = activeNodo === nodo.slug;
+                return (
+                  <a
+                    key={nodo.id}
+                    href={`#${nodo.slug}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      document.getElementById(nodo.slug)?.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    style={{
+                      display: 'block',
+                      padding: '6px 0 6px 12px',
+                      textDecoration: 'none',
+                      fontSize: '12px',
+                      color: isActive ? '#C5E832' : 'rgba(247,244,239,0.35)',
+                      fontWeight: isActive ? 600 : 400,
+                      borderLeft: isActive ? '2px solid #C5E832' : '2px solid transparent',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s ease',
+                      lineHeight: 1.4,
+                    }}
+                    onMouseEnter={(e) => { if (!isActive) e.currentTarget.style.color = '#C5E832'; }}
+                    onMouseLeave={(e) => { if (!isActive) e.currentTarget.style.color = 'rgba(247,244,239,0.35)'; }}
+                  >
+                    {nodo.titulo}
+                  </a>
+                );
+              })}
             </nav>
           </aside>
         )}
@@ -303,21 +307,6 @@ export default function BloquePage() {
                 <p style={{ fontSize: '14px', color: colors.muted, fontStyle: 'italic', marginBottom: '24px', lineHeight: 1.6 }}>
                   {nodo.resumen_corto}
                 </p>
-              )}
-
-              {/* Tags */}
-              {nodo.tags && nodo.tags.length > 0 && (
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '20px' }}>
-                  {nodo.tags.map((tag, j) => (
-                    <span key={j} style={{
-                      background: 'rgba(197,232,50,0.1)', color: colors.accent,
-                      fontSize: '10px', fontWeight: 600, padding: '3px 10px',
-                      borderRadius: '100px', letterSpacing: '0.04em',
-                    }}>
-                      {tag}
-                    </span>
-                  ))}
-                </div>
               )}
 
               {/* Content */}
