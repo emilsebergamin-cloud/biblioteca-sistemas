@@ -128,6 +128,7 @@ Se hizo una auditoría del código como senior frontend engineer. Top 3 problema
 1. **Refactor del archivo monolítico** (`src/app/biblioteca/[slug]/page.js`, 507 líneas). Extraer componentes: `QuizSection`, `VideoSection`, `NodoSection`, `BloqueHeader`, `SidebarIndex`.
 2. **Encoding de nodos en Supabase.** Los caracteres españoles (tildes, ñ, —) están corruptos en la DB. El archivo `nodos_seed.sql` está correcto en UTF-8, pero al ejecutarlo en el SQL Editor de Supabase se guardó con encoding incorrecto. Hay que borrar y re-insertar.
 3. **Overflow horizontal en mobile.** Las tablas del contenido de nodos se salen del viewport en pantallas chicas. Necesita `overflow-x: auto` en el wrapper de tablas.
+4. **Responsive mobile crítico:** la vista de bloque en celular real (testeada hoy) tiene tres problemas: (a) sigue habiendo aire vertical excesivo, (b) hay overflow horizontal que permite scroll lateral y muestra fondo blanco, (c) el texto se corta. Requiere sesión dedicada con diagnóstico desde celu real.
 
 ### Prioridad media
 
