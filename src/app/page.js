@@ -4,15 +4,12 @@ import { BackgroundGradientAnimation } from "@/components/ui/BackgroundGradientA
 
 export default function Home() {
   return (
-    <main style={{ background: '#F7F4EF', minHeight: '100vh' }}>
-
-      {/* HERO con gradiente animado */}
-      <BackgroundGradientAnimation containerStyle={{ minHeight: '100vh', height: '100vh', padding: '80px 40px 72px' }}>
+      <BackgroundGradientAnimation containerStyle={{ height: '100vh', overflow: 'hidden', padding: '60px 40px 40px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <div style={{ position: 'relative', zIndex: 2, textAlign: 'center' }}>
           <p style={{
             fontSize: '10px', fontWeight: 700,
             letterSpacing: '0.16em', textTransform: 'uppercase',
-            color: '#6B6058', marginBottom: '20px',
+            color: '#6B6058', marginBottom: '12px',
             animation: 'fadeUp 0.6s ease 0.1s both',
           }}>
             Proyecto educativo personal
@@ -32,7 +29,7 @@ export default function Home() {
 
           {/* Trazo animado */}
           <div style={{
-            margin: '0 auto 20px', width: 'fit-content',
+            margin: '0 auto 12px', width: 'fit-content',
             animation: 'fadeUp 0.4s ease 0.5s both',
           }}>
             <svg width="280" height="10" viewBox="0 0 280 10">
@@ -52,7 +49,7 @@ export default function Home() {
           <p style={{
             fontSize: '16px', color: '#6B6058',
             lineHeight: 1.65, maxWidth: '460px',
-            margin: '0 auto 24px',
+            margin: '0 auto 16px',
             animation: 'fadeUp 0.6s ease 0.7s both',
           }}>
             No es un curso. No es una wiki. Es un recorrido que te lleva de no saber nada a poder participar en cualquier conversación técnica — con criterio real.
@@ -62,7 +59,7 @@ export default function Home() {
           <div style={{
             display: 'flex', gap: '32px',
             justifyContent: 'center', alignItems: 'center',
-            marginBottom: '32px',
+            marginBottom: '20px',
             animation: 'fadeUp 0.6s ease 0.8s both',
           }}>
             {[
@@ -110,18 +107,15 @@ export default function Home() {
             Explorar →
           </a>
         </div>
+        <style>{`
+          @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(14px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+          @keyframes drawLine {
+            to { stroke-dashoffset: 0; }
+          }
+        `}</style>
       </BackgroundGradientAnimation>
-
-      <style>{`
-        @keyframes fadeUp {
-          from { opacity: 0; transform: translateY(14px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes drawLine {
-          to { stroke-dashoffset: 0; }
-        }
-      `}</style>
-
-    </main>
   );
 }

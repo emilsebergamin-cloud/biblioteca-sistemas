@@ -80,7 +80,7 @@ export default function Carousel3D() {
             letterSpacing: "0.1em",
             textTransform: "uppercase",
           }}>
-            Cargando...
+            <div style={{ width: 32, height: 32, border: '2px solid rgba(197,232,50,0.2)', borderTop: '2px solid #C5E832', borderRadius: '50%', animation: 'spin 0.8s linear infinite', margin: '40px auto' }} />
           </div>
         )}
         {!loading && bloques.map((bloque, i) => {
@@ -96,13 +96,17 @@ export default function Carousel3D() {
                   setCenter(i);
                 }
               }}
+              {...(pos === "center" ? {
+                onMouseEnter: (e) => { e.currentTarget.style.transform = "translateX(0) translateZ(0) rotateY(0deg) scale(1.06)"; },
+                onMouseLeave: (e) => { e.currentTarget.style.transform = style.transform; },
+              } : {})}
               style={{
                 position: "absolute",
                 width: "220px",
                 transform: style.transform,
                 zIndex: style.zIndex,
                 opacity: style.opacity,
-                transition: "all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+                transition: "all 0.3s ease",
                 cursor: "pointer",
                 background: "#fff",
                 border: pos === "center" ? "0.5px solid rgba(197,232,50,0.4)" : "0.5px solid rgba(13,12,10,0.10)",
@@ -177,8 +181,8 @@ export default function Carousel3D() {
         <button
           onClick={prev}
           style={{
-            width: "36px",
-            height: "36px",
+            width: "48px",
+            height: "48px",
             borderRadius: "50%",
             border: "0.5px solid rgba(13,12,10,0.15)",
             background: "#fff",
@@ -186,7 +190,7 @@ export default function Carousel3D() {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            fontSize: "14px",
+            fontSize: "20px",
             color: "#0D0C0A",
           }}
           aria-label="Anterior"
@@ -217,8 +221,8 @@ export default function Carousel3D() {
         <button
           onClick={next}
           style={{
-            width: "36px",
-            height: "36px",
+            width: "48px",
+            height: "48px",
             borderRadius: "50%",
             border: "0.5px solid rgba(13,12,10,0.15)",
             background: "#fff",
@@ -226,7 +230,7 @@ export default function Carousel3D() {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            fontSize: "14px",
+            fontSize: "20px",
             color: "#0D0C0A",
           }}
           aria-label="Siguiente"

@@ -27,6 +27,16 @@ export default function BloquePage() {
   const [error, setError] = useState(null);
   const [activeNodo, setActiveNodo] = useState(null);
   const [tocOpen, setTocOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect mobile viewport
+  useEffect(() => {
+    const mql = window.matchMedia('(max-width: 768px)');
+    setIsMobile(mql.matches);
+    const handler = (e) => setIsMobile(e.matches);
+    mql.addEventListener('change', handler);
+    return () => mql.removeEventListener('change', handler);
+  }, []);
 
   useEffect(() => {
     if (!slug) return;
@@ -131,7 +141,7 @@ export default function BloquePage() {
   if (loading) {
     return (
       <div style={{ minHeight: '100vh', background: colors.bg, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <p style={{ color: colors.muted, fontSize: '14px' }}>Cargando...</p>
+        <div style={{ width: 32, height: 32, border: '2px solid rgba(197,232,50,0.2)', borderTop: '2px solid #C5E832', borderRadius: '50%', animation: 'spin 0.8s linear infinite', margin: '40px auto' }} />
       </div>
     );
   }
@@ -149,7 +159,7 @@ export default function BloquePage() {
     <div style={{ minHeight: '100vh', background: colors.bg, color: colors.text, paddingBottom: '80px' }}>
 
       {/* Breadcrumb */}
-      <nav style={{ maxWidth: '780px', margin: '0 auto', padding: '24px 20px 0' }}>
+      <nav style={{ maxWidth: '1100px', margin: '0 auto', padding: '24px 20px 0' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', flexWrap: 'wrap' }}>
           <Link href="/biblioteca" style={{ color: colors.accent, textDecoration: 'none' }}>Biblioteca</Link>
           <span style={{ color: colors.muted }}>→</span>
@@ -172,8 +182,8 @@ export default function BloquePage() {
         )}
       </header>
 
-      {/* Table of contents — mobile toggle */}
-      {nodos.length > 0 && (
+      {/* Table of contents -- mobile toggle (only on mobile) */}
+      {isMobile && nodos.length > 0 && (
         <div style={{ maxWidth: '780px', margin: '0 auto', padding: '0 20px' }}>
           <button
             onClick={() => setTocOpen(!tocOpen)}
@@ -214,205 +224,290 @@ export default function BloquePage() {
         </div>
       )}
 
-      {/* Nodo sections */}
-      {nodos.map((nodo, i) => (
-        <section
-          key={nodo.id}
-          id={nodo.slug}
-          style={{ maxWidth: '780px', margin: '0 auto', padding: '48px 20px 0', scrollMarginTop: '80px' }}
-        >
-          {/* Section header */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
-            <span style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '0.12em', color: colors.accent }}>
-              {String(i + 1).padStart(2, '0')}
-            </span>
-            <div style={{ flex: 1, height: '0.5px', background: colors.border }} />
-          </div>
-          <h2 style={{ fontSize: 'clamp(22px, 4vw, 28px)', fontWeight: 700, lineHeight: 1.2, marginBottom: '8px' }}>
-            {nodo.titulo}
-          </h2>
-          {nodo.resumen_corto && (
-            <p style={{ fontSize: '14px', color: colors.muted, fontStyle: 'italic', marginBottom: '24px', lineHeight: 1.6 }}>
-              {nodo.resumen_corto}
+      {/* Grid layout: sidebar (desktop) + main content */}
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: isMobile ? '1fr' : '260px 1fr',
+        gap: '0',
+        maxWidth: '1100px',
+        margin: '0 auto',
+      }}>
+
+        {/* Left column: sticky sidebar (desktop only) */}
+        {!isMobile && nodos.length > 0 && (
+          <aside style={{
+            position: 'sticky',
+            top: '80px',
+            alignSelf: 'start',
+            overflowY: 'auto',
+            maxHeight: 'calc(100vh - 100px)',
+            padding: '0 20px',
+          }}>
+            <p style={{
+              fontSize: '10px', fontWeight: 700, letterSpacing: '0.14em',
+              textTransform: 'uppercase', color: colors.lavanda,
+              marginBottom: '16px', paddingTop: '48px',
+            }}>
+              Índice
             </p>
-          )}
-
-          {/* Tags */}
-          {nodo.tags && nodo.tags.length > 0 && (
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '20px' }}>
-              {nodo.tags.map((tag, j) => (
-                <span key={j} style={{
-                  background: 'rgba(197,232,50,0.1)', color: colors.accent,
-                  fontSize: '10px', fontWeight: 600, padding: '3px 10px',
-                  borderRadius: '100px', letterSpacing: '0.04em',
-                }}>
-                  {tag}
-                </span>
+            <nav style={{ display: 'flex', flexDirection: 'column' }}>
+              {nodos.map((nodo, i) => (
+                <a
+                  key={nodo.id}
+                  href={`#${nodo.slug}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document.getElementById(nodo.slug)?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  style={{
+                    display: 'block',
+                    padding: '8px 0',
+                    textDecoration: 'none',
+                    fontSize: '13px',
+                    color: activeNodo === nodo.slug ? '#C5E832' : 'rgba(247,244,239,0.4)',
+                    transition: 'color 0.2s',
+                    lineHeight: 1.4,
+                  }}
+                >
+                  <span style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '0.1em', marginRight: '8px' }}>
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  {nodo.titulo}
+                </a>
               ))}
-            </div>
-          )}
+            </nav>
+          </aside>
+        )}
 
-          {/* Content */}
-          {nodo.contenido_html && (
-            <div
-              dangerouslySetInnerHTML={{ __html: nodo.contenido_html }}
-              className="nodo-content"
-              style={{ fontSize: '15px', lineHeight: 1.75, color: colors.text, overflowWrap: 'break-word' }}
-            />
-          )}
-        </section>
-      ))}
+        {/* Right column: main content */}
+        <div>
+          {/* Nodo sections */}
+          {nodos.map((nodo, i) => (
+            <section
+              key={nodo.id}
+              id={nodo.slug}
+              style={{ maxWidth: '780px', padding: '48px 20px 0', scrollMarginTop: '80px' }}
+            >
+              {/* Section header */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
+                <span style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '0.12em', color: colors.accent }}>
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <div style={{ flex: 1, height: '0.5px', background: colors.border }} />
+              </div>
+              <h2 style={{ fontSize: 'clamp(22px, 4vw, 28px)', fontWeight: 700, lineHeight: 1.2, marginBottom: '8px' }}>
+                {nodo.titulo}
+              </h2>
+              {nodo.resumen_corto && (
+                <p style={{ fontSize: '14px', color: colors.muted, fontStyle: 'italic', marginBottom: '24px', lineHeight: 1.6 }}>
+                  {nodo.resumen_corto}
+                </p>
+              )}
 
-      {/* Videos curados */}
-      {recursos.length > 0 && (
-        <section style={{ maxWidth: '780px', margin: '56px auto 0', padding: '0 20px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
-            <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: colors.lavanda }}>
-              Videos curados
-            </span>
-            <div style={{ flex: 1, height: '0.5px', background: colors.border }} />
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-            {recursos.map((recurso) => (
-              <a
-                key={recurso.id}
-                href={recurso.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  display: 'flex', alignItems: 'flex-start', gap: '12px',
-                  background: colors.cardBg, border: `1px solid ${colors.border}`,
-                  borderRadius: '10px', padding: '14px 16px',
-                  textDecoration: 'none', transition: 'border-color 0.2s',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = colors.lavanda;
-                  e.currentTarget.querySelector('.video-title').style.color = colors.accent;
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = colors.border;
-                  e.currentTarget.querySelector('.video-title').style.color = colors.text;
-                }}
-              >
-                <span style={{ fontSize: '16px', flexShrink: 0, paddingTop: '2px' }}>▶</span>
-                <div style={{ flex: 1 }}>
-                  <p className="video-title" style={{ fontSize: '14px', fontWeight: 600, color: colors.text, marginBottom: '4px', transition: 'color 0.2s' }}>
-                    {recurso.titulo}
-                  </p>
-                  <p style={{ fontSize: '11px', color: colors.muted, lineHeight: 1.5 }}>
-                    {[recurso.dificultad, recurso.tipo].filter(Boolean).join(' · ')}
-                  </p>
-                </div>
-              </a>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* Quiz */}
-      {quizPreguntas.length > 0 && (
-        <section style={{ maxWidth: '780px', margin: '56px auto 0', padding: '0 20px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
-            <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: colors.accent }}>
-              Quiz — ¿Entendiste el bloque?
-            </span>
-            <div style={{ flex: 1, height: '0.5px', background: colors.border }} />
-          </div>
-          <p style={{ fontSize: '13px', color: colors.muted, fontStyle: 'italic', marginBottom: '24px' }}>
-            No se aprueba con sentido común. Si podés responder bien, entendiste el bloque.
-          </p>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-            {quizPreguntas.map((q, qIdx) => {
-              const answered = quizRevealed[qIdx];
-              const selected = quizAnswers[qIdx];
-              const isCorrect = selected === q.respuesta_correcta;
-
-              return (
-                <div key={q.id || qIdx} style={{
-                  background: colors.cardBg, border: `1px solid ${colors.border}`,
-                  borderRadius: '12px', padding: '20px',
-                }}>
-                  <p style={{ fontSize: '14px', fontWeight: 600, color: colors.text, marginBottom: '14px', lineHeight: 1.5 }}>
-                    {qIdx + 1}. {q.pregunta}
-                  </p>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                    {q.opciones.map((opt, optIdx) => {
-                      let bg = 'rgba(247,244,239,0.04)';
-                      let borderColor = colors.border;
-                      let textColor = colors.text;
-
-                      if (answered) {
-                        if (optIdx === q.respuesta_correcta) {
-                          bg = 'rgba(197,232,50,0.15)';
-                          borderColor = colors.accent;
-                          textColor = colors.accent;
-                        } else if (optIdx === selected && !isCorrect) {
-                          bg = 'rgba(225,29,72,0.1)';
-                          borderColor = '#E11D48';
-                          textColor = '#E11D48';
-                        }
-                      }
-
-                      return (
-                        <button
-                          key={optIdx}
-                          onClick={() => handleQuizAnswer(qIdx, optIdx)}
-                          disabled={answered}
-                          style={{
-                            padding: '12px 14px', borderRadius: '8px',
-                            border: `1px solid ${borderColor}`,
-                            background: bg, color: textColor,
-                            fontSize: '13px', textAlign: 'left',
-                            cursor: answered ? 'default' : 'pointer',
-                            transition: 'all 0.2s', lineHeight: 1.5,
-                          }}
-                        >
-                          {opt}
-                        </button>
-                      );
-                    })}
-                  </div>
-                  {answered && q.explicacion && (
-                    <p style={{
-                      marginTop: '12px', fontSize: '13px', lineHeight: 1.6,
-                      color: isCorrect ? colors.accent : '#E11D48',
-                      fontStyle: 'italic',
+              {/* Tags */}
+              {nodo.tags && nodo.tags.length > 0 && (
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '20px' }}>
+                  {nodo.tags.map((tag, j) => (
+                    <span key={j} style={{
+                      background: 'rgba(197,232,50,0.1)', color: colors.accent,
+                      fontSize: '10px', fontWeight: 600, padding: '3px 10px',
+                      borderRadius: '100px', letterSpacing: '0.04em',
                     }}>
-                      {isCorrect ? '✓ ' : '✗ '}{q.explicacion}
-                    </p>
-                  )}
+                      {tag}
+                    </span>
+                  ))}
                 </div>
-              );
-            })}
-          </div>
-        </section>
-      )}
+              )}
 
-      {/* Prev / Next bloque */}
-      {(prevBloque || nextBloque) && (
-        <nav style={{
-          maxWidth: '780px', margin: '56px auto 0', padding: '0 20px',
-          display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-          borderTop: `1px solid ${colors.border}`, paddingTop: '24px',
-        }}>
-          {prevBloque ? (
-            <Link href={`/biblioteca/${prevBloque.slug}`} scroll={true} onClick={() => window.scrollTo(0,0)} style={{
-              color: colors.accent, textDecoration: 'none', fontSize: '13px',
-              maxWidth: '45%',
+              {/* Content */}
+              {nodo.contenido_html && (
+                <div
+                  dangerouslySetInnerHTML={{ __html: nodo.contenido_html }}
+                  className="nodo-content"
+                  style={{ fontSize: '15px', lineHeight: 1.75, color: colors.text, overflowWrap: 'break-word' }}
+                />
+              )}
+            </section>
+          ))}
+
+          {/* Videos curados */}
+          {recursos.length > 0 && (
+            <section style={{ maxWidth: '780px', marginTop: '56px', padding: '0 20px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
+                <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: colors.lavanda }}>
+                  Videos curados
+                </span>
+                <div style={{ flex: 1, height: '0.5px', background: colors.border }} />
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                {recursos.map((recurso) => (
+                  <a
+                    key={recurso.id}
+                    href={recurso.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: 'flex', alignItems: 'flex-start', gap: '12px',
+                      background: colors.cardBg, border: `1px solid ${colors.border}`,
+                      borderRadius: '10px', padding: '14px 16px',
+                      textDecoration: 'none', transition: 'border-color 0.2s',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.borderColor = colors.lavanda;
+                      e.currentTarget.querySelector('.video-title').style.color = colors.accent;
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.borderColor = colors.border;
+                      e.currentTarget.querySelector('.video-title').style.color = colors.text;
+                    }}
+                  >
+                    <span style={{ fontSize: '16px', flexShrink: 0, paddingTop: '2px' }}>▶</span>
+                    <div style={{ flex: 1 }}>
+                      <p className="video-title" style={{ fontSize: '14px', fontWeight: 600, color: colors.text, marginBottom: '4px', transition: 'color 0.2s' }}>
+                        {recurso.titulo}
+                      </p>
+                      <p style={{ fontSize: '11px', color: colors.muted, lineHeight: 1.5 }}>
+                        {[recurso.dificultad, recurso.tipo].filter(Boolean).join(' · ')}
+                      </p>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* Quiz */}
+          {quizPreguntas.length > 0 && (
+            <section style={{ maxWidth: '780px', marginTop: '56px', padding: '0 20px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
+                <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: colors.accent }}>
+                  Quiz — ¿Entendiste el bloque?
+                </span>
+                <div style={{ flex: 1, height: '0.5px', background: colors.border }} />
+              </div>
+              <p style={{ fontSize: '13px', color: colors.muted, fontStyle: 'italic', marginBottom: '24px' }}>
+                No se aprueba con sentido común. Si podés responder bien, entendiste el bloque.
+              </p>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                {quizPreguntas.map((q, qIdx) => {
+                  const answered = quizRevealed[qIdx];
+                  const selected = quizAnswers[qIdx];
+                  const isCorrect = selected === q.respuesta_correcta;
+
+                  return (
+                    <div key={q.id || qIdx} style={{
+                      background: colors.cardBg, border: `1px solid ${colors.border}`,
+                      borderRadius: '12px', padding: '20px',
+                    }}>
+                      <p style={{ fontSize: '14px', fontWeight: 600, color: colors.text, marginBottom: '14px', lineHeight: 1.5 }}>
+                        {qIdx + 1}. {q.pregunta}
+                      </p>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                        {q.opciones.map((opt, optIdx) => {
+                          let bg = 'rgba(247,244,239,0.04)';
+                          let borderColor = colors.border;
+                          let textColor = colors.text;
+
+                          if (answered) {
+                            if (optIdx === q.respuesta_correcta) {
+                              bg = 'rgba(197,232,50,0.15)';
+                              borderColor = colors.accent;
+                              textColor = colors.accent;
+                            } else if (optIdx === selected && !isCorrect) {
+                              bg = 'rgba(225,29,72,0.1)';
+                              borderColor = '#E11D48';
+                              textColor = '#E11D48';
+                            }
+                          }
+
+                          return (
+                            <button
+                              key={optIdx}
+                              onClick={() => handleQuizAnswer(qIdx, optIdx)}
+                              disabled={answered}
+                              style={{
+                                padding: '12px 14px', borderRadius: '8px',
+                                border: `1px solid ${borderColor}`,
+                                background: bg, color: textColor,
+                                fontSize: '13px', textAlign: 'left',
+                                cursor: answered ? 'default' : 'pointer',
+                                transition: 'all 0.2s', lineHeight: 1.5,
+                              }}
+                            >
+                              {opt}
+                            </button>
+                          );
+                        })}
+                      </div>
+                      {answered && q.explicacion && (
+                        <p style={{
+                          marginTop: '12px', fontSize: '13px', lineHeight: 1.6,
+                          color: isCorrect ? colors.accent : '#E11D48',
+                          fontStyle: 'italic',
+                        }}>
+                          {isCorrect ? '✓ ' : '✗ '}{q.explicacion}
+                        </p>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </section>
+          )}
+
+          {/* Prev / Next bloque */}
+          {(prevBloque || nextBloque) && (
+            <nav style={{
+              maxWidth: '780px', marginTop: '56px', padding: '0 20px',
+              display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+              borderTop: `1px solid ${colors.border}`, paddingTop: '24px',
             }}>
-              ← {prevBloque.titulo}
-            </Link>
-          ) : <span />}
-          {nextBloque ? (
-            <Link href={`/biblioteca/${nextBloque.slug}`} scroll={true} onClick={() => window.scrollTo(0,0)} style={{
-              color: colors.accent, textDecoration: 'none', fontSize: '13px',
-              textAlign: 'right', maxWidth: '45%',
-            }}>
-              {nextBloque.titulo} →
-            </Link>
-          ) : <span />}
-        </nav>
-      )}
+              {prevBloque ? (
+                <Link href={`/biblioteca/${prevBloque.slug}`} scroll={true} onClick={() => window.scrollTo(0,0)} style={{
+                  color: colors.accent, textDecoration: 'none', fontSize: '13px',
+                  maxWidth: '45%',
+                }}>
+                  ← {prevBloque.titulo}
+                </Link>
+              ) : <span />}
+              {nextBloque ? (
+                <Link href={`/biblioteca/${nextBloque.slug}`} scroll={true} onClick={() => window.scrollTo(0,0)} style={{
+                  color: colors.accent, textDecoration: 'none', fontSize: '13px',
+                  textAlign: 'right', maxWidth: '45%',
+                }}>
+                  {nextBloque.titulo} →
+                </Link>
+              ) : <span />}
+            </nav>
+          )}
+        </div>
+      </div>
+
+      {/* Scroll to top button */}
+      <button
+        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        style={{
+          position: 'fixed',
+          bottom: '32px',
+          right: '32px',
+          width: '40px',
+          height: '40px',
+          borderRadius: '50%',
+          background: '#C5E832',
+          color: '#0D0C0A',
+          fontSize: '18px',
+          border: 'none',
+          cursor: 'pointer',
+          zIndex: 50,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+        }}
+        aria-label="Volver arriba"
+      >
+        ↑
+      </button>
     </div>
   );
 }
