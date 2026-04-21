@@ -177,32 +177,34 @@ body {
 .tag.para-los-curiosos strong { color: #6366F1; }
 
 /* Estilos para contenido HTML de nodos */
+* { max-width: 100%; box-sizing: border-box; }
+
 .nodo-content {
   max-width: 100%;
   word-wrap: break-word;
   overflow-wrap: break-word;
+  overflow-x: hidden;
 }
 
 .nodo-content * { text-align: left !important; }
 .nodo-content [style*="text-align"] { text-align: left !important; }
 .nodo-content [style*="justify"] { text-align: left !important; }
 
-.nodo-content p {
+.nodo-content p, .nodo-content li, .nodo-content td {
+  word-break: break-word;
+  overflow-wrap: break-word;
   text-align: left !important;
-  line-height: 1.75 !important;
-  font-size: clamp(14px, 2vw, 16px);
+  font-size: 15px !important;
+  line-height: 1.7 !important;
+}
+
+.nodo-content p {
   margin-bottom: 16px;
 }
 
 .nodo-content h2, .nodo-content h3 {
   line-height: 1.3;
   font-size: clamp(18px, 3vw, 24px);
-}
-
-.nodo-content li {
-  text-align: left;
-  line-height: 1.65;
-  font-size: clamp(14px, 2vw, 16px);
 }
 
 .nodo-content table {
