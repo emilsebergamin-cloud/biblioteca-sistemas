@@ -281,7 +281,7 @@ export default function BloquePage() {
         )}
 
         {/* Right column: main content */}
-        <div style={{ maxWidth: '780px', padding: '0 40px 80px 48px' }}>
+        <div style={{ gridColumn: isMobile ? '1' : '2', maxWidth: '780px', padding: '0 40px 80px 48px' }}>
           {/* Nodo sections */}
           {nodos.map((nodo, i) => (
             <section
