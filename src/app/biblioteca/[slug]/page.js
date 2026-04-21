@@ -214,8 +214,11 @@ export default function BloquePage() {
           </aside>
         )}
 
-        {/* Breadcrumb — in column 2 on desktop */}
-        <nav style={{ gridColumn: isMobile ? '1' : '2', maxWidth: '880px', margin: '0 auto', padding: '8px 40px 0 48px', textAlign: 'center', width: '100%' }}>
+        {/* Column 2 wrapper: breadcrumb + header + content */}
+        <div style={{ gridColumn: isMobile ? '1' : '2' }}>
+
+        {/* Breadcrumb */}
+        <nav style={{ maxWidth: '880px', margin: '0 auto', padding: '8px 40px 0 48px', textAlign: 'center', width: '100%' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', flexWrap: 'wrap' }}>
             <Link href="/biblioteca" style={{ color: colors.accent, textDecoration: 'none' }}>Biblioteca</Link>
             <span style={{ color: colors.muted }}>→</span>
@@ -223,8 +226,8 @@ export default function BloquePage() {
           </div>
         </nav>
 
-        {/* Bloque header — in column 2 on desktop */}
-        <header style={{ gridColumn: isMobile ? '1' : '2', maxWidth: '880px', margin: '0 auto', padding: isMobile ? '8px 20px 0' : '8px 40px 0 48px', textAlign: 'center', width: '100%' }}>
+        {/* Bloque header */}
+        <header style={{ maxWidth: '880px', margin: '0 auto', padding: isMobile ? '8px 20px 0' : '8px 40px 0 48px', textAlign: 'center', width: '100%' }}>
           <p style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '0.16em', textTransform: 'uppercase', color: colors.accent, marginBottom: '12px' }}>
             Bloque {bloque.orden}
           </p>
@@ -240,7 +243,7 @@ export default function BloquePage() {
 
         {/* Table of contents -- mobile toggle (only on mobile) */}
         {isMobile && nodos.length > 0 && (
-          <div style={{ gridColumn: '1', padding: '0 20px' }}>
+          <div style={{ padding: '0 20px' }}>
             <button
               onClick={() => setTocOpen(!tocOpen)}
               style={{
@@ -280,8 +283,8 @@ export default function BloquePage() {
           </div>
         )}
 
-        {/* Right column: main content */}
-        <div style={{ gridColumn: isMobile ? '1' : '2', maxWidth: '780px', margin: '0 auto', padding: '0 40px 80px 48px', width: '100%' }}>
+        {/* Main content */}
+        <div style={{ maxWidth: '780px', margin: '0 auto', padding: '0 40px 80px 48px', width: '100%' }}>
           {/* Nodo sections */}
           {nodos.map((nodo, i) => (
             <section
@@ -467,6 +470,7 @@ export default function BloquePage() {
             </nav>
           )}
         </div>
+        </div>{/* close column 2 wrapper */}
       </div>
 
       {/* Scroll to top button */}
