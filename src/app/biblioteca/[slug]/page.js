@@ -185,7 +185,7 @@ export default function BloquePage() {
             alignSelf: 'start',
             overflowY: 'auto',
             maxHeight: 'calc(100vh - 70px)',
-            padding: '24px 24px 48px 24px',
+            padding: '8px 24px 48px 24px',
             borderRight: '1px solid rgba(255,255,255,0.06)',
             gridColumn: '1',
           }}>
@@ -215,7 +215,7 @@ export default function BloquePage() {
         )}
 
         {/* Breadcrumb — in column 2 on desktop */}
-        <nav style={{ gridColumn: isMobile ? '1' : '2', maxWidth: '880px', margin: '0 auto', padding: '12px 40px 0 48px', textAlign: 'center', width: '100%' }}>
+        <nav style={{ gridColumn: isMobile ? '1' : '2', maxWidth: '880px', margin: '0 auto', padding: '8px 40px 0 48px', textAlign: 'center', width: '100%' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', flexWrap: 'wrap' }}>
             <Link href="/biblioteca" style={{ color: colors.accent, textDecoration: 'none' }}>Biblioteca</Link>
             <span style={{ color: colors.muted }}>→</span>
@@ -224,7 +224,7 @@ export default function BloquePage() {
         </nav>
 
         {/* Bloque header — in column 2 on desktop */}
-        <header style={{ gridColumn: isMobile ? '1' : '2', maxWidth: '880px', margin: '0 auto', padding: isMobile ? '16px 20px 0' : '16px 40px 0 48px', textAlign: 'center', width: '100%' }}>
+        <header style={{ gridColumn: isMobile ? '1' : '2', maxWidth: '880px', margin: '0 auto', padding: isMobile ? '8px 20px 0' : '8px 40px 0 48px', textAlign: 'center', width: '100%' }}>
           <p style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '0.16em', textTransform: 'uppercase', color: colors.accent, marginBottom: '12px' }}>
             Bloque {bloque.orden}
           </p>
@@ -232,7 +232,7 @@ export default function BloquePage() {
             {bloque.titulo}
           </h1>
           {bloque.subtitulo && (
-            <p style={{ fontSize: '16px', lineHeight: 1.6, color: colors.muted, fontStyle: 'italic', marginBottom: '24px' }}>
+            <p style={{ fontSize: '16px', lineHeight: 1.6, color: colors.muted, fontStyle: 'italic', marginBottom: '16px' }}>
               {bloque.subtitulo}
             </p>
           )}
