@@ -177,14 +177,14 @@ body {
 .tag.para-los-curiosos strong { color: #6366F1; }
 
 /* Estilos para contenido HTML de nodos */
-* { max-width: 100%; box-sizing: border-box; }
-
 .nodo-content {
   max-width: 100%;
   word-wrap: break-word;
   overflow-wrap: break-word;
   overflow-x: hidden;
 }
+
+.nodo-content * { max-width: 100%; }
 
 .nodo-content p, .nodo-content li {
   text-align: justify;
