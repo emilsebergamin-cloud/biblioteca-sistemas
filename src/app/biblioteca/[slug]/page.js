@@ -215,7 +215,7 @@ export default function BloquePage() {
         )}
 
         {/* Breadcrumb — in column 2 on desktop */}
-        <nav style={{ gridColumn: isMobile ? '1' : '2', padding: '24px 40px 0 48px' }}>
+        <nav style={{ gridColumn: isMobile ? '1' : '2', maxWidth: '780px', margin: '0 auto', padding: '24px 40px 0 48px', textAlign: 'center', width: '100%' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', flexWrap: 'wrap' }}>
             <Link href="/biblioteca" style={{ color: colors.accent, textDecoration: 'none' }}>Biblioteca</Link>
             <span style={{ color: colors.muted }}>→</span>
@@ -224,7 +224,7 @@ export default function BloquePage() {
         </nav>
 
         {/* Bloque header — in column 2 on desktop */}
-        <header style={{ gridColumn: isMobile ? '1' : '2', padding: isMobile ? '32px 20px 0' : '32px 40px 0 48px', textAlign: 'left' }}>
+        <header style={{ gridColumn: isMobile ? '1' : '2', maxWidth: '780px', margin: '0 auto', padding: isMobile ? '32px 20px 0' : '32px 40px 0 48px', textAlign: 'center', width: '100%' }}>
           <p style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '0.16em', textTransform: 'uppercase', color: colors.accent, marginBottom: '12px' }}>
             Bloque {bloque.orden}
           </p>
@@ -281,7 +281,7 @@ export default function BloquePage() {
         )}
 
         {/* Right column: main content */}
-        <div style={{ gridColumn: isMobile ? '1' : '2', maxWidth: '780px', padding: '0 40px 80px 48px' }}>
+        <div style={{ gridColumn: isMobile ? '1' : '2', maxWidth: '780px', margin: '0 auto', padding: '0 40px 80px 48px', width: '100%' }}>
           {/* Nodo sections */}
           {nodos.map((nodo, i) => (
             <section
@@ -308,9 +308,9 @@ export default function BloquePage() {
               {/* Content */}
               {nodo.contenido_html && (
                 <div
-                  dangerouslySetInnerHTML={{ __html: nodo.contenido_html.replace(/text-align\s*:\s*justify/gi, 'text-align:left') }}
+                  dangerouslySetInnerHTML={{ __html: nodo.contenido_html }}
                   className="nodo-content"
-                  style={{ fontSize: '15px', lineHeight: 1.75, color: colors.text, overflowWrap: 'break-word', textAlign: 'left' }}
+                  style={{ fontSize: '15px', lineHeight: 1.75, color: colors.text, overflowWrap: 'break-word', textAlign: 'justify', textAlignLast: 'left', hyphens: 'auto', WebkitHyphens: 'auto', msHyphens: 'auto' }}
                 />
               )}
             </section>

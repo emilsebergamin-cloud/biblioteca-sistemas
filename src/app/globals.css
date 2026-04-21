@@ -186,20 +186,28 @@ body {
   overflow-x: hidden;
 }
 
-.nodo-content * { text-align: left !important; }
-.nodo-content [style*="text-align"] { text-align: left !important; }
-.nodo-content [style*="justify"] { text-align: left !important; }
-
-.nodo-content p, .nodo-content li, .nodo-content td {
+.nodo-content p, .nodo-content li {
+  text-align: justify;
+  text-align-last: left;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
   word-break: break-word;
   overflow-wrap: break-word;
-  text-align: left !important;
-  font-size: 15px !important;
-  line-height: 1.7 !important;
+  font-size: 15px;
+  line-height: 1.75;
+  margin-bottom: 16px;
 }
 
-.nodo-content p {
-  margin-bottom: 16px;
+.nodo-content td {
+  word-break: break-word;
+  overflow-wrap: break-word;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.nodo-content h1, .nodo-content h2, .nodo-content h3, .nodo-content h4 {
+  text-align: center;
 }
 
 .nodo-content h2, .nodo-content h3 {
