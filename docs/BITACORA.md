@@ -186,3 +186,11 @@ Sesión de decisiones de producto. Se definió separar el contenido editorial de
 Resolución de alertas de seguridad en Supabase (RLS + 15 tablas borradas). Pivoteo del feature "aportes" a página independiente. Plan ejecutado completo: /aportes standalone, header con link nuevo, footer global simplificado, /material limpio. Videos del HTML viejo migrados a Supabase (29 registros). Footer re-iterado dos veces para llegar a la versión minimal correcta.
 
 **Tags:** seguridad, RLS, cleanup, product pivot, aportes, footer, migración de videos
+
+---
+
+### [22 abril 2026 — Responsive mobile/tablet + auditoría editorial de contenido](./sesiones/2026-04-22-responsive-y-auditoria-editorial.md)
+
+Responsive completo en 8 commits: paddings mobile (24px) y tablet (32px) en bloque y material, carousel 3D adaptado con swipe horizontal y peek de cards laterales, tablas transformadas a grid de cards en mobile, callouts responsive, home hero + navbar con clamp fluido. Auditoría editorial de los 6 bloques: comillas simples corregidas a dobles en ~65 frases, error factual Oracle/Stanford corregido, 3 referencias a bloques inexistentes (8 y 9) eliminadas. 11 datos factuales pendientes de verificación manual.
+
+**Tags:** responsive, mobile, tablet, carousel, swipe, tablas, editorial, comillas, auditoría
