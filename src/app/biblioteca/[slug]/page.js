@@ -212,6 +212,28 @@ export default function BloquePage() {
                 </a>
               ))}
             </nav>
+
+            {/* Material complementario */}
+            <div style={{ marginTop: '24px', paddingTop: '16px', borderTop: `1px solid ${colors.border}` }}>
+              <p style={{
+                fontSize: '10px', fontWeight: 700, letterSpacing: '0.14em',
+                textTransform: 'uppercase', color: colors.lavanda,
+                marginBottom: '12px',
+              }}>
+                Material
+              </p>
+              <nav style={{ display: 'flex', flexDirection: 'column' }}>
+                <Link href={`/biblioteca/${slug}/material#videos`} className="indice-item">
+                  Videos
+                </Link>
+                <Link href={`/biblioteca/${slug}/material#quiz`} className="indice-item">
+                  Quiz
+                </Link>
+                <Link href={`/biblioteca/${slug}/material#aportes`} className="indice-item">
+                  Aportes
+                </Link>
+              </nav>
+            </div>
           </aside>
         )}
 
@@ -279,6 +301,31 @@ export default function BloquePage() {
                     <span>{nodo.titulo}</span>
                   </a>
                 ))}
+                {/* Material complementario */}
+                <div style={{ marginTop: '8px', paddingTop: '8px', borderTop: `1px solid ${colors.border}` }}>
+                  <p style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.lavanda, marginBottom: '8px' }}>
+                    Material
+                  </p>
+                  {[
+                    { id: 'videos', label: 'Videos' },
+                    { id: 'quiz', label: 'Quiz' },
+                    { id: 'aportes', label: 'Aportes' },
+                  ].map((item, i, arr) => (
+                    <Link
+                      key={item.id}
+                      href={`/biblioteca/${slug}/material#${item.id}`}
+                      onClick={() => setTocOpen(false)}
+                      style={{
+                        display: 'block', padding: '8px 0',
+                        textDecoration: 'none', fontSize: '14px',
+                        color: colors.accent,
+                        borderBottom: i < arr.length - 1 ? `1px solid ${colors.border}` : 'none',
+                      }}
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
               </nav>
             )}
           </div>
