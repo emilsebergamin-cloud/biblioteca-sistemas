@@ -19,10 +19,6 @@ export default function BloquePage() {
 
   const [bloque, setBloque] = useState(null);
   const [nodos, setNodos] = useState([]);
-  const [recursos, setRecursos] = useState([]);
-  const [quizPreguntas, setQuizPreguntas] = useState([]);
-  const [quizAnswers, setQuizAnswers] = useState({});
-  const [quizRevealed, setQuizRevealed] = useState({});
   const [allBloques, setAllBloques] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -73,28 +69,14 @@ export default function BloquePage() {
         const currentBloque = bloqueData[0];
         setBloque(currentBloque);
 
-        // Fetch nodos and quiz in parallel
-        const [nodosRes, quizRes] = await Promise.all([
-          fetch(`${SUPABASE_URL}/rest/v1/nodos?bloque_id=eq.${currentBloque.id}&select=*&order=orden_en_bloque.asc`, { headers }),
-          fetch(`${SUPABASE_URL}/rest/v1/quiz_preguntas?bloque_id=eq.${currentBloque.id}&select=*&order=orden.asc`, { headers }).catch(() => ({ json: () => [] })),
-        ]);
+        // Fetch nodos
+        const nodosRes = await fetch(
+          `${SUPABASE_URL}/rest/v1/nodos?bloque_id=eq.${currentBloque.id}&select=*&order=orden_en_bloque.asc`,
+          { headers }
+        );
 
         const nodosData = await nodosRes.json();
         setNodos(Array.isArray(nodosData) ? nodosData : []);
-
-        const quizData = await quizRes.json();
-        setQuizPreguntas(Array.isArray(quizData) ? quizData : []);
-
-        // Fetch recursos for all nodos in this bloque
-        if (Array.isArray(nodosData) && nodosData.length > 0) {
-          const nodoIds = nodosData.map(n => n.id).join(',');
-          const recursosRes = await fetch(
-            `${SUPABASE_URL}/rest/v1/recursos?nodo_id=in.(${nodoIds})&select=*&order=orden.asc`,
-            { headers }
-          ).catch(() => ({ json: () => [] }));
-          const recursosData = await recursosRes.json();
-          setRecursos(Array.isArray(recursosData) ? recursosData : []);
-        }
       } catch (err) {
         setError('Error cargando el contenido.');
         console.error(err);
@@ -125,12 +107,6 @@ export default function BloquePage() {
     });
     return () => observer.disconnect();
   }, [nodos]);
-
-  const handleQuizAnswer = (qIdx, optIdx) => {
-    if (quizRevealed[qIdx]) return;
-    setQuizAnswers((prev) => ({ ...prev, [qIdx]: optIdx }));
-    setQuizRevealed((prev) => ({ ...prev, [qIdx]: true }));
-  };
 
   const colors = {
     bg: '#1A1A1A',
@@ -366,131 +342,6 @@ export default function BloquePage() {
               )}
             </section>
           ))}
-
-          {/* Videos curados */}
-          {recursos.length > 0 && (
-            <section style={{ maxWidth: '780px', marginTop: '56px', padding: '0 20px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
-                <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: colors.lavanda }}>
-                  Videos curados
-                </span>
-                <div style={{ flex: 1, height: '0.5px', background: colors.border }} />
-              </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                {recursos.map((recurso) => (
-                  <a
-                    key={recurso.id}
-                    href={recurso.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      display: 'flex', alignItems: 'flex-start', gap: '12px',
-                      background: colors.cardBg, border: `1px solid ${colors.border}`,
-                      borderRadius: '10px', padding: '14px 16px',
-                      textDecoration: 'none', transition: 'border-color 0.2s',
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.borderColor = colors.lavanda;
-                      e.currentTarget.querySelector('.video-title').style.color = colors.accent;
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.borderColor = colors.border;
-                      e.currentTarget.querySelector('.video-title').style.color = colors.text;
-                    }}
-                  >
-                    <span style={{ fontSize: '16px', flexShrink: 0, paddingTop: '2px' }}>▶</span>
-                    <div style={{ flex: 1 }}>
-                      <p className="video-title" style={{ fontSize: '14px', fontWeight: 600, color: colors.text, marginBottom: '4px', transition: 'color 0.2s' }}>
-                        {recurso.titulo}
-                      </p>
-                      <p style={{ fontSize: '11px', color: colors.muted, lineHeight: 1.5 }}>
-                        {[recurso.dificultad, recurso.tipo].filter(Boolean).join(' · ')}
-                      </p>
-                    </div>
-                  </a>
-                ))}
-              </div>
-            </section>
-          )}
-
-          {/* Quiz */}
-          {quizPreguntas.length > 0 && (
-            <section style={{ maxWidth: '780px', marginTop: '56px', padding: '0 20px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
-                <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: colors.accent }}>
-                  Quiz — ¿Entendiste el bloque?
-                </span>
-                <div style={{ flex: 1, height: '0.5px', background: colors.border }} />
-              </div>
-              <p style={{ fontSize: '13px', color: colors.muted, fontStyle: 'italic', marginBottom: '24px' }}>
-                No se aprueba con sentido común. Si podés responder bien, entendiste el bloque.
-              </p>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-                {quizPreguntas.map((q, qIdx) => {
-                  const answered = quizRevealed[qIdx];
-                  const selected = quizAnswers[qIdx];
-                  const isCorrect = selected === q.respuesta_correcta;
-
-                  return (
-                    <div key={q.id || qIdx} style={{
-                      background: colors.cardBg, border: `1px solid ${colors.border}`,
-                      borderRadius: '12px', padding: '20px',
-                    }}>
-                      <p style={{ fontSize: '14px', fontWeight: 600, color: colors.text, marginBottom: '14px', lineHeight: 1.5 }}>
-                        {qIdx + 1}. {q.pregunta}
-                      </p>
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                        {q.opciones.map((opt, optIdx) => {
-                          let bg = 'rgba(247,244,239,0.04)';
-                          let borderColor = colors.border;
-                          let textColor = colors.text;
-
-                          if (answered) {
-                            if (optIdx === q.respuesta_correcta) {
-                              bg = 'rgba(197,232,50,0.15)';
-                              borderColor = colors.accent;
-                              textColor = colors.accent;
-                            } else if (optIdx === selected && !isCorrect) {
-                              bg = 'rgba(225,29,72,0.1)';
-                              borderColor = '#E11D48';
-                              textColor = '#E11D48';
-                            }
-                          }
-
-                          return (
-                            <button
-                              key={optIdx}
-                              onClick={() => handleQuizAnswer(qIdx, optIdx)}
-                              disabled={answered}
-                              style={{
-                                padding: '12px 14px', borderRadius: '8px',
-                                border: `1px solid ${borderColor}`,
-                                background: bg, color: textColor,
-                                fontSize: '13px', textAlign: 'left',
-                                cursor: answered ? 'default' : 'pointer',
-                                transition: 'all 0.2s', lineHeight: 1.5,
-                              }}
-                            >
-                              {opt}
-                            </button>
-                          );
-                        })}
-                      </div>
-                      {answered && q.explicacion && (
-                        <p style={{
-                          marginTop: '12px', fontSize: '13px', lineHeight: 1.6,
-                          color: isCorrect ? colors.accent : '#E11D48',
-                          fontStyle: 'italic',
-                        }}>
-                          {isCorrect ? '✓ ' : '✗ '}{q.explicacion}
-                        </p>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-            </section>
-          )}
 
           {/* Prev / Next bloque */}
           {(prevBloque || nextBloque) && (
