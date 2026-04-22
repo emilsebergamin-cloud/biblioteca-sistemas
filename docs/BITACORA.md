@@ -183,6 +183,6 @@ Sesión de decisiones de producto. Se definió separar el contenido editorial de
 
 ### [22 abril 2026 — Limpieza de seguridad en Supabase + recuperación de aportes como página independiente](./sesiones/2026-04-22-seguridad-supabase-aportes-independiente.md)
 
-Resolvimos alertas críticas de RLS en Supabase: activamos Row-Level Security en tablas faltantes, borramos 15 tablas del schema paralelo viejo (en inglés) que no se usaban. Paralelamente, se redefinió el feature "aportes": pasa de ser comentarios por bloque dentro de /material a ser una página independiente del sitio (/aportes) accesible desde header y footer globales. En progreso: Commit 1 del plan (crear la página standalone).
+Resolución de alertas de seguridad en Supabase (RLS + 15 tablas borradas). Pivoteo del feature "aportes" a página independiente. Plan ejecutado completo: /aportes standalone, header con link nuevo, footer global simplificado, /material limpio. Videos del HTML viejo migrados a Supabase (29 registros). Footer re-iterado dos veces para llegar a la versión minimal correcta.
 
-**Tags:** seguridad, RLS, cleanup, product pivot, aportes
+**Tags:** seguridad, RLS, cleanup, product pivot, aportes, footer, migración de videos
