@@ -38,7 +38,7 @@ export default function Home() {
             margin: '0 auto 12px', width: 'fit-content',
             animation: 'fadeUp 0.4s ease 0.5s both',
           }}>
-            <svg width="280" height="10" viewBox="0 0 280 10">
+            <svg style={{ width: 'clamp(200px, 60vw, 280px)' }} height="10" viewBox="0 0 280 10">
               <path
                 d="M4 6 Q70 1 140 6 Q210 11 276 4"
                 fill="none" stroke="#A8C41A" strokeWidth="2"
@@ -73,8 +73,8 @@ export default function Home() {
               { num: '49', label: 'Nodos', color: '#A8C41A' },
               { num: '0', label: 'Excusas', color: '#0D0C0A' },
             ].map((s, i) => (
-              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
-                {i > 0 && <div style={{ width: '0.5px', height: '32px', background: 'rgba(13,12,10,0.15)' }} />}
+              <div key={i} style={{ display: 'flex', alignItems: 'center' }}>
+                {i > 0 && <div style={{ width: '0.5px', height: '28px', background: 'rgba(13,12,10,0.15)' }} />}
                 <div style={{ textAlign: 'center' }}>
                   <div style={{
                     fontSize: '28px', fontWeight: 700,

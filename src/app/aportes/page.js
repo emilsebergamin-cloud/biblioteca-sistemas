@@ -83,7 +83,7 @@ export default function AportesPage() {
 
   return (
     <div style={{ minHeight: '100vh', background: colors.bg, color: colors.text, paddingBottom: '80px' }}>
-      <div style={{ maxWidth: '640px', margin: '0 auto', padding: '48px 24px 0' }}>
+      <div style={{ maxWidth: '720px', margin: '0 auto', padding: '48px 24px 0' }}>
 
         {/* Header */}
         <h1 style={{ fontSize: 'clamp(28px, 5vw, 40px)', fontWeight: 700, lineHeight: 1.12, marginBottom: '12px', textAlign: 'center' }}>
