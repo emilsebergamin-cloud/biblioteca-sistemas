@@ -303,6 +303,16 @@ body {
 
   .nodo-content p, .nodo-content li { font-size: 14px !important; text-align: left !important; hyphens: none !important; -webkit-hyphens: none !important; -ms-hyphens: none !important; }
   .nodo-content td { font-size: 13px; }
+
+  .biblioteca-wrapper {
+    padding-top: 0 !important;
+    min-height: calc(100vh - 56px - 104px) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+  }
+  .biblioteca-label { padding-top: 0 !important; }
+  .biblioteca-subtitle { margin-bottom: 24px !important; }
 }
 
 @keyframes spin { to { transform: rotate(360deg); } }

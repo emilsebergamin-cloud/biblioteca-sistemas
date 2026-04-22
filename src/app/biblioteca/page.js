@@ -15,13 +15,13 @@ export default function Biblioteca() {
       pointerColor="168,180,216"
       blendingValue="soft-light"
     >
-      <div style={{ paddingTop: '56px' }}>
-        <p style={{
+      <div className="biblioteca-wrapper" style={{ paddingTop: '56px' }}>
+        <p className="biblioteca-label" style={{
           textAlign: 'center', fontSize: '10px', fontWeight: 700,
           letterSpacing: '0.16em', textTransform: 'uppercase',
           color: '#C5E832', opacity: 0.8, marginBottom: '12px', paddingTop: '40px',
         }}>Los bloques</p>
-        <p style={{
+        <p className="biblioteca-subtitle" style={{
           textAlign: 'center', fontSize: '13px',
           color: 'rgba(247,244,239,0.45)', marginBottom: '40px',
           fontStyle: 'italic', padding: '0 20px',

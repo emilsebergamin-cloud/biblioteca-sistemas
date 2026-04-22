@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
 
 const BLOQUES_FALLBACK = [
@@ -21,6 +21,24 @@ const POSITIONS = {
   hidden: { transform: "translateX(-600px) translateZ(-300px) rotateY(55deg)", zIndex: 0, opacity: 0 },
 };
 
+const POSITIONS_TABLET = {
+  center: { transform: "translateX(0) translateZ(0) rotateY(0deg)", zIndex: 10, opacity: 1 },
+  left1: { transform: "translateX(-200px) translateZ(-100px) rotateY(26deg)", zIndex: 5, opacity: 0.7 },
+  right1: { transform: "translateX(200px) translateZ(-100px) rotateY(-26deg)", zIndex: 5, opacity: 0.7 },
+  left2: { transform: "translateX(-360px) translateZ(-200px) rotateY(42deg)", zIndex: 2, opacity: 0.15 },
+  right2: { transform: "translateX(360px) translateZ(-200px) rotateY(-42deg)", zIndex: 2, opacity: 0.15 },
+  hidden: { transform: "translateX(-500px) translateZ(-260px) rotateY(55deg)", zIndex: 0, opacity: 0 },
+};
+
+const POSITIONS_MOBILE = {
+  center: { transform: "translateX(0) translateZ(0) rotateY(0deg)", zIndex: 10, opacity: 1 },
+  left1: { transform: "translateX(-170px) translateZ(-80px) rotateY(25deg)", zIndex: 5, opacity: 0.4 },
+  right1: { transform: "translateX(170px) translateZ(-80px) rotateY(-25deg)", zIndex: 5, opacity: 0.4 },
+  left2: { transform: "translateX(-320px) translateZ(-160px) rotateY(40deg)", zIndex: 2, opacity: 0 },
+  right2: { transform: "translateX(320px) translateZ(-160px) rotateY(-40deg)", zIndex: 2, opacity: 0 },
+  hidden: { transform: "translateX(-400px) translateZ(-200px) rotateY(55deg)", zIndex: 0, opacity: 0 },
+};
+
 function getPosition(index, center, total) {
   const diff = ((index - center) % total + total) % total;
   if (diff === 0) return "center";
@@ -36,6 +54,24 @@ export default function Carousel3D() {
   const [bloques, setBloques] = useState(BLOQUES_FALLBACK);
   const [loading, setLoading] = useState(true);
   const [center, setCenter] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isTablet, setIsTablet] = useState(false);
+
+  // Swipe tracking
+  const touchStart = useRef(null);
+  const touchStartY = useRef(null);
+
+  useEffect(() => {
+    const mqlMobile = window.matchMedia('(max-width: 768px)');
+    const mqlTablet = window.matchMedia('(min-width: 769px) and (max-width: 1024px)');
+    setIsMobile(mqlMobile.matches);
+    setIsTablet(mqlTablet.matches);
+    const hM = (e) => setIsMobile(e.matches);
+    const hT = (e) => setIsTablet(e.matches);
+    mqlMobile.addEventListener('change', hM);
+    mqlTablet.addEventListener('change', hT);
+    return () => { mqlMobile.removeEventListener('change', hM); mqlTablet.removeEventListener('change', hT); };
+  }, []);
 
   useEffect(() => {
     fetch("/api/bloques")
@@ -62,15 +98,43 @@ export default function Carousel3D() {
 
   const total = bloques.length;
 
-  const prev = () => setCenter((c) => (c - 1 + total) % total);
-  const next = () => setCenter((c) => (c + 1) % total);
+  const prev = useCallback(() => setCenter((c) => (c - 1 + total) % total), [total]);
+  const next = useCallback(() => setCenter((c) => (c + 1) % total), [total]);
+
+  // Swipe handlers
+  const handleTouchStart = useCallback((e) => {
+    touchStart.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+  }, []);
+
+  const handleTouchEnd = useCallback((e) => {
+    if (touchStart.current === null) return;
+    const deltaX = e.changedTouches[0].clientX - touchStart.current;
+    const deltaY = e.changedTouches[0].clientY - touchStartY.current;
+    touchStart.current = null;
+    touchStartY.current = null;
+
+    // Ignore if vertical swipe is dominant (let page scroll)
+    if (Math.abs(deltaY) > Math.abs(deltaX)) return;
+    // Minimum 50px horizontal to trigger
+    if (Math.abs(deltaX) < 50) return;
+
+    if (deltaX < 0) next();
+    else prev();
+  }, [next, prev]);
+
+  const positions = isMobile ? POSITIONS_MOBILE : isTablet ? POSITIONS_TABLET : POSITIONS;
+  const cardWidth = isMobile ? "200px" : "220px";
+  const containerHeight = isMobile ? "180px" : "280px";
 
   return (
     <div>
       {/* Carousel container */}
       <div
-        style={{ perspective: "1200px", height: "280px" }}
+        style={{ perspective: "1200px", height: containerHeight, touchAction: "pan-y" }}
         className="relative flex items-center justify-center"
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
       >
         {loading && (
           <div style={{
@@ -85,7 +149,7 @@ export default function Carousel3D() {
         )}
         {!loading && bloques.map((bloque, i) => {
           const pos = getPosition(i, center, total);
-          const style = POSITIONS[pos];
+          const style = positions[pos];
           return (
             <div
               key={bloque.num}
@@ -96,7 +160,7 @@ export default function Carousel3D() {
                   setCenter(i);
                 }
               }}
-              {...(pos === "center" ? {
+              {...(pos === "center" && !isMobile ? {
                 onMouseEnter: (e) => {
                   e.currentTarget.style.transform = "translateX(0) translateZ(120px) rotateY(0deg) scale(1.12)";
                   e.currentTarget.style.boxShadow = "0 48px 96px rgba(0,0,0,0.7), 0 0 0 1.5px rgba(197,232,50,0.6), 0 0 40px rgba(197,232,50,0.15)";
@@ -110,7 +174,7 @@ export default function Carousel3D() {
               } : {})}
               style={{
                 position: "absolute",
-                width: "220px",
+                width: cardWidth,
                 transform: style.transform,
                 zIndex: style.zIndex,
                 opacity: style.opacity,
