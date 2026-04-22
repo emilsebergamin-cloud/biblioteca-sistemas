@@ -170,3 +170,11 @@ El resultado: 8 commits acotados con causa raíz identificada en cada uno, en lu
 - `supabase/nodos_seed.sql` — 74 nodos de contenido (130KB)
 - `supabase/quiz_seed.sql` — 26 preguntas de quiz
 - `supabase/recursos_seed.sql` — 29 videos curados
+
+---
+
+### [22 abril 2026 — Arquitectura de material complementario + investigación de aportes](./sesiones/2026-04-22-arquitectura-material-complementario.md)
+
+Sesión de decisiones de producto. Se definió separar el contenido editorial del material complementario (`/material` como subpágina con videos, quiz y aportes). Se investigó el estado de los aportes: la infraestructura está intacta, solo se perdió la UI en un refactor previo. Implementación queda para la siguiente sesión.
+
+**Tags:** arquitectura de información, product decisions, investigación técnica
