@@ -10,9 +10,14 @@ export default function Navbar() {
           Bibl<span style={{color:'#C5E832', fontWeight:800}}>·</span>AI
         </Link>
 
-        <Link href="/biblioteca" style={{ fontSize: '14px', fontWeight: 500, paddingRight: '32px', color: '#9B9080', textDecoration: 'none' }}>
-          Biblioteca
-        </Link>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '24px', paddingRight: '32px' }}>
+          <Link href="/biblioteca" style={{ fontSize: '14px', fontWeight: 500, color: '#9B9080', textDecoration: 'none' }}>
+            Biblioteca
+          </Link>
+          <Link href="/aportes" style={{ fontSize: '14px', fontWeight: 500, color: '#9B9080', textDecoration: 'none' }}>
+            Aportes
+          </Link>
+        </div>
       </div>
     </nav>
   );
