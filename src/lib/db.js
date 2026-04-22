@@ -24,7 +24,7 @@ export async function createAporte({ nodo_id, contenido, autor_nombre }) {
   const supabase = getSupabaseServer()
   const { data, error } = await supabase
     .from('aportes')
-    .insert([{ nodo_id, contenido, autor_nombre, estado: 'pendiente' }])
+    .insert([{ nodo_id: nodo_id || null, contenido, autor_nombre, estado: 'pendiente' }])
     .select()
     .single()
 

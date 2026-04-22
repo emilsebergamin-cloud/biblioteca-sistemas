@@ -178,3 +178,11 @@ El resultado: 8 commits acotados con causa raíz identificada en cada uno, en lu
 Sesión de decisiones de producto. Se definió separar el contenido editorial del material complementario (`/material` como subpágina con videos, quiz y aportes). Se investigó el estado de los aportes: la infraestructura está intacta, solo se perdió la UI en un refactor previo. Implementación queda para la siguiente sesión.
 
 **Tags:** arquitectura de información, product decisions, investigación técnica
+
+---
+
+### [22 abril 2026 — Limpieza de seguridad en Supabase + recuperación de aportes como página independiente](./sesiones/2026-04-22-seguridad-supabase-aportes-independiente.md)
+
+Resolvimos alertas críticas de RLS en Supabase: activamos Row-Level Security en tablas faltantes, borramos 15 tablas del schema paralelo viejo (en inglés) que no se usaban. Paralelamente, se redefinió el feature "aportes": pasa de ser comentarios por bloque dentro de /material a ser una página independiente del sitio (/aportes) accesible desde header y footer globales. En progreso: Commit 1 del plan (crear la página standalone).
+
+**Tags:** seguridad, RLS, cleanup, product pivot, aportes

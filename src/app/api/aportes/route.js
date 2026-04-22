@@ -51,16 +51,16 @@ export async function POST(request) {
   try {
     const { nodo_id, contenido, autor_nombre, session_id } = await request.json()
 
-    if (!nodo_id || !contenido) {
+    if (!contenido) {
       return Response.json(
-        { error: 'Faltan campos obligatorios: nodo_id, contenido' },
+        { error: 'Falta campo obligatorio: contenido' },
         { status: 400 }
       )
     }
 
     // Rate limiting: require session_id for rate limit check
     if (session_id) {
-      if (isRateLimited(session_id, nodo_id)) {
+      if (isRateLimited(session_id, nodo_id || 'global')) {
         return Response.json(
           { error: 'Demasiados aportes. Máximo 3 por hora por nodo.' },
           { status: 429 }
