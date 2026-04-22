@@ -214,7 +214,7 @@ export default function BloquePage() {
         <div style={{ gridColumn: isMobile ? '1' : '2' }}>
 
         {/* Breadcrumb */}
-        <nav style={{ maxWidth: '880px', margin: '0 auto', padding: isMobile ? '8px 20px 0' : '8px 40px 0 48px', textAlign: 'center', width: '100%' }}>
+        <nav style={{ maxWidth: '880px', margin: '0 auto', padding: isMobile ? '8px 24px 0' : isTablet ? '8px 32px 0' : '8px 40px 0 48px', textAlign: 'center', width: '100%' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', flexWrap: 'wrap' }}>
             <Link href="/biblioteca" style={{ color: colors.accent, textDecoration: 'none' }}>Biblioteca</Link>
             <span style={{ color: colors.muted }}>→</span>
@@ -223,7 +223,7 @@ export default function BloquePage() {
         </nav>
 
         {/* Bloque header */}
-        <header style={{ maxWidth: '880px', margin: '0 auto', padding: isMobile ? '8px 20px 0' : '8px 40px 0 48px', textAlign: 'center', width: '100%' }}>
+        <header style={{ maxWidth: '880px', margin: '0 auto', padding: isMobile ? '8px 24px 0' : '8px 40px 0 48px', textAlign: 'center', width: '100%' }}>
           <p style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '0.16em', textTransform: 'uppercase', color: colors.accent, marginBottom: '12px' }}>
             Bloque {bloque.orden}
           </p>
@@ -304,7 +304,7 @@ export default function BloquePage() {
         )}
 
         {/* Main content */}
-        <div style={{ maxWidth: '780px', margin: '0 auto', padding: isMobile ? '0 20px 60px' : '0 40px 80px 48px', width: '100%' }}>
+        <div style={{ maxWidth: '780px', margin: '0 auto', padding: isMobile ? '0 24px 60px' : isTablet ? '0 32px 80px' : '0 40px 80px 48px', width: '100%' }}>
           {/* Nodo sections */}
           {nodos.map((nodo, i) => (
             <section
