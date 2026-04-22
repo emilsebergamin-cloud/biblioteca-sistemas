@@ -214,7 +214,7 @@ export default function BloquePage() {
         <div style={{ gridColumn: isMobile ? '1' : '2' }}>
 
         {/* Breadcrumb */}
-        <nav style={{ maxWidth: '880px', margin: '0 auto', padding: '8px 40px 0 48px', textAlign: 'center', width: '100%' }}>
+        <nav style={{ maxWidth: '880px', margin: '0 auto', padding: isMobile ? '8px 20px 0' : '8px 40px 0 48px', textAlign: 'center', width: '100%' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', flexWrap: 'wrap' }}>
             <Link href="/biblioteca" style={{ color: colors.accent, textDecoration: 'none' }}>Biblioteca</Link>
             <span style={{ color: colors.muted }}>→</span>
@@ -304,13 +304,13 @@ export default function BloquePage() {
         )}
 
         {/* Main content */}
-        <div style={{ maxWidth: '780px', margin: '0 auto', padding: '0 40px 80px 48px', width: '100%' }}>
+        <div style={{ maxWidth: '780px', margin: '0 auto', padding: isMobile ? '0 20px 60px' : '0 40px 80px 48px', width: '100%' }}>
           {/* Nodo sections */}
           {nodos.map((nodo, i) => (
             <section
               key={nodo.id}
               id={nodo.slug}
-              style={{ maxWidth: '780px', padding: '48px 20px 0', scrollMarginTop: '80px' }}
+              style={{ maxWidth: '780px', padding: isMobile ? '32px 0 0' : '48px 20px 0', scrollMarginTop: '80px' }}
             >
               {/* Section header */}
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
@@ -333,7 +333,7 @@ export default function BloquePage() {
                 <div
                   dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(nodo.contenido_html, { ADD_ATTR: ['class', 'style'] }) }}
                   className="nodo-content"
-                  style={{ fontSize: '15px', lineHeight: 1.75, color: colors.text, overflowWrap: 'break-word', textAlign: 'justify', textAlignLast: 'left', hyphens: 'auto', WebkitHyphens: 'auto', msHyphens: 'auto' }}
+                  style={{ fontSize: '15px', lineHeight: 1.75, color: colors.text, overflowWrap: 'break-word', textAlign: (isMobile || isTablet) ? 'left' : 'justify', textAlignLast: 'left', hyphens: (isMobile || isTablet) ? 'none' : 'auto', WebkitHyphens: (isMobile || isTablet) ? 'none' : 'auto', msHyphens: (isMobile || isTablet) ? 'none' : 'auto' }}
                 />
               )}
             </section>

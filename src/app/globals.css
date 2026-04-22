@@ -294,12 +294,15 @@ body {
 /* Home sin scroll */
 .home-no-scroll { overflow: hidden; max-height: 100vh; }
 
-/* Home hero responsive */
+/* Responsive mobile */
 @media (max-width: 768px) {
   .hero-container { padding: 32px 20px 20px !important; }
   .hero-container h1 { font-size: 32px !important; }
   .hero-container .hero-desc { font-size: 14px !important; margin-bottom: 12px !important; }
   .hero-container .hero-stats { gap: 20px !important; margin-bottom: 12px !important; }
+
+  .nodo-content p, .nodo-content li { font-size: 14px !important; text-align: left !important; hyphens: none !important; -webkit-hyphens: none !important; -ms-hyphens: none !important; }
+  .nodo-content td { font-size: 13px; }
 }
 
 @keyframes spin { to { transform: rotate(360deg); } }

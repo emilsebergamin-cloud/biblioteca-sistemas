@@ -221,7 +221,7 @@ export default function MaterialPage() {
         <div style={{ gridColumn: isMobile ? '1' : '2' }}>
 
           {/* Breadcrumb */}
-          <nav style={{ maxWidth: '880px', margin: '0 auto', padding: '8px 40px 0 48px', width: '100%' }}>
+          <nav style={{ maxWidth: '880px', margin: '0 auto', padding: isMobile ? '8px 20px 0' : '8px 40px 0 48px', width: '100%' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', flexWrap: 'wrap' }}>
               <Link href="/biblioteca" style={{ color: colors.accent, textDecoration: 'none' }}>Biblioteca</Link>
               <span style={{ color: colors.muted }}>→</span>
@@ -312,11 +312,11 @@ export default function MaterialPage() {
           )}
 
           {/* Main content */}
-          <div style={{ maxWidth: '780px', margin: '0 auto', padding: '0 40px 80px 48px', width: '100%' }}>
+          <div style={{ maxWidth: '780px', margin: '0 auto', padding: isMobile ? '0 20px 60px' : '0 40px 80px 48px', width: '100%' }}>
 
             {/* Videos curados */}
             {recursos.length > 0 && (
-              <section id="videos" style={{ maxWidth: '780px', marginTop: '56px', padding: '0 20px', scrollMarginTop: '80px' }}>
+              <section id="videos" style={{ maxWidth: '780px', marginTop: '56px', padding: isMobile ? '0' : '0 20px', scrollMarginTop: '80px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
                   <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: colors.lavanda }}>
                     Videos curados
@@ -362,7 +362,7 @@ export default function MaterialPage() {
 
             {/* Quiz */}
             {quizPreguntas.length > 0 && (
-              <section id="quiz" style={{ maxWidth: '780px', marginTop: '56px', padding: '0 20px', scrollMarginTop: '80px' }}>
+              <section id="quiz" style={{ maxWidth: '780px', marginTop: '56px', padding: isMobile ? '0' : '0 20px', scrollMarginTop: '80px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
                   <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: colors.accent }}>
                     Quiz — ¿Entendiste el bloque?
@@ -440,7 +440,7 @@ export default function MaterialPage() {
             )}
 
             {/* Volver a la lectura */}
-            <div style={{ maxWidth: '780px', marginTop: '56px', padding: '0 20px', textAlign: 'center' }}>
+            <div style={{ maxWidth: '780px', marginTop: '56px', padding: isMobile ? '0' : '0 20px', textAlign: 'center' }}>
               <Link
                 href={`/biblioteca/${slug}`}
                 style={{
