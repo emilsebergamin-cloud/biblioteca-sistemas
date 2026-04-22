@@ -179,12 +179,14 @@ body {
 /* Estilos para contenido HTML de nodos */
 .nodo-content {
   max-width: 100%;
+  width: 100%;
   word-wrap: break-word;
   overflow-wrap: break-word;
   overflow-x: hidden;
 }
 
 .nodo-content * { max-width: 100%; }
+.nodo-content table, .nodo-content table * { max-width: none; }
 
 .nodo-content p, .nodo-content li {
   text-align: justify;
@@ -216,12 +218,13 @@ body {
 }
 
 .nodo-content table {
-  width: 100%;
   border-collapse: collapse;
   margin: 20px 0;
   font-size: 14px;
   display: block;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
   white-space: normal;
   word-break: break-word;
 }
@@ -303,6 +306,8 @@ body {
 
   .nodo-content p, .nodo-content li { font-size: 14px !important; text-align: left !important; hyphens: none !important; -webkit-hyphens: none !important; -ms-hyphens: none !important; }
   .nodo-content td { font-size: 13px; }
+  .nodo-content th, .nodo-content td { min-width: 110px !important; padding: 14px !important; }
+  .nodo-content table { box-shadow: inset -20px 0 20px -20px rgba(0,0,0,0.5); }
 
   .biblioteca-wrapper {
     padding-top: 0 !important;
