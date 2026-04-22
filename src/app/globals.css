@@ -305,6 +305,11 @@ body {
   .hero-container .hero-stats { gap: 20px !important; margin-bottom: 12px !important; }
 
   .nodo-content p, .nodo-content li { font-size: 14px !important; text-align: left !important; hyphens: none !important; -webkit-hyphens: none !important; -ms-hyphens: none !important; }
+
+  /* Callouts/tags responsive */
+  .tag { padding: 12px 14px !important; margin: 10px 0 !important; border-radius: 6px !important; }
+  .tag strong { font-size: 9px !important; margin-bottom: 4px !important; }
+  .tag p { font-size: 13px !important; line-height: 1.55 !important; }
   .nodo-content td { font-size: 13px; }
 
   /* Table → cards en mobile */
