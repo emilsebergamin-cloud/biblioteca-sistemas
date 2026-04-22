@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 
@@ -13,16 +13,6 @@ const headers = {
   'Content-Type': 'application/json',
 };
 
-function getSessionId() {
-  if (typeof window === 'undefined') return null;
-  let id = localStorage.getItem('bibliai_session_id');
-  if (!id) {
-    id = crypto.randomUUID();
-    localStorage.setItem('bibliai_session_id', id);
-  }
-  return id;
-}
-
 export default function MaterialPage() {
   const { slug } = useParams();
 
@@ -32,19 +22,11 @@ export default function MaterialPage() {
   const [quizPreguntas, setQuizPreguntas] = useState([]);
   const [quizAnswers, setQuizAnswers] = useState({});
   const [quizRevealed, setQuizRevealed] = useState({});
-  const [aportes, setAportes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
   const [isTablet, setIsTablet] = useState(false);
   const [tocOpen, setTocOpen] = useState(false);
-
-  // Aporte form state
-  const [nombre, setNombre] = useState('');
-  const [texto, setTexto] = useState('');
-  const [tema, setTema] = useState('');
-  const [submitting, setSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
 
   // Detect viewport size
   useEffect(() => {
@@ -103,22 +85,15 @@ export default function MaterialPage() {
         const quizData = await quizRes.json();
         setQuizPreguntas(Array.isArray(quizData) ? quizData : []);
 
-        // Fetch recursos and aportes for all nodos in this bloque
+        // Fetch recursos for all nodos in this bloque
         if (Array.isArray(nodosData) && nodosData.length > 0) {
           const nodoIds = nodosData.map((n) => n.id).join(',');
-          const [recursosRes, aportesRes] = await Promise.all([
-            fetch(
-              `${SUPABASE_URL}/rest/v1/recursos?nodo_id=in.(${nodoIds})&select=*&order=orden.asc`,
-              { headers }
-            ).catch(() => ({ json: () => [] })),
-            fetch(`/api/aportes?nodo_id=${nodosData[0].id}`).catch(() => ({
-              json: () => [],
-            })),
-          ]);
+          const recursosRes = await fetch(
+            `${SUPABASE_URL}/rest/v1/recursos?nodo_id=in.(${nodoIds})&select=*&order=orden.asc`,
+            { headers }
+          ).catch(() => ({ json: () => [] }));
           const recursosData = await recursosRes.json();
-          const aportesData = await aportesRes.json();
           setRecursos(Array.isArray(recursosData) ? recursosData : []);
-          setAportes(Array.isArray(aportesData) ? aportesData : []);
         }
       } catch (err) {
         setError('Error cargando el contenido.');
@@ -136,43 +111,6 @@ export default function MaterialPage() {
     setQuizAnswers((prev) => ({ ...prev, [qIdx]: optIdx }));
     setQuizRevealed((prev) => ({ ...prev, [qIdx]: true }));
   };
-
-  const handleSubmitAporte = useCallback(
-    async (e) => {
-      e.preventDefault();
-      if (!texto.trim() || !nodos.length) return;
-
-      setSubmitting(true);
-      try {
-        const contenido = tema.trim()
-          ? `[Sobre: ${tema.trim()}] ${texto.trim()}`
-          : texto.trim();
-
-        const res = await fetch('/api/aportes', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            nodo_id: nodos[0].id,
-            contenido,
-            autor_nombre: nombre.trim() || null,
-            session_id: getSessionId(),
-          }),
-        });
-
-        if (res.ok) {
-          setSubmitted(true);
-          setTexto('');
-          setNombre('');
-          setTema('');
-        }
-      } catch (err) {
-        console.error('Error enviando aporte:', err);
-      } finally {
-        setSubmitting(false);
-      }
-    },
-    [texto, nombre, tema, nodos]
-  );
 
   const colors = {
     bg: '#1A1A1A',
@@ -204,7 +142,6 @@ export default function MaterialPage() {
   const materialLinks = [
     { id: 'videos', label: 'Videos' },
     { id: 'quiz', label: 'Quiz' },
-    { id: 'aportes', label: 'Aportes' },
   ];
 
   return (
@@ -303,7 +240,7 @@ export default function MaterialPage() {
               Material complementario
             </h1>
             <p style={{ fontSize: '16px', lineHeight: 1.6, color: colors.muted, fontStyle: 'italic', marginBottom: '16px' }}>
-              Videos, quiz y aportes para {bloque.titulo}
+              Videos y quiz para {bloque.titulo}
             </p>
           </header>
 
@@ -501,169 +438,6 @@ export default function MaterialPage() {
                 </div>
               </section>
             )}
-
-            {/* Aportes */}
-            <section id="aportes" style={{ maxWidth: '780px', marginTop: '56px', padding: '0 20px', scrollMarginTop: '80px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
-                <span style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: colors.lavanda }}>
-                  Aportes de la comunidad
-                </span>
-                <div style={{ flex: 1, height: '0.5px', background: colors.border }} />
-              </div>
-
-              {aportes.length === 0 && (
-                <p style={{ fontSize: '13px', color: colors.muted, fontStyle: 'italic' }}>
-                  Todavía no hay aportes aprobados para este bloque.
-                </p>
-              )}
-
-              {aportes.length > 0 && (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                  {aportes.map((aporte) => (
-                    <div key={aporte.id} style={{
-                      background: colors.cardBg,
-                      border: `1px solid ${colors.border}`,
-                      borderRadius: '10px', padding: '16px',
-                    }}>
-                      <p style={{
-                        fontSize: '14px', lineHeight: 1.6, color: colors.text,
-                        marginBottom: '8px',
-                      }}>
-                        {aporte.contenido}
-                      </p>
-                      <p style={{ fontSize: '11px', color: colors.muted }}>
-                        — {aporte.autor_nombre || 'Anónimo'}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              {/* Aporte form */}
-              <div style={{
-                marginTop: '32px', background: colors.cardBg,
-                border: `1px solid ${colors.border}`,
-                borderRadius: '12px', padding: '24px',
-              }}>
-                <h3 style={{
-                  fontSize: '15px', fontWeight: 600, color: colors.text,
-                  marginBottom: '16px',
-                }}>
-                  Dejá tu aporte
-                </h3>
-
-                {submitted ? (
-                  <div style={{ textAlign: 'center', padding: '16px 0' }}>
-                    <p style={{ fontSize: '14px', color: colors.accent, marginBottom: '8px' }}>
-                      ¡Gracias por tu aporte!
-                    </p>
-                    <p style={{ fontSize: '12px', color: colors.muted }}>
-                      Lo vamos a revisar antes de publicarlo.
-                    </p>
-                  </div>
-                ) : (
-                  <form onSubmit={handleSubmitAporte}>
-                    <div style={{ marginBottom: '12px' }}>
-                      <label style={{
-                        display: 'block', fontSize: '12px', color: colors.muted,
-                        marginBottom: '6px',
-                      }}>
-                        Tu nombre (opcional)
-                      </label>
-                      <input
-                        type="text"
-                        value={nombre}
-                        onChange={(e) => setNombre(e.target.value)}
-                        placeholder="Anónimo"
-                        maxLength={100}
-                        style={{
-                          width: '100%', padding: '10px 14px',
-                          background: 'rgba(247,244,239,0.06)',
-                          border: `1px solid ${colors.border}`,
-                          borderRadius: '8px', color: colors.text,
-                          fontSize: '14px', outline: 'none',
-                          boxSizing: 'border-box',
-                        }}
-                        onFocus={(e) => e.target.style.borderColor = colors.lavanda}
-                        onBlur={(e) => e.target.style.borderColor = colors.border}
-                      />
-                    </div>
-                    <div style={{ marginBottom: '12px' }}>
-                      <label style={{
-                        display: 'block', fontSize: '12px', color: colors.muted,
-                        marginBottom: '6px',
-                      }}>
-                        Sobre qué tema (opcional)
-                      </label>
-                      <input
-                        type="text"
-                        value={tema}
-                        onChange={(e) => setTema(e.target.value)}
-                        placeholder="Ej: APIs, bases de datos, algo que te llamó la atención..."
-                        maxLength={100}
-                        style={{
-                          width: '100%', padding: '10px 14px',
-                          background: 'rgba(247,244,239,0.06)',
-                          border: `1px solid ${colors.border}`,
-                          borderRadius: '8px', color: colors.text,
-                          fontSize: '14px', outline: 'none',
-                          boxSizing: 'border-box',
-                        }}
-                        onFocus={(e) => e.target.style.borderColor = colors.lavanda}
-                        onBlur={(e) => e.target.style.borderColor = colors.border}
-                      />
-                    </div>
-                    <div style={{ marginBottom: '12px' }}>
-                      <label style={{
-                        display: 'block', fontSize: '12px', color: colors.muted,
-                        marginBottom: '6px',
-                      }}>
-                        Tu aporte
-                      </label>
-                      <textarea
-                        value={texto}
-                        onChange={(e) => {
-                          if (e.target.value.length <= 500) setTexto(e.target.value);
-                        }}
-                        placeholder="Compartí algo que pueda sumar..."
-                        rows={4}
-                        maxLength={500}
-                        style={{
-                          width: '100%', padding: '10px 14px',
-                          background: 'rgba(247,244,239,0.06)',
-                          border: `1px solid ${colors.border}`,
-                          borderRadius: '8px', color: colors.text,
-                          fontSize: '14px', outline: 'none', resize: 'vertical',
-                          fontFamily: 'inherit', boxSizing: 'border-box',
-                        }}
-                        onFocus={(e) => e.target.style.borderColor = colors.lavanda}
-                        onBlur={(e) => e.target.style.borderColor = colors.border}
-                      />
-                      <p style={{
-                        fontSize: '11px', textAlign: 'right', marginTop: '4px',
-                        color: texto.length >= 450 ? colors.accent : colors.muted,
-                      }}>
-                        {texto.length}/500
-                      </p>
-                    </div>
-                    <button
-                      type="submit"
-                      disabled={!texto.trim() || submitting}
-                      style={{
-                        padding: '10px 28px', borderRadius: '8px', border: 'none',
-                        fontSize: '14px', fontWeight: 600,
-                        cursor: !texto.trim() || submitting ? 'not-allowed' : 'pointer',
-                        background: !texto.trim() ? 'rgba(197,232,50,0.2)' : colors.accent,
-                        color: !texto.trim() ? 'rgba(197,232,50,0.5)' : '#1A1A1A',
-                        transition: 'all 0.2s',
-                      }}
-                    >
-                      {submitting ? 'Enviando...' : 'Enviar aporte'}
-                    </button>
-                  </form>
-                )}
-              </div>
-            </section>
 
             {/* Volver a la lectura */}
             <div style={{ maxWidth: '780px', marginTop: '56px', padding: '0 20px', textAlign: 'center' }}>

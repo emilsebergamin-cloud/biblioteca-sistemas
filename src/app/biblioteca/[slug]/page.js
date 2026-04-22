@@ -205,9 +205,6 @@ export default function BloquePage() {
                 <Link href={`/biblioteca/${slug}/material#quiz`} className="indice-item">
                   Quiz
                 </Link>
-                <Link href={`/biblioteca/${slug}/material#aportes`} className="indice-item">
-                  Aportes
-                </Link>
               </nav>
             </div>
           </aside>
@@ -285,7 +282,6 @@ export default function BloquePage() {
                   {[
                     { id: 'videos', label: 'Videos' },
                     { id: 'quiz', label: 'Quiz' },
-                    { id: 'aportes', label: 'Aportes' },
                   ].map((item, i, arr) => (
                     <Link
                       key={item.id}
