@@ -315,9 +315,12 @@ body {
   /* Table → cards en mobile */
   .table-cards-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 10px;
     margin: 20px 0;
+  }
+  @media (min-width: 430px) {
+    .table-cards-grid { grid-template-columns: 1fr 1fr; }
   }
   .table-card {
     background: rgba(189,234,3,0.06);
