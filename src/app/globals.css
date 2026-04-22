@@ -306,8 +306,45 @@ body {
 
   .nodo-content p, .nodo-content li { font-size: 14px !important; text-align: left !important; hyphens: none !important; -webkit-hyphens: none !important; -ms-hyphens: none !important; }
   .nodo-content td { font-size: 13px; }
-  .nodo-content th, .nodo-content td { min-width: 110px !important; padding: 14px !important; }
-  .nodo-content table { box-shadow: inset -20px 0 20px -20px rgba(0,0,0,0.5); }
+
+  /* Table → cards en mobile */
+  .table-cards-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 20px 0;
+  }
+  .table-card {
+    background: rgba(189,234,3,0.06);
+    border-left: 2px solid #BDEA03;
+    border-radius: 4px;
+    padding: 12px 10px;
+  }
+  .table-card-row {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .table-card-row:last-child { border-bottom: none; }
+  .table-card-row:first-child .table-card-value {
+    font-size: 12px;
+    color: #fff;
+    font-weight: 500;
+  }
+  .table-card-label {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #BDEA03;
+  }
+  .table-card-value {
+    font-size: 11px;
+    line-height: 1.5;
+    color: rgba(255,255,255,0.75);
+  }
 
   .biblioteca-wrapper {
     padding-top: 0 !important;

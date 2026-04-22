@@ -5,6 +5,35 @@ import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import DOMPurify from 'dompurify';
 
+function transformTablesForMobile(html) {
+  if (typeof window === 'undefined' || !html) return html;
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(html, 'text/html');
+  const tables = doc.querySelectorAll('table');
+
+  tables.forEach((table) => {
+    const headers = Array.from(table.querySelectorAll('thead th')).map((th) => th.textContent.trim());
+    if (headers.length === 0) return;
+
+    const rows = Array.from(table.querySelectorAll('tbody tr'));
+    const cardsHtml = rows.map((row) => {
+      const cells = Array.from(row.querySelectorAll('td'));
+      const pairs = cells.map((td, i) => {
+        const label = headers[i] || '';
+        return `<div class="table-card-row"><span class="table-card-label">${label}</span><span class="table-card-value">${td.innerHTML}</span></div>`;
+      }).join('');
+      return `<div class="table-card">${pairs}</div>`;
+    }).join('');
+
+    const wrapper = doc.createElement('div');
+    wrapper.className = 'table-cards-grid';
+    wrapper.innerHTML = cardsHtml;
+    table.replaceWith(wrapper);
+  });
+
+  return doc.body.innerHTML;
+}
+
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const SUPABASE_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
@@ -329,13 +358,17 @@ export default function BloquePage() {
               )}
 
               {/* Content */}
-              {nodo.contenido_html && (
-                <div
-                  dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(nodo.contenido_html, { ADD_ATTR: ['class', 'style'] }) }}
-                  className="nodo-content"
-                  style={{ fontSize: '15px', lineHeight: 1.75, color: colors.text, overflowWrap: 'break-word', textAlign: (isMobile || isTablet) ? 'left' : 'justify', textAlignLast: 'left', hyphens: (isMobile || isTablet) ? 'none' : 'auto', WebkitHyphens: (isMobile || isTablet) ? 'none' : 'auto', msHyphens: (isMobile || isTablet) ? 'none' : 'auto' }}
-                />
-              )}
+              {nodo.contenido_html && (() => {
+                const sanitized = DOMPurify.sanitize(nodo.contenido_html, { ADD_ATTR: ['class', 'style'] });
+                const processed = isMobile ? transformTablesForMobile(sanitized) : sanitized;
+                return (
+                  <div
+                    dangerouslySetInnerHTML={{ __html: processed }}
+                    className="nodo-content"
+                    style={{ fontSize: '15px', lineHeight: 1.75, color: colors.text, overflowWrap: 'break-word', textAlign: (isMobile || isTablet) ? 'left' : 'justify', textAlignLast: 'left', hyphens: (isMobile || isTablet) ? 'none' : 'auto', WebkitHyphens: (isMobile || isTablet) ? 'none' : 'auto', msHyphens: (isMobile || isTablet) ? 'none' : 'auto' }}
+                  />
+                );
+              })()}
             </section>
           ))}
 
