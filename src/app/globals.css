@@ -269,6 +269,44 @@ body {
   transition: background 0.15s ease;
 }
 
+/* Bibliografía */
+.nodo-content .bibliografia {
+  margin-top: 64px;
+  padding-top: 32px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+.nodo-content .bibliografia h2 {
+  font-size: 18px;
+  font-weight: 500;
+  color: #BDEA03;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.nodo-content .bibliografia ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.nodo-content .bibliografia li {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.5;
+}
+.nodo-content .bibliografia a {
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: underline;
+  text-decoration-color: rgba(189, 234, 3, 0.3);
+  text-underline-offset: 3px;
+  transition: all 0.2s;
+}
+.nodo-content .bibliografia a:hover {
+  color: #BDEA03;
+  text-decoration-color: #BDEA03;
+}
+
 /* Índice lateral */
 .indice-item {
   font-size: 12px;
@@ -363,6 +401,10 @@ body {
   }
   .biblioteca-label { padding-top: 0 !important; }
   .biblioteca-subtitle { margin-bottom: 24px !important; }
+
+  .nodo-content .bibliografia { margin-top: 40px; padding-top: 24px; }
+  .nodo-content .bibliografia h2 { font-size: 15px; }
+  .nodo-content .bibliografia li { font-size: 12px; }
 }
 
 @keyframes spin { to { transform: rotate(360deg); } }
