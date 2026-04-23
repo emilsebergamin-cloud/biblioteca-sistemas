@@ -90,23 +90,23 @@ body {
    ============================================================= */
 
 .tag {
-  padding: 16px 18px;
+  padding: 14px 16px;
   border-radius: 8px;
-  margin: 14px 0;
+  margin: 10px 0;
 }
 
 .tag strong {
   display: block;
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 
 .tag p {
-  font-size: 14px;
-  line-height: 1.65;
+  font-size: 13px;
+  line-height: 1.55;
   margin: 0;
 }
 
