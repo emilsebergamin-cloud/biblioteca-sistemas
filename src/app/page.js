@@ -63,7 +63,7 @@ export default function Home() {
 
           {/* Stats */}
           <div className="hero-stats" style={{
-            display: 'flex', gap: '32px',
+            display: 'flex', gap: '48px',
             justifyContent: 'center', alignItems: 'center',
             marginBottom: '20px',
             animation: 'fadeUp 0.6s ease 0.8s both',
@@ -71,22 +71,18 @@ export default function Home() {
             {[
               { num: '6', label: 'Bloques', color: '#0D0C0A' },
               { num: '49', label: 'Temas', color: '#A8C41A' },
-              { num: '0', label: 'Excusas', color: '#0D0C0A' },
             ].map((s, i) => (
-              <div key={i} style={{ display: 'flex', alignItems: 'center' }}>
-                {i > 0 && <div style={{ width: '0.5px', height: '28px', background: 'rgba(13,12,10,0.15)' }} />}
-                <div style={{ textAlign: 'center' }}>
-                  <div style={{
-                    fontSize: '28px', fontWeight: 700,
-                    letterSpacing: '-0.03em', lineHeight: 1,
-                    color: s.color,
-                  }}>{s.num}</div>
-                  <div style={{
-                    fontSize: '11px', fontWeight: 600,
-                    letterSpacing: '0.1em', textTransform: 'uppercase',
-                    color: '#6B6058', marginTop: '4px',
-                  }}>{s.label}</div>
-                </div>
+              <div key={i} style={{ textAlign: 'center' }}>
+                <div style={{
+                  fontSize: '28px', fontWeight: 700,
+                  letterSpacing: '-0.03em', lineHeight: 1,
+                  color: s.color,
+                }}>{s.num}</div>
+                <div style={{
+                  fontSize: '11px', fontWeight: 600,
+                  letterSpacing: '0.1em', textTransform: 'uppercase',
+                  color: '#6B6058', marginTop: '4px',
+                }}>{s.label}</div>
               </div>
             ))}
           </div>
