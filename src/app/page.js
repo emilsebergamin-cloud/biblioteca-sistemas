@@ -70,7 +70,7 @@ export default function Home() {
           }}>
             {[
               { num: '6', label: 'Bloques', color: '#0D0C0A' },
-              { num: '49', label: 'Nodos', color: '#A8C41A' },
+              { num: '49', label: 'Temas', color: '#A8C41A' },
               { num: '0', label: 'Excusas', color: '#0D0C0A' },
             ].map((s, i) => (
               <div key={i} style={{ display: 'flex', alignItems: 'center' }}>

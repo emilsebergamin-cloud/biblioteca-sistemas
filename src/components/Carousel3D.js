@@ -240,7 +240,7 @@ export default function Carousel3D() {
                   Leer →
                 </span>
                 <span style={{ fontSize: "10px", color: "#C8C0B0" }}>
-                  {bloque.nodos} nodos · {bloque.dificultad}
+                  {bloque.nodos} temas · {bloque.dificultad}
                 </span>
               </div>
             </div>

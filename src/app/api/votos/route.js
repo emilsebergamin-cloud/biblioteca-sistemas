@@ -15,7 +15,7 @@ export async function POST(request) {
 
     if (result.alreadyVoted) {
       return Response.json(
-        { error: 'Ya votaste en este nodo' },
+        { error: 'Ya votaste en este tema' },
         { status: 409 }
       )
     }

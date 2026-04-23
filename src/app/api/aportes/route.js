@@ -62,7 +62,7 @@ export async function POST(request) {
     if (session_id) {
       if (isRateLimited(session_id, nodo_id || 'global')) {
         return Response.json(
-          { error: 'Demasiados aportes. Máximo 3 por hora por nodo.' },
+          { error: 'Demasiados aportes. Máximo 3 por hora por tema.' },
           { status: 429 }
         )
       }
