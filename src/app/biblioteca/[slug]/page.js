@@ -242,14 +242,18 @@ export default function BloquePage() {
         {/* Column 2 wrapper: breadcrumb + header + content */}
         <div style={{ gridColumn: isMobile ? '1' : '2' }}>
 
-        {/* Breadcrumb */}
-        <nav style={{ maxWidth: '880px', margin: '0 auto', padding: isMobile ? '8px 24px 0' : isTablet ? '8px 32px 0' : '8px 40px 0 48px', textAlign: 'center', width: '100%' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', flexWrap: 'wrap' }}>
-            <Link href="/biblioteca" style={{ color: colors.accent, textDecoration: 'none' }}>Biblioteca</Link>
-            <span style={{ color: colors.muted }}>→</span>
-            <span style={{ color: colors.muted }}>{bloque.titulo}</span>
-          </div>
-        </nav>
+        {/* Frase editorial */}
+        <div style={{ maxWidth: '880px', margin: '0 auto', padding: isMobile ? '12px 24px 0' : isTablet ? '12px 32px 0' : '12px 40px 0 48px', width: '100%' }}>
+          <p style={{
+            fontSize: isMobile ? '12px' : '14px',
+            fontStyle: 'italic',
+            color: 'rgba(255, 255, 255, 0.5)',
+            margin: 0,
+            letterSpacing: 'normal',
+          }}>
+            El saber no ocupa lugar.
+          </p>
+        </div>
 
         {/* Bloque header */}
         <header style={{ maxWidth: '880px', margin: '0 auto', padding: isMobile ? '8px 24px 0' : '8px 40px 0 48px', textAlign: 'center', width: '100%' }}>
