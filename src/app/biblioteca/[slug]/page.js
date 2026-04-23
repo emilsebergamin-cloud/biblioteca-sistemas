@@ -242,21 +242,19 @@ export default function BloquePage() {
         {/* Column 2 wrapper: breadcrumb + header + content */}
         <div style={{ gridColumn: isMobile ? '1' : '2' }}>
 
-        {/* Frase editorial */}
-        <div style={{ maxWidth: '880px', margin: '0 auto', padding: isMobile ? '12px 24px 0' : isTablet ? '12px 32px 0' : '12px 40px 0 48px', width: '100%' }}>
+        {/* Bloque header */}
+        <header style={{ maxWidth: '880px', margin: '0 auto', padding: isMobile ? '8px 24px 0' : '8px 40px 0 48px', textAlign: 'center', width: '100%' }}>
+          {/* Frase editorial */}
           <p style={{
-            fontSize: isMobile ? '12px' : '14px',
+            fontSize: isMobile ? '11px' : '13px',
             fontStyle: 'italic',
-            color: 'rgba(255, 255, 255, 0.5)',
-            margin: 0,
+            color: 'rgba(255, 255, 255, 0.4)',
+            margin: '0 0 20px 0',
             letterSpacing: 'normal',
+            textAlign: 'center',
           }}>
             El saber no ocupa lugar.
           </p>
-        </div>
-
-        {/* Bloque header */}
-        <header style={{ maxWidth: '880px', margin: '0 auto', padding: isMobile ? '8px 24px 0' : '8px 40px 0 48px', textAlign: 'center', width: '100%' }}>
           <p style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '0.16em', textTransform: 'uppercase', color: colors.accent, marginBottom: '12px' }}>
             Bloque {bloque.orden}
           </p>
