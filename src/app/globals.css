@@ -247,25 +247,34 @@ body {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  padding: 10px 14px;
+  padding: 14px 16px;
   text-align: left;
   border-bottom: 1px solid rgba(197,232,50,0.2);
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
   min-width: 100px;
-  word-break: break-word;
 }
 
 .nodo-content td {
-  padding: 10px 14px;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
   color: rgba(247,244,239,0.8);
   vertical-align: top;
   min-width: 100px;
-  word-break: break-word;
   line-height: 1.5;
+}
+
+.nodo-content th:last-child,
+.nodo-content td:last-child {
+  border-right: none;
 }
 
 .nodo-content tr:last-child td {
   border-bottom: none;
+}
+
+.nodo-content tr:hover {
+  background: rgba(255, 255, 255, 0.02);
 }
 
 .tag.dato-color p { font-weight: 600; }
