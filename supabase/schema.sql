@@ -1,7 +1,8 @@
 -- =============================================================
--- ESQUEMA MVP — Biblioteca de Sistemas
--- 4 tablas: bloques, nodos, aportes, votos
+-- ESQUEMA COMPLETO — Biblioteca de Sistemas (Bibl·AI)
+-- 6 tablas: bloques, nodos, aportes, votos, recursos, quiz_preguntas
 -- Ejecutar en Supabase SQL Editor
+-- Última actualización: 2026-04-23
 -- =============================================================
 
 -- =============================================================
@@ -48,12 +49,12 @@ CREATE INDEX idx_nodos_estado ON nodos (estado);
 CREATE INDEX idx_nodos_tipo ON nodos (tipo);
 
 -- =============================================================
--- APORTES — contribuciones de usuarios en cada nodo
+-- APORTES — contribuciones de usuarios
 -- =============================================================
 
 CREATE TABLE aportes (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  nodo_id uuid NOT NULL REFERENCES nodos(id) ON DELETE CASCADE,
+  nodo_id uuid REFERENCES nodos(id) ON DELETE CASCADE,
   contenido text NOT NULL CHECK (char_length(contenido) <= 500),
   autor_nombre text,
   estado text NOT NULL DEFAULT 'pendiente',
@@ -97,3 +98,49 @@ CREATE TABLE recursos (
 
 CREATE INDEX idx_recursos_nodo ON recursos (nodo_id, orden);
 CREATE INDEX idx_recursos_tipo ON recursos (tipo);
+
+-- =============================================================
+-- QUIZ_PREGUNTAS — preguntas de quiz por bloque
+-- =============================================================
+
+CREATE TABLE quiz_preguntas (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  bloque_id uuid NOT NULL REFERENCES bloques(id) ON DELETE CASCADE,
+  pregunta text NOT NULL,
+  opciones text[] NOT NULL,
+  respuesta_correcta integer NOT NULL,
+  explicacion text,
+  orden integer NOT NULL DEFAULT 1,
+  estado text NOT NULL DEFAULT 'publicado',
+  created_at timestamptz NOT NULL DEFAULT now()
+);
+
+CREATE INDEX idx_quiz_bloque ON quiz_preguntas (bloque_id, orden);
+
+-- =============================================================
+-- ROW LEVEL SECURITY
+-- =============================================================
+
+ALTER TABLE bloques ENABLE ROW LEVEL SECURITY;
+ALTER TABLE nodos ENABLE ROW LEVEL SECURITY;
+ALTER TABLE aportes ENABLE ROW LEVEL SECURITY;
+ALTER TABLE votos ENABLE ROW LEVEL SECURITY;
+ALTER TABLE recursos ENABLE ROW LEVEL SECURITY;
+ALTER TABLE quiz_preguntas ENABLE ROW LEVEL SECURITY;
+
+-- Lectura pública en todas las tablas
+CREATE POLICY "bloques_select_publico" ON bloques FOR SELECT USING (true);
+CREATE POLICY "nodos_select_publico" ON nodos FOR SELECT USING (true);
+CREATE POLICY "aportes_select_publico" ON aportes FOR SELECT USING (true);
+CREATE POLICY "votos_select_publico" ON votos FOR SELECT USING (true);
+CREATE POLICY "recursos_select_publico" ON recursos FOR SELECT USING (true);
+CREATE POLICY "quiz_select_publico" ON quiz_preguntas FOR SELECT USING (true);
+
+-- Inserción pública en aportes y votos
+CREATE POLICY "aportes_insert_publico" ON aportes FOR INSERT WITH CHECK (true);
+CREATE POLICY "votos_insert_publico" ON votos FOR INSERT WITH CHECK (true);
+
+-- UPDATE/DELETE en aportes, votos, recursos y quiz_preguntas:
+-- solo con service_role (sin policy = bloqueado para anon/authenticated).
+-- La restricción de un voto por session_id por nodo se aplica
+-- via UNIQUE constraint (uq_voto_por_sesion).
