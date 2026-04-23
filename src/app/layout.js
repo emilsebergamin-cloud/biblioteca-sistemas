@@ -13,7 +13,23 @@ const jakarta = Plus_Jakarta_Sans({
 export const metadata = {
   title: "Bibl·AI — Entendé el mundo tech",
   description:
-    "Biblioteca educativa sobre tecnología y sistemas. Sin jerga, sin humo, con criterio real.",
+    "El saber no ocupa lugar. Proyecto de aprendizaje personal sobre cómo funcionan los sistemas digitales.",
+  icons: {
+    icon: "/images/favicon-bai.png",
+    apple: "/images/favicon-bai.png",
+  },
+  openGraph: {
+    title: "Bibl·AI",
+    description: "El saber no ocupa lugar. Proyecto de aprendizaje personal sobre cómo funcionan los sistemas digitales.",
+    images: [{ url: "/images/og-image.png", width: 1200, height: 630 }],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Bibl·AI",
+    description: "El saber no ocupa lugar. Proyecto de aprendizaje personal sobre cómo funcionan los sistemas digitales.",
+    images: ["/images/og-image.png"],
+  },
 };
 
 export default function RootLayout({ children }) {
