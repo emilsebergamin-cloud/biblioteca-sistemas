@@ -9,11 +9,11 @@ export default function Navbar() {
       <div className="h-14 flex items-center justify-between">
         <Link href="/" style={{ paddingLeft: 'clamp(16px, 4vw, 32px)', textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
           <Image
-            src="/images/favicon-bai.png"
+            src="/images/logo-bibl-ai.png"
             alt="Bibl·AI — Biblioteca educativa"
-            width={32}
-            height={32}
-            style={{ width: '32px', height: '32px' }}
+            width={90}
+            height={36}
+            style={{ height: 'clamp(28px, 4vw, 36px)', width: 'auto' }}
           />
         </Link>
 
