@@ -186,7 +186,17 @@ body {
 }
 
 .nodo-content * { max-width: 100%; }
-.nodo-content table, .nodo-content table * { max-width: none; hyphens: none; -webkit-hyphens: none; }
+.nodo-content table,
+.nodo-content table *,
+.nodo-content th,
+.nodo-content td {
+  max-width: none;
+  hyphens: none !important;
+  -webkit-hyphens: none !important;
+  -ms-hyphens: none !important;
+  word-break: normal;
+  overflow-wrap: break-word;
+}
 
 .nodo-content p, .nodo-content li {
   text-align: justify;
@@ -202,8 +212,6 @@ body {
 }
 
 .nodo-content td {
-  word-break: break-word;
-  overflow-wrap: break-word;
   font-size: 15px;
   line-height: 1.7;
 }
