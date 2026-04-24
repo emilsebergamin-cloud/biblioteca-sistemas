@@ -187,11 +187,11 @@ export default function BloquePage() {
         {!isMobile && nodos.length > 0 && (
           <aside className="indice-sidebar" style={{
             position: 'sticky',
-            top: '60px',
+            top: '56px',
             alignSelf: 'start',
             overflowY: 'auto',
-            maxHeight: 'calc(100vh - 70px)',
-            padding: '8px 24px 48px 24px',
+            height: 'calc(100vh - 56px)',
+            padding: '16px 24px 48px 24px',
             borderRight: '1px solid rgba(255,255,255,0.06)',
             gridColumn: '1',
           }}>
@@ -270,7 +270,7 @@ export default function BloquePage() {
 
         {/* Table of contents -- mobile toggle (only on mobile) */}
         {isMobile && nodos.length > 0 && (
-          <div style={{ padding: '0 20px' }}>
+          <div style={{ padding: '0 20px', position: 'sticky', top: '56px', zIndex: 40, background: colors.bg, paddingTop: '12px', paddingBottom: '12px' }}>
             <button
               onClick={() => setTocOpen(!tocOpen)}
               style={{
