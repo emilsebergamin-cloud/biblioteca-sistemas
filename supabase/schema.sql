@@ -71,7 +71,7 @@ CREATE INDEX idx_aportes_estado ON aportes (estado);
 CREATE TABLE votos (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   nodo_id uuid NOT NULL REFERENCES nodos(id) ON DELETE CASCADE,
-  tipo text NOT NULL,
+  tipo text NOT NULL CHECK (tipo IN ('util', 'no_util')),
   session_id text NOT NULL,
   created_at timestamptz NOT NULL DEFAULT now(),
 

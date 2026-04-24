@@ -43,7 +43,8 @@ export async function GET(request) {
     const aportes = await getApprovedAportes(nodoId)
     return Response.json(aportes)
   } catch (error) {
-    return Response.json({ error: error.message }, { status: 500 })
+    console.error('Error en GET /api/aportes:', error)
+    return Response.json({ error: 'Error procesando la solicitud' }, { status: 500 })
   }
 }
 
@@ -51,21 +52,19 @@ export async function POST(request) {
   try {
     const { nodo_id, contenido, autor_nombre, session_id } = await request.json()
 
-    if (!contenido) {
+    if (!contenido || !session_id) {
       return Response.json(
-        { error: 'Falta campo obligatorio: contenido' },
+        { error: 'Faltan campos obligatorios: contenido, session_id' },
         { status: 400 }
       )
     }
 
-    // Rate limiting: require session_id for rate limit check
-    if (session_id) {
-      if (isRateLimited(session_id, nodo_id || 'global')) {
-        return Response.json(
-          { error: 'Demasiados aportes. Máximo 3 por hora por tema.' },
-          { status: 429 }
-        )
-      }
+    // Rate limiting
+    if (isRateLimited(session_id, nodo_id || 'global')) {
+      return Response.json(
+        { error: 'Demasiados aportes. Máximo 3 por hora por tema.' },
+        { status: 429 }
+      )
     }
 
     // Sanitize inputs to prevent XSS
@@ -79,6 +78,7 @@ export async function POST(request) {
     })
     return Response.json(aporte, { status: 201 })
   } catch (error) {
-    return Response.json({ error: error.message }, { status: 500 })
+    console.error('Error en POST /api/aportes:', error)
+    return Response.json({ error: 'Error procesando la solicitud' }, { status: 500 })
   }
 }

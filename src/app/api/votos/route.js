@@ -1,5 +1,7 @@
 import { addVote } from '@/lib/db'
 
+const TIPOS_VALIDOS = ['util', 'no_util']
+
 export async function POST(request) {
   try {
     const { nodo_id, tipo, session_id } = await request.json()
@@ -7,6 +9,13 @@ export async function POST(request) {
     if (!nodo_id || !tipo || !session_id) {
       return Response.json(
         { error: 'Faltan campos obligatorios: nodo_id, tipo, session_id' },
+        { status: 400 }
+      )
+    }
+
+    if (!TIPOS_VALIDOS.includes(tipo)) {
+      return Response.json(
+        { error: 'Tipo de voto inválido' },
         { status: 400 }
       )
     }
@@ -22,6 +31,7 @@ export async function POST(request) {
 
     return Response.json(result, { status: 201 })
   } catch (error) {
-    return Response.json({ error: error.message }, { status: 500 })
+    console.error('Error en POST /api/votos:', error)
+    return Response.json({ error: 'Error procesando la solicitud' }, { status: 500 })
   }
 }
