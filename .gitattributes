@@ -1,0 +1,13 @@
+# GitHub Linguist overrides
+# Corregir detección de lenguaje principal del repo
+
+# Ignorar archivos generados o de terceros
+public/* linguist-vendored
+*.html linguist-detectable=false
+
+# Marcar archivos de docs como documentación, no código
+docs/* linguist-documentation
+
+# Tratar todo el código JS/JSX como código real
+*.js linguist-detectable=true
+*.jsx linguist-detectable=true
