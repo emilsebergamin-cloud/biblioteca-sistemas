@@ -1,4 +1,4 @@
-import { getSupabaseServer } from "@/lib/supabase-server";
+import { getSupabasePublic } from "@/lib/supabase-public";
 
 const BLOQUES_FALLBACK = [
   { id: "1", slug: "bloque-1", titulo: "Cómo piensan las computadoras", subtitulo: "Lógica, bits y procesamiento", orden: 1, estado: "publicado", color_acento: "#4A5568", icono: "🧠" },
@@ -11,7 +11,7 @@ const BLOQUES_FALLBACK = [
 
 export async function GET() {
   try {
-    const supabase = getSupabaseServer();
+    const supabase = getSupabasePublic();
     const { data, error } = await supabase
       .from("bloques")
       .select("*")

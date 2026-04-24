@@ -1,9 +1,9 @@
-import { getSupabaseServer } from './supabase-server'
+import { getSupabasePublic } from './supabase-public'
 
 // --- Aportes ---
 
 export async function getApprovedAportes(nodoId) {
-  const supabase = getSupabaseServer()
+  const supabase = getSupabasePublic()
   let query = supabase
     .from('aportes')
     .select('*')
@@ -21,7 +21,7 @@ export async function getApprovedAportes(nodoId) {
 }
 
 export async function createAporte({ nodo_id, contenido, autor_nombre }) {
-  const supabase = getSupabaseServer()
+  const supabase = getSupabasePublic()
   const { data, error } = await supabase
     .from('aportes')
     .insert([{ nodo_id: nodo_id || null, contenido, autor_nombre, estado: 'pendiente' }])
@@ -35,7 +35,7 @@ export async function createAporte({ nodo_id, contenido, autor_nombre }) {
 // --- Votos ---
 
 export async function addVote({ nodo_id, tipo, session_id }) {
-  const supabase = getSupabaseServer()
+  const supabase = getSupabasePublic()
   const { data, error } = await supabase
     .from('votos')
     .insert([{ nodo_id, tipo, session_id }])
@@ -54,7 +54,7 @@ export async function addVote({ nodo_id, tipo, session_id }) {
 // --- Bloques ---
 
 export async function getBloques() {
-  const supabase = getSupabaseServer()
+  const supabase = getSupabasePublic()
   const { data, error } = await supabase
     .from('bloques')
     .select('*')
@@ -68,7 +68,7 @@ export async function getBloques() {
 // --- Nodos ---
 
 export async function getNodoBySlug(slug) {
-  const supabase = getSupabaseServer()
+  const supabase = getSupabasePublic()
   const { data, error } = await supabase
     .from('nodos')
     .select('*')
@@ -82,7 +82,7 @@ export async function getNodoBySlug(slug) {
 // --- Recursos ---
 
 export async function getRecursosByNodo(nodoId) {
-  const supabase = getSupabaseServer()
+  const supabase = getSupabasePublic()
   const { data, error } = await supabase
     .from('recursos')
     .select('*')
