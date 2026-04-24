@@ -137,6 +137,15 @@ export default function BloquePage() {
     return () => observer.disconnect();
   }, [nodos]);
 
+  // Auto-scroll sidebar to keep active item visible
+  useEffect(() => {
+    if (!activeNodo || isMobile || isTablet) return;
+    const activeEl = document.querySelector(`.indice-sidebar a[href="#${activeNodo}"]`);
+    if (activeEl) {
+      activeEl.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    }
+  }, [activeNodo, isMobile, isTablet]);
+
   const colors = {
     bg: '#1A1A1A',
     text: '#F7F4EF',
@@ -189,7 +198,8 @@ export default function BloquePage() {
             position: 'sticky',
             top: '56px',
             alignSelf: 'start',
-            overflowY: 'visible',
+            overflowY: 'auto',
+            height: 'calc(100vh - 56px)',
             padding: '16px 24px 48px 24px',
             borderRight: '1px solid rgba(255,255,255,0.06)',
             gridColumn: '1',
