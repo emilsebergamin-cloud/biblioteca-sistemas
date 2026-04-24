@@ -10,7 +10,7 @@ En dos sesiones consecutivas se construyó la plataforma Bibl·AI desde un templ
 
 ### Lo que hicimos
 
-- **Base de datos:** Diseñamos un esquema de 5 tablas MVP (bloques, nodos, aportes, votos, recursos) + quiz_preguntas. Ejecutamos seeds con 6 bloques, 74 nodos de contenido extraídos de PDFs, 29 videos curados y 26 preguntas de quiz.
+- **Base de datos:** Diseñamos un esquema de 6 tablas (bloques, nodos, aportes, votos, recursos, quiz_preguntas). Ejecutamos seeds con 6 bloques, 74 nodos de contenido extraídos de PDFs, 29 videos curados y 26 preguntas de quiz.
 - **Frontend:** Home con hero animado (BackgroundGradientAnimation), carousel 3D coverflow, página de biblioteca, vista completa de bloque con contenido renderizado.
 - **API routes:** /api/bloques, /api/aportes (con rate limiting y sanitización), /api/votos (con manejo de duplicados).
 - **Seguridad:** Headers HTTP en next.config.mjs, cliente Supabase server-side separado, sanitización de inputs.
