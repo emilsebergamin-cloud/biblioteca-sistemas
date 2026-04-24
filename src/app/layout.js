@@ -11,23 +11,24 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata = {
-  title: "Bibl·AI — Entendé el mundo tech",
+  metadataBase: new URL("https://biblai.app"),
+  title: "Bibl·AI — Entendé cómo funcionan los sistemas digitales",
   description:
-    "El saber no ocupa lugar. Proyecto de aprendizaje personal sobre cómo funcionan los sistemas digitales.",
+    "Biblioteca educativa para gente curiosa que quiere entender tecnología desde el principio. Sin jerga, con analogías reales. El saber no ocupa lugar.",
   icons: {
     icon: "/images/favicon-bai.png",
     apple: "/images/favicon-bai.png",
   },
   openGraph: {
-    title: "Bibl·AI",
-    description: "El saber no ocupa lugar. Proyecto de aprendizaje personal sobre cómo funcionan los sistemas digitales.",
+    title: "Bibl·AI — Entendé cómo funcionan los sistemas digitales",
+    description: "Biblioteca educativa para gente curiosa que quiere entender tecnología desde el principio. Sin jerga, con analogías reales. El saber no ocupa lugar.",
     images: [{ url: "/images/og-image.png", width: 1200, height: 630 }],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Bibl·AI",
-    description: "El saber no ocupa lugar. Proyecto de aprendizaje personal sobre cómo funcionan los sistemas digitales.",
+    title: "Bibl·AI — Entendé cómo funcionan los sistemas digitales",
+    description: "Biblioteca educativa para gente curiosa que quiere entender tecnología desde el principio. Sin jerga, con analogías reales. El saber no ocupa lugar.",
     images: ["/images/og-image.png"],
   },
 };

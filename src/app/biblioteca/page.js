@@ -6,7 +6,7 @@ import { BackgroundGradientAnimation } from '@/components/ui/BackgroundGradientA
 export default function Biblioteca() {
   return (
     <BackgroundGradientAnimation
-      containerStyle={{ minHeight: '100vh', background: '#1A1A1A' }}
+      containerStyle={{ height: 'calc(100vh - 56px)', overflow: 'hidden', background: '#1A1A1A' }}
       firstColor="168,180,216"
       secondColor="197,232,50"
       thirdColor="168,180,216"
@@ -15,7 +15,7 @@ export default function Biblioteca() {
       pointerColor="168,180,216"
       blendingValue="soft-light"
     >
-      <div className="biblioteca-wrapper" style={{ paddingTop: '56px' }}>
+      <div className="biblioteca-wrapper" style={{ paddingTop: '24px' }}>
         <p className="biblioteca-label" style={{
           textAlign: 'center', fontSize: '10px', fontWeight: 700,
           letterSpacing: '0.16em', textTransform: 'uppercase',
