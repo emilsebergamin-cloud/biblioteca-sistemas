@@ -108,6 +108,7 @@ body {
   font-size: 13px;
   line-height: 1.55;
   margin: 0;
+  font-weight: 700;
 }
 
 .tag.en-criollo {
@@ -367,7 +368,7 @@ body {
   /* Callouts/tags responsive */
   .tag { padding: 12px 14px !important; margin: 10px 0 !important; border-radius: 6px !important; }
   .tag strong { font-size: 9px !important; margin-bottom: 4px !important; }
-  .tag p { font-size: 13px !important; line-height: 1.55 !important; }
+  .tag p { font-size: 13px !important; line-height: 1.55 !important; font-weight: 700 !important; }
   .nodo-content td { font-size: 13px; }
 
   /* Table → cards en mobile */
