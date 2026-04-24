@@ -175,7 +175,7 @@ export default function BloquePage() {
       {/* Grid layout: sidebar (desktop) + main content */}
       <div style={{
         display: 'grid',
-        gridTemplateColumns: isMobile ? '1fr' : isTablet ? '200px 1fr' : '240px 1fr',
+        gridTemplateColumns: (isMobile || isTablet) ? '1fr' : '240px 1fr',
         gap: '0',
         width: '100%',
         margin: '0',
@@ -184,7 +184,7 @@ export default function BloquePage() {
       }}>
 
         {/* Left column: sticky sidebar (desktop only) */}
-        {!isMobile && nodos.length > 0 && (
+        {!isMobile && !isTablet && nodos.length > 0 && (
           <aside className="indice-sidebar" style={{
             position: 'sticky',
             top: '56px',
@@ -202,6 +202,18 @@ export default function BloquePage() {
             }}>
               Índice
             </p>
+
+            {/* Quiz + Material arriba */}
+            <nav style={{ display: 'flex', flexDirection: 'column', marginBottom: '16px', paddingBottom: '16px', borderBottom: `1px solid ${colors.border}` }}>
+              <Link href={`/biblioteca/${slug}/material#quiz`} className="indice-item">
+                Quiz
+              </Link>
+              <Link href={`/biblioteca/${slug}/material#videos`} className="indice-item">
+                Videos
+              </Link>
+            </nav>
+
+            {/* Temas */}
             <nav style={{ display: 'flex', flexDirection: 'column' }}>
               {nodos.map((nodo) => (
                 <a
@@ -217,30 +229,11 @@ export default function BloquePage() {
                 </a>
               ))}
             </nav>
-
-            {/* Material complementario */}
-            <div style={{ marginTop: '24px', paddingTop: '16px', borderTop: `1px solid ${colors.border}` }}>
-              <p style={{
-                fontSize: '10px', fontWeight: 700, letterSpacing: '0.14em',
-                textTransform: 'uppercase', color: colors.lavanda,
-                marginBottom: '12px',
-              }}>
-                Material
-              </p>
-              <nav style={{ display: 'flex', flexDirection: 'column' }}>
-                <Link href={`/biblioteca/${slug}/material#videos`} className="indice-item">
-                  Videos
-                </Link>
-                <Link href={`/biblioteca/${slug}/material#quiz`} className="indice-item">
-                  Quiz
-                </Link>
-              </nav>
-            </div>
           </aside>
         )}
 
         {/* Column 2 wrapper: breadcrumb + header + content */}
-        <div style={{ gridColumn: isMobile ? '1' : '2' }}>
+        <div style={{ gridColumn: (isMobile || isTablet) ? '1' : '2' }}>
 
         {/* Bloque header */}
         <header style={{ maxWidth: '880px', margin: '0 auto', padding: isMobile ? '8px 24px 0' : '8px 40px 0 48px', textAlign: 'center', width: '100%' }}>
@@ -268,65 +261,64 @@ export default function BloquePage() {
           )}
         </header>
 
-        {/* Table of contents -- mobile toggle (only on mobile) */}
-        {isMobile && nodos.length > 0 && (
+        {/* Table of contents -- mobile/tablet sticky colapsable */}
+        {(isMobile || isTablet) && nodos.length > 0 && (
           <div style={{ padding: '0 20px', position: 'sticky', top: '56px', zIndex: 40, background: colors.bg, paddingTop: '12px', paddingBottom: '12px' }}>
             <button
               onClick={() => setTocOpen(!tocOpen)}
               style={{
                 width: '100%', padding: '14px 16px', background: colors.cardBg,
-                border: `1px solid ${colors.border}`, borderRadius: '10px',
+                border: `1px solid ${colors.border}`, borderRadius: tocOpen ? '10px 10px 0 0' : '10px',
                 color: colors.lavanda, fontSize: '12px', fontWeight: 700,
                 letterSpacing: '0.1em', textTransform: 'uppercase',
                 cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center',
               }}
             >
               <span>Índice · {nodos.length} secciones</span>
-              <span style={{ fontSize: '14px' }}>{tocOpen ? '−' : '+'}</span>
+              <span style={{ fontSize: '14px', transition: 'transform 0.2s', transform: tocOpen ? 'rotate(180deg)' : 'rotate(0)' }}>▾</span>
             </button>
             {tocOpen && (
-              <nav style={{ background: colors.cardBg, border: `1px solid ${colors.border}`, borderTop: 'none', borderRadius: '0 0 10px 10px', padding: '12px 16px' }}>
-                {nodos.map((nodo, i) => (
-                  <a
-                    key={nodo.id}
-                    href={`#${nodo.slug}`}
+              <nav style={{ background: colors.cardBg, border: `1px solid ${colors.border}`, borderTop: 'none', borderRadius: '0 0 10px 10px', padding: '12px 16px', maxHeight: '60vh', overflowY: 'auto' }}>
+                {/* Quiz + Material arriba */}
+                {[
+                  { id: 'quiz', label: 'Quiz' },
+                  { id: 'videos', label: 'Videos' },
+                ].map((item, i, arr) => (
+                  <Link
+                    key={item.id}
+                    href={`/biblioteca/${slug}/material#${item.id}`}
                     onClick={() => setTocOpen(false)}
                     style={{
-                      display: 'flex', gap: '10px', padding: '8px 0',
+                      display: 'block', padding: '8px 0',
                       textDecoration: 'none', fontSize: '14px',
-                      color: activeNodo === nodo.slug ? colors.accent : colors.muted,
-                      borderBottom: i < nodos.length - 1 ? `1px solid ${colors.border}` : 'none',
-                      transition: 'color 0.2s',
+                      color: colors.accent,
+                      borderBottom: i < arr.length - 1 ? `1px solid ${colors.border}` : 'none',
                     }}
                   >
-                    <span style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '0.12em', color: colors.accent, minWidth: '20px', paddingTop: '3px' }}>
-                      {String(i + 1).padStart(2, '0')}
-                    </span>
-                    <span>{nodo.titulo}</span>
-                  </a>
+                    {item.label}
+                  </Link>
                 ))}
-                {/* Material complementario */}
+
+                {/* Temas */}
                 <div style={{ marginTop: '8px', paddingTop: '8px', borderTop: `1px solid ${colors.border}` }}>
-                  <p style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: colors.lavanda, marginBottom: '8px' }}>
-                    Material
-                  </p>
-                  {[
-                    { id: 'videos', label: 'Videos' },
-                    { id: 'quiz', label: 'Quiz' },
-                  ].map((item, i, arr) => (
-                    <Link
-                      key={item.id}
-                      href={`/biblioteca/${slug}/material#${item.id}`}
+                  {nodos.map((nodo, i) => (
+                    <a
+                      key={nodo.id}
+                      href={`#${nodo.slug}`}
                       onClick={() => setTocOpen(false)}
                       style={{
-                        display: 'block', padding: '8px 0',
+                        display: 'flex', gap: '10px', padding: '8px 0',
                         textDecoration: 'none', fontSize: '14px',
-                        color: colors.accent,
-                        borderBottom: i < arr.length - 1 ? `1px solid ${colors.border}` : 'none',
+                        color: activeNodo === nodo.slug ? colors.accent : colors.muted,
+                        borderBottom: i < nodos.length - 1 ? `1px solid ${colors.border}` : 'none',
+                        transition: 'color 0.2s',
                       }}
                     >
-                      {item.label}
-                    </Link>
+                      <span style={{ fontSize: '10px', fontWeight: 700, letterSpacing: '0.12em', color: colors.accent, minWidth: '20px', paddingTop: '3px' }}>
+                        {String(i + 1).padStart(2, '0')}
+                      </span>
+                      <span>{nodo.titulo}</span>
+                    </a>
                   ))}
                 </div>
               </nav>
