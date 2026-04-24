@@ -81,7 +81,7 @@ export default function BloquePage() {
 
         // Fetch bloque + all bloques in parallel
         const [bloqueRes, allBloquesRes] = await Promise.all([
-          fetch(`${SUPABASE_URL}/rest/v1/bloques?slug=eq.${slug}&select=*`, { headers }),
+          fetch(`${SUPABASE_URL}/rest/v1/bloques?slug=eq.${encodeURIComponent(slug)}&select=*`, { headers }),
           fetch(`${SUPABASE_URL}/rest/v1/bloques?estado=eq.publicado&select=slug,titulo,orden&order=orden.asc`, { headers }),
         ]);
 

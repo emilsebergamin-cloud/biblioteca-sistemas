@@ -53,7 +53,7 @@ export default function MaterialPage() {
 
         // Fetch bloque
         const bloqueRes = await fetch(
-          `${SUPABASE_URL}/rest/v1/bloques?slug=eq.${slug}&select=*`,
+          `${SUPABASE_URL}/rest/v1/bloques?slug=eq.${encodeURIComponent(slug)}&select=*`,
           { headers }
         );
         const bloqueData = await bloqueRes.json();

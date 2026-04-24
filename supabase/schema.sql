@@ -131,7 +131,7 @@ ALTER TABLE quiz_preguntas ENABLE ROW LEVEL SECURITY;
 -- Lectura pública en todas las tablas
 CREATE POLICY "bloques_select_publico" ON bloques FOR SELECT USING (true);
 CREATE POLICY "nodos_select_publico" ON nodos FOR SELECT USING (true);
-CREATE POLICY "aportes_select_publico" ON aportes FOR SELECT USING (true);
+CREATE POLICY "aportes_select_publico" ON aportes FOR SELECT USING (estado = 'aprobado');
 CREATE POLICY "votos_select_publico" ON votos FOR SELECT USING (true);
 CREATE POLICY "recursos_select_publico" ON recursos FOR SELECT USING (true);
 CREATE POLICY "quiz_select_publico" ON quiz_preguntas FOR SELECT USING (true);
