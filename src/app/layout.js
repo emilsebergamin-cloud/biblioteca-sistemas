@@ -11,7 +11,7 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata = {
-  metadataBase: new URL("https://biblai.app"),
+  metadataBase: new URL("https://biblioteca-sistemas.vercel.app"),
   title: "Bibl·AI — Entendé cómo funcionan los sistemas digitales",
   description:
     "Biblioteca educativa para gente curiosa que quiere entender tecnología desde el principio. Sin jerga, con analogías reales. El saber no ocupa lugar.",
