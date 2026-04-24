@@ -347,12 +347,6 @@ body {
   font-weight: 600;
 }
 
-/* Scrollbar del índice lateral */
-.indice-sidebar { scrollbar-width: thin; scrollbar-color: rgba(197,232,50,0.2) transparent; }
-.indice-sidebar::-webkit-scrollbar { width: 3px; }
-.indice-sidebar::-webkit-scrollbar-track { background: transparent; }
-.indice-sidebar::-webkit-scrollbar-thumb { background: rgba(197,232,50,0.2); border-radius: 99px; }
-
 /* Home sin scroll */
 .home-no-scroll { overflow: hidden; max-height: 100vh; }
 

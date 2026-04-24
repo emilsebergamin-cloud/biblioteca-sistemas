@@ -189,6 +189,7 @@ export default function BloquePage() {
             position: 'sticky',
             top: '56px',
             alignSelf: 'start',
+            overflowY: 'visible',
             padding: '16px 24px 48px 24px',
             borderRight: '1px solid rgba(255,255,255,0.06)',
             gridColumn: '1',
