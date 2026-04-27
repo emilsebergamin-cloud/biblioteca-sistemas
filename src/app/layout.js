@@ -14,21 +14,21 @@ export const metadata = {
   metadataBase: new URL("https://biblioteca-sistemas.vercel.app"),
   title: "Bibl·AI — Entendé cómo funcionan los sistemas digitales",
   description:
-    "Biblioteca educativa para gente curiosa que quiere entender tecnología desde el principio. Sin jerga, con analogías reales. El saber no ocupa lugar.",
+    "Una biblioteca para gente curiosa que quiere entender cómo funcionan los sistemas digitales. Con analogías y ejemplos cotidianos. El saber no ocupa lugar.",
   icons: {
     icon: "/images/favicon-bai.png",
     apple: "/images/favicon-bai.png",
   },
   openGraph: {
     title: "Bibl·AI — Entendé cómo funcionan los sistemas digitales",
-    description: "Biblioteca educativa para gente curiosa que quiere entender tecnología desde el principio. Sin jerga, con analogías reales. El saber no ocupa lugar.",
+    description: "Una biblioteca para gente curiosa que quiere entender cómo funcionan los sistemas digitales. Con analogías y ejemplos cotidianos. El saber no ocupa lugar.",
     images: [{ url: "/images/og-image.png", width: 1200, height: 630 }],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: "Bibl·AI — Entendé cómo funcionan los sistemas digitales",
-    description: "Biblioteca educativa para gente curiosa que quiere entender tecnología desde el principio. Sin jerga, con analogías reales. El saber no ocupa lugar.",
+    description: "Una biblioteca para gente curiosa que quiere entender cómo funcionan los sistemas digitales. Con analogías y ejemplos cotidianos. El saber no ocupa lugar.",
     images: ["/images/og-image.png"],
   },
 };
