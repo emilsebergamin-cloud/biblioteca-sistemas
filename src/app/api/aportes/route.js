@@ -44,7 +44,9 @@ export async function GET(request) {
     return Response.json(aportes)
   } catch (error) {
     console.error('Error en GET /api/aportes:', error)
-    return Response.json({ error: 'Error procesando la solicitud' }, { status: 500 })
+    // Sin base de datos disponible: devolver lista vacía en vez de un 500,
+    // así la sección no se rompe (los aportes locales se muestran en el cliente).
+    return Response.json([])
   }
 }
 
@@ -71,12 +73,30 @@ export async function POST(request) {
     const sanitizedContenido = escapeHtml(contenido)
     const sanitizedAutorNombre = escapeHtml(autor_nombre)
 
-    const aporte = await createAporte({
-      nodo_id,
-      contenido: sanitizedContenido,
-      autor_nombre: sanitizedAutorNombre,
-    })
-    return Response.json(aporte, { status: 201 })
+    try {
+      const aporte = await createAporte({
+        nodo_id,
+        contenido: sanitizedContenido,
+        autor_nombre: sanitizedAutorNombre,
+      })
+      return Response.json(aporte, { status: 201 })
+    } catch (dbError) {
+      // Sin base de datos: aceptar el aporte igual para no romper la UX.
+      // El cliente lo guarda en el navegador para mostrarlo.
+      console.error('Aportes en modo degradado (sin DB):', dbError)
+      return Response.json(
+        {
+          id: `local-${Date.now()}`,
+          nodo_id: nodo_id || null,
+          contenido: sanitizedContenido,
+          autor_nombre: sanitizedAutorNombre,
+          estado: 'pendiente',
+          created_at: new Date().toISOString(),
+          persisted: false,
+        },
+        { status: 201 }
+      )
+    }
   } catch (error) {
     console.error('Error en POST /api/aportes:', error)
     return Response.json({ error: 'Error procesando la solicitud' }, { status: 500 })

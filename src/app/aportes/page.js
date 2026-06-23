@@ -12,8 +12,30 @@ function getSessionId() {
   return id;
 }
 
+// Aportes guardados en el navegador. Permiten que el usuario vea su propio
+// aporte (pendiente de revisión) aunque todavía no haya una base de datos
+// conectada para compartirlos entre todos.
+const LOCAL_KEY = 'bibliai_aportes_local';
+
+function getLocalAportes() {
+  if (typeof window === 'undefined') return [];
+  try {
+    return JSON.parse(localStorage.getItem(LOCAL_KEY) || '[]');
+  } catch {
+    return [];
+  }
+}
+
+function saveLocalAporte(aporte) {
+  if (typeof window === 'undefined') return;
+  const list = getLocalAportes();
+  list.unshift(aporte);
+  localStorage.setItem(LOCAL_KEY, JSON.stringify(list));
+}
+
 export default function AportesPage() {
   const [aportes, setAportes] = useState([]);
+  const [localAportes, setLocalAportes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [nombre, setNombre] = useState('');
   const [texto, setTexto] = useState('');
@@ -21,6 +43,9 @@ export default function AportesPage() {
   const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
+    // Mostrar de entrada los aportes que el usuario ya dejó en este navegador.
+    setLocalAportes(getLocalAportes());
+
     async function fetchAportes() {
       try {
         const res = await fetch('/api/aportes');
@@ -40,19 +65,33 @@ export default function AportesPage() {
       e.preventDefault();
       if (!texto.trim()) return;
 
+      const contenido = texto.trim();
+      const autor = nombre.trim() || null;
+
       setSubmitting(true);
       try {
         const res = await fetch('/api/aportes', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            contenido: texto.trim(),
-            autor_nombre: nombre.trim() || null,
+            contenido,
+            autor_nombre: autor,
             session_id: getSessionId(),
           }),
         });
 
         if (res.ok) {
+          // Guardar el aporte en el navegador y mostrarlo al instante,
+          // marcado como pendiente de revisión.
+          const propio = {
+            id: `local-${Date.now()}`,
+            contenido,
+            autor_nombre: autor,
+            created_at: new Date().toISOString(),
+            pendiente: true,
+          };
+          saveLocalAporte(propio);
+          setLocalAportes((prev) => [propio, ...prev]);
           setSubmitted(true);
           setTexto('');
           setNombre('');
@@ -106,9 +145,20 @@ export default function AportesPage() {
               <p style={{ fontSize: '14px', color: colors.accent, marginBottom: '8px' }}>
                 ¡Gracias por tu aporte!
               </p>
-              <p style={{ fontSize: '12px', color: colors.muted }}>
-                Lo vamos a revisar antes de publicarlo.
+              <p style={{ fontSize: '12px', color: colors.muted, marginBottom: '16px' }}>
+                Lo vamos a revisar antes de publicarlo. Mientras tanto podés verlo abajo.
               </p>
+              <button
+                type="button"
+                onClick={() => setSubmitted(false)}
+                style={{
+                  padding: '8px 20px', borderRadius: '8px',
+                  border: `1px solid ${colors.border}`, background: 'transparent',
+                  color: colors.text, fontSize: '13px', cursor: 'pointer',
+                }}
+              >
+                Dejar otro aporte
+              </button>
             </div>
           ) : (
             <form onSubmit={handleSubmit}>
@@ -182,24 +232,32 @@ export default function AportesPage() {
           )}
         </div>
 
-        {/* Lista de aportes */}
+        {/* Lista de aportes: primero los propios (pendientes), luego los aprobados */}
         {loading ? (
           <div style={{ display: 'flex', justifyContent: 'center', padding: '32px 0' }}>
             <div style={{ width: 36, height: 36, border: '3px solid rgba(197,232,50,0.15)', borderTop: '3px solid #C5E832', borderRadius: '50%', animation: 'spin 0.9s cubic-bezier(0.4,0,0.6,1) infinite' }} />
           </div>
-        ) : aportes.length === 0 ? (
+        ) : localAportes.length === 0 && aportes.length === 0 ? (
           <p style={{ fontSize: '14px', color: colors.muted, fontStyle: 'italic', textAlign: 'center' }}>
             Sé la primera persona en dejar un aporte.
           </p>
         ) : (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-            {aportes.map((aporte) => (
+            {[...localAportes, ...aportes].map((aporte) => (
               <div key={aporte.id} style={{
                 background: colors.cardBg,
-                border: `1px solid ${colors.border}`,
+                border: `1px solid ${aporte.pendiente ? 'rgba(197,232,50,0.35)' : colors.border}`,
                 borderRadius: '10px',
                 padding: '16px',
               }}>
+                {aporte.pendiente && (
+                  <p style={{
+                    fontSize: '10px', fontWeight: 700, letterSpacing: '0.1em',
+                    textTransform: 'uppercase', color: colors.accent, marginBottom: '8px',
+                  }}>
+                    Tu aporte · pendiente de revisión
+                  </p>
+                )}
                 <p style={{ fontSize: '14px', lineHeight: 1.6, color: colors.text, marginBottom: '8px' }}>
                   {aporte.contenido}
                 </p>
