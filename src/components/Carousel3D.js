@@ -49,10 +49,24 @@ function getPosition(index, center, total) {
   return "hidden";
 }
 
-export default function Carousel3D() {
+function mapBloques(data) {
+  return data.map((b, i) => ({
+    num: String(i + 1).padStart(2, "0"),
+    titulo: b.titulo,
+    subtitulo: b.subtitulo,
+    nodos: BLOQUES_FALLBACK[i]?.nodos || 8,
+    dificultad: BLOQUES_FALLBACK[i]?.dificultad || "Básico",
+    slug: b.slug,
+  }));
+}
+
+export default function Carousel3D({ bloquesIniciales }) {
   const router = useRouter();
-  const [bloques, setBloques] = useState(BLOQUES_FALLBACK);
-  const [loading, setLoading] = useState(true);
+  const tieneIniciales = Array.isArray(bloquesIniciales) && bloquesIniciales.length > 0;
+  const [bloques, setBloques] = useState(
+    tieneIniciales ? mapBloques(bloquesIniciales) : BLOQUES_FALLBACK
+  );
+  const [loading, setLoading] = useState(!tieneIniciales);
   const [center, setCenter] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const [isTablet, setIsTablet] = useState(false);
@@ -74,6 +88,9 @@ export default function Carousel3D() {
   }, []);
 
   useEffect(() => {
+    // Si los bloques vienen del servidor (render estático), no hace falta fetch.
+    if (tieneIniciales) return;
+
     fetch("/api/bloques")
       .then((res) => {
         if (!res.ok) throw new Error("fetch failed");
@@ -81,20 +98,12 @@ export default function Carousel3D() {
       })
       .then((data) => {
         if (data && data.length > 0) {
-          const mapped = data.map((b, i) => ({
-            num: String(i + 1).padStart(2, "0"),
-            titulo: b.titulo,
-            subtitulo: b.subtitulo,
-            nodos: BLOQUES_FALLBACK[i]?.nodos || 8,
-            dificultad: BLOQUES_FALLBACK[i]?.dificultad || "Básico",
-            slug: b.slug,
-          }));
-          setBloques(mapped);
+          setBloques(mapBloques(data));
         }
       })
       .catch(() => {})
       .finally(() => setLoading(false));
-  }, []);
+  }, [tieneIniciales]);
 
   const total = bloques.length;
 
