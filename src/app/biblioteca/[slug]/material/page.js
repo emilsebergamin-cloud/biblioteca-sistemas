@@ -4,15 +4,6 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 
-const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const SUPABASE_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
-const headers = {
-  apikey: SUPABASE_KEY,
-  Authorization: `Bearer ${SUPABASE_KEY}`,
-  'Content-Type': 'application/json',
-};
-
 export default function MaterialPage() {
   const { slug } = useParams();
 
@@ -51,50 +42,19 @@ export default function MaterialPage() {
       try {
         setLoading(true);
 
-        // Fetch bloque
-        const bloqueRes = await fetch(
-          `${SUPABASE_URL}/rest/v1/bloques?slug=eq.${encodeURIComponent(slug)}&select=*`,
-          { headers }
-        );
-        const bloqueData = await bloqueRes.json();
+        const res = await fetch(`/api/bloques/${encodeURIComponent(slug)}/material`);
+        const data = await res.json();
 
-        if (!bloqueData || bloqueData.length === 0) {
-          setError('No se encontró este bloque.');
+        if (!res.ok || !data.bloque) {
+          setError(data.error || 'No se encontró este bloque.');
           setLoading(false);
           return;
         }
 
-        const currentBloque = bloqueData[0];
-        setBloque(currentBloque);
-
-        // Fetch nodos and quiz in parallel
-        const [nodosRes, quizRes] = await Promise.all([
-          fetch(
-            `${SUPABASE_URL}/rest/v1/nodos?bloque_id=eq.${currentBloque.id}&select=*&order=orden_en_bloque.asc`,
-            { headers }
-          ),
-          fetch(
-            `${SUPABASE_URL}/rest/v1/quiz_preguntas?bloque_id=eq.${currentBloque.id}&select=*&order=orden.asc`,
-            { headers }
-          ).catch(() => ({ json: () => [] })),
-        ]);
-
-        const nodosData = await nodosRes.json();
-        setNodos(Array.isArray(nodosData) ? nodosData : []);
-
-        const quizData = await quizRes.json();
-        setQuizPreguntas(Array.isArray(quizData) ? quizData : []);
-
-        // Fetch recursos for all nodos in this bloque
-        if (Array.isArray(nodosData) && nodosData.length > 0) {
-          const nodoIds = nodosData.map((n) => n.id).join(',');
-          const recursosRes = await fetch(
-            `${SUPABASE_URL}/rest/v1/recursos?nodo_id=in.(${nodoIds})&select=*&order=orden.asc`,
-            { headers }
-          ).catch(() => ({ json: () => [] }));
-          const recursosData = await recursosRes.json();
-          setRecursos(Array.isArray(recursosData) ? recursosData : []);
-        }
+        setBloque(data.bloque);
+        setNodos(Array.isArray(data.nodos) ? data.nodos : []);
+        setQuizPreguntas(Array.isArray(data.quizPreguntas) ? data.quizPreguntas : []);
+        setRecursos(Array.isArray(data.recursos) ? data.recursos : []);
       } catch (err) {
         setError('Error cargando el contenido.');
         console.error(err);
