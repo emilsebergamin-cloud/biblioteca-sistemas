@@ -34,15 +34,6 @@ function transformTablesForMobile(html) {
   return doc.body.innerHTML;
 }
 
-const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const SUPABASE_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
-const headers = {
-  apikey: SUPABASE_KEY,
-  Authorization: `Bearer ${SUPABASE_KEY}`,
-  'Content-Type': 'application/json',
-};
-
 export default function BloquePage() {
   const { slug } = useParams();
 
@@ -79,33 +70,18 @@ export default function BloquePage() {
       try {
         setLoading(true);
 
-        // Fetch bloque + all bloques in parallel
-        const [bloqueRes, allBloquesRes] = await Promise.all([
-          fetch(`${SUPABASE_URL}/rest/v1/bloques?slug=eq.${encodeURIComponent(slug)}&select=*`, { headers }),
-          fetch(`${SUPABASE_URL}/rest/v1/bloques?estado=eq.publicado&select=slug,titulo,orden&order=orden.asc`, { headers }),
-        ]);
+        const res = await fetch(`/api/bloques/${encodeURIComponent(slug)}`);
+        const data = await res.json();
 
-        const bloqueData = await bloqueRes.json();
-        const allBloquesData = await allBloquesRes.json();
-        setAllBloques(Array.isArray(allBloquesData) ? allBloquesData : []);
-
-        if (!bloqueData || bloqueData.length === 0) {
-          setError('No se encontró este bloque.');
+        if (!res.ok || !data.bloque) {
+          setError(data.error || 'No se encontró este bloque.');
           setLoading(false);
           return;
         }
 
-        const currentBloque = bloqueData[0];
-        setBloque(currentBloque);
-
-        // Fetch nodos
-        const nodosRes = await fetch(
-          `${SUPABASE_URL}/rest/v1/nodos?bloque_id=eq.${currentBloque.id}&select=*&order=orden_en_bloque.asc`,
-          { headers }
-        );
-
-        const nodosData = await nodosRes.json();
-        setNodos(Array.isArray(nodosData) ? nodosData : []);
+        setBloque(data.bloque);
+        setNodos(Array.isArray(data.nodos) ? data.nodos : []);
+        setAllBloques(Array.isArray(data.allBloques) ? data.allBloques : []);
       } catch (err) {
         setError('Error cargando el contenido.');
         console.error(err);
