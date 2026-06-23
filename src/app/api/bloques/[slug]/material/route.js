@@ -1,6 +1,11 @@
 import { getSupabasePublic } from "@/lib/supabase-public";
 import { BLOQUES, NODOS, QUIZ_PREGUNTAS, RECURSOS } from "@/lib/fallback-content";
 
+// Cachear en navegador + edge de Vercel para que cargue al instante.
+const CACHE = {
+  "Cache-Control": "public, max-age=60, s-maxage=3600, stale-while-revalidate=86400",
+};
+
 function fallbackMaterial(slug) {
   const bloque = BLOQUES.find((b) => b.slug === slug);
   if (!bloque) return null;
@@ -38,7 +43,7 @@ export async function GET(request, { params }) {
     const bloque = bloques?.[0] || null;
     if (!bloque) {
       const fb = fallbackMaterial(slug);
-      if (fb) return Response.json(fb);
+      if (fb) return Response.json(fb, { headers: CACHE });
       return Response.json(
         { error: "No se encontró este bloque." },
         { status: 404 }
@@ -63,7 +68,7 @@ export async function GET(request, { params }) {
     // La DB tiene el bloque pero no cargó contenido: usar respaldo embebido.
     if (nodos.length === 0) {
       const fb = fallbackMaterial(slug);
-      if (fb && fb.nodos.length > 0) return Response.json(fb);
+      if (fb && fb.nodos.length > 0) return Response.json(fb, { headers: CACHE });
     }
 
     let recursos = [];
@@ -77,15 +82,18 @@ export async function GET(request, { params }) {
       recursos = recursosData || [];
     }
 
-    return Response.json({
-      bloque,
-      nodos,
-      quizPreguntas: quizResult.data || [],
-      recursos,
-    });
+    return Response.json(
+      {
+        bloque,
+        nodos,
+        quizPreguntas: quizResult.data || [],
+        recursos,
+      },
+      { headers: CACHE }
+    );
   } catch {
     const fb = fallbackMaterial(slug);
-    if (fb) return Response.json(fb);
+    if (fb) return Response.json(fb, { headers: CACHE });
     return Response.json(
       { error: "Error cargando el contenido." },
       { status: 500 }
